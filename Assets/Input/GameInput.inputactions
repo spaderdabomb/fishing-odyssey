@@ -1,0 +1,34 @@
+{
+    "name": "GameInput",
+    "maps": [
+        {
+            "name": "MenuInput",
+            "id": "51d35a7e-2378-45fe-89ed-8a9e64fbb729",
+            "actions": [
+                {
+                    "name": "ToggleGameMenu",
+                    "type": "Button",
+                    "id": "b0baa7a9-7940-417a-8ede-10f559bd1c43",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "42c66659-b932-4284-b149-5f0a5bd9a9c5",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleGameMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

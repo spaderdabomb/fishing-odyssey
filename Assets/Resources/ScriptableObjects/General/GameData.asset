@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f3f73bfb1053e44bc6f29cedef3f8a, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: 
+  rarityColors:
+  - {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  - {r: 0.1882353, g: 0.65882355, b: 0.29803923, a: 1}
+  - {r: 0.16420433, g: 0.2779348, b: 0.8490566, a: 1}
+  - {r: 0.7264151, g: 0.31181026, b: 0.66404086, a: 1}
+  - {r: 0.73520845, g: 0.17515129, b: 0.9056604, a: 1}
+  - {r: 0.9716981, g: 0.77537566, b: 0.19708972, a: 1}
+  - {r: 0.9335027, g: 0, b: 1, a: 1}
+  fishRarities: 01000000020000000300000004000000050000000600000007000000
