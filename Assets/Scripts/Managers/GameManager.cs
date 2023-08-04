@@ -88,10 +88,6 @@ public class GameManager : MonoBehaviour
         float spawnChance = baseSpawnChance + rodSpawnChance + waitTimeSpawnChance;
         float randomHookChance = Random.Range(0f, 1f);
 
-/*        print("here");
-        print(spawnChance);
-        print(randomHookChance);*/
-
         // Spawn fish
         if (randomHookChance < spawnChance)
         {
