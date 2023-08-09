@@ -16,6 +16,9 @@ partial class UIGameScene
     private VisualElement menuDimBg;
     private VisualElement menuCollectionsContainer;
     private ScrollView scrollViewCollections;
+    private VisualElement menuOptions;
+    private VisualElement optionsHeaaderContainer;
+    private VisualElement optionsButtonContainer;
     
     protected void AssignQueryResults(VisualElement root)
     {
@@ -28,5 +31,8 @@ partial class UIGameScene
         menuDimBg = root.Q<VisualElement>("MenuDimBg");
         menuCollectionsContainer = root.Q<VisualElement>("MenuCollectionsContainer");
         scrollViewCollections = root.Q<ScrollView>("ScrollViewCollections");
+        menuOptions = root.Q<VisualElement>("MenuOptions");
+        optionsHeaaderContainer = root.Q<VisualElement>("OptionsHeaaderContainer");
+        optionsButtonContainer = root.Q<VisualElement>("OptionsButtonContainer");
     }
 }

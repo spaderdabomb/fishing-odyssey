@@ -9,16 +9,19 @@
     padding-bottom: 40px;
     padding-left: 20px;
     padding-right: 20px;
+    align-self: center;
 }
 
 .menu-header-container {
     margin-bottom: 20px;
+    align-self: center;
 }
 
 .menu-header-label {
     font-size: 50px;
     color: rgb(230, 230, 230);
     -unity-font-style: bold;
+    -unity-text-outline-width: 3px;
 }
 
 .menu-header-spacer {

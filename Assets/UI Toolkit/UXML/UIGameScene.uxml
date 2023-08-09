@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False" gen-cs-file="f27fb0d677ef154448d62d2f31dc30ee">
     <Style src="project://database/Assets/UI%20Toolkit/USS/MenusGeneral.uss?fileID=7433441132597879392&amp;guid=1c7206bf865cea84abb20862944e6c02&amp;type=3#MenusGeneral" />
     <Style src="project://database/Assets/UI%20Toolkit/USS/ScrollView.uss?fileID=7433441132597879392&amp;guid=7a302e4f8e9455a479199161a501abac&amp;type=3#ScrollView" />
-    <ui:VisualElement name="GameSceneContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
+    <ui:VisualElement name="GameSceneContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;">
         <ui:VisualElement name="RightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; justify-content: flex-end; flex-direction: column-reverse;">
             <ui:VisualElement name="BottomRightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; flex-direction: column; margin-left: 30px; margin-right: 30px; margin-top: 30px; margin-bottom: 30px; justify-content: flex-end;">
                 <ui:VisualElement name="FishPowerContainer" style="flex-grow: 0; background-color: rgba(30, 30, 30, 0.59); width: 30px; height: 200px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: column-reverse;">
@@ -12,14 +12,20 @@
     </ui:VisualElement>
     <ui:VisualElement name="AllMenus" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: center; display: none;">
         <ui:VisualElement name="MenuDimBg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.35); position: absolute; width: 1920px; height: 1080px; display: flex;" />
-        <ui:VisualElement name="MenuCollectionsContainer" class="menu-bg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); align-self: center; justify-content: flex-start; display: flex;">
+        <ui:VisualElement name="MenuCollectionsContainer" class="menu-bg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); align-self: center; justify-content: flex-start; display: none;">
             <ui:VisualElement class="menu-header-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); margin-bottom: 20px;">
                 <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); justify-content: flex-start; align-items: center;">
-                    <ui:Label tabindex="-1" text="Fishing Collection Log" display-tooltip-when-elided="true" class="menu-header-label" />
+                    <ui:Label tabindex="-1" text="Fishing Collection Log" display-tooltip-when-elided="true" class="menu-header-label" style="-unity-text-outline-width: 0;" />
                     <ui:VisualElement class="menu-header-spacer" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:ScrollView name="ScrollViewCollections" style="height: 680px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="MenuOptions" class="menu-bg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/UIMenus/OptionsMenu/OptionsBg.psd?fileID=2800000&amp;guid=7803d9776a1056c45bb3d09dbc8a533d&amp;type=3#OptionsBg&apos;); width: 930px; height: 779px; align-self: center;">
+            <ui:VisualElement name="OptionsHeaaderContainer" class="menu-header-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/UIMenus/OptionsMenu/OptionsHeaderBg.psd?fileID=2800000&amp;guid=89ec281fa2ef53742947f258f4253d10&amp;type=3#OptionsHeaderBg&apos;); width: 452px; height: 154px; align-self: center; scale: 1.2 1.2; margin-top: -90px; justify-content: center; align-items: center; padding-bottom: 15px;">
+                <ui:Label tabindex="-1" text="OPTIONS" display-tooltip-when-elided="true" class="menu-header-label" style="-unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold.ttf?fileID=12800000&amp;guid=a920e2e8ea812f34a9d19380151c1df9&amp;type=3#Montserrat-Bold&apos;); -unity-font-style: bold; -unity-font-definition: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold%20SDF.asset?fileID=11400000&amp;guid=fcd2efa225414a34591e647d6f8ee0ea&amp;type=2#Montserrat-Bold SDF&apos;); -unity-text-outline-width: 5px; -unity-text-outline-color: rgb(110, 73, 33); text-shadow: 0 0 0 rgb(0, 0, 0); letter-spacing: -5px; font-size: 55px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="OptionsButtonContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
