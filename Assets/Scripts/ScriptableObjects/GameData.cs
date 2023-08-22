@@ -15,6 +15,11 @@ public class GameData : ScriptableObject
     public Dictionary<FishRarity, Color> rarityToColorDict;
     public Dictionary<BiomeType, FishType[]> fishInBiomeDict;
 
+    [Header("Colors")]
+    public Color standardTextColor;
+    public Color orangeTextColor;
+    public Color standardTintColor;
+
     // Health
     [SerializeField, ReadOnly] private FishData lastFishCaught;
     public FishData LastFishCaught

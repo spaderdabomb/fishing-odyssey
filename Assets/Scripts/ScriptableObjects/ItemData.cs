@@ -8,17 +8,27 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "ItemData", menuName = "Fishing Odyssey/Item")]
 public class ItemData : ScriptableObject
 {
-    public GameObject item3DPrefab;
-    public GameObject item2DPrefab;
-    public GameObject itemHeldPrefab;
+    [Header("Details")]
+    [ReadOnly] public string itemID;
+    public string baseName;
+    public string displayName;
+    public string description;
+    public int stackCount;
+    public int maxStackCount = 50;
 
+    [Header("Classification")]
     public ItemType itemType = ItemType.None;
     public ItemRarity itemRarity = ItemRarity.None;
     public ItemCategory itemCategories = ItemCategory.None;
 
+    [Header("Assets")]
+    public GameObject item3DPrefab;
+    public Sprite itemSprite;
+    public GameObject itemHeldPrefab;
+
     public void InitDefaults()
     {
-
+        itemID = baseName + itemRarity.ToString();
     }
 
     public enum ItemRarity
@@ -43,15 +53,17 @@ public class ItemData : ScriptableObject
         Sinkers,
         FishingNetSmall,
         FishingNetBig,
-        HealthPotion
+        HealthPotion,
+        Food,
     }
 
     [Flags]
     public enum ItemCategory
     {
-        None,
-        Wieldable,
-        Fishing,
-        Consumable
+        None = 0,
+        Wieldable = 1,
+        Fishing = 2,
+        Consumable = 4,
+        Weapon = 8,
     }
 }

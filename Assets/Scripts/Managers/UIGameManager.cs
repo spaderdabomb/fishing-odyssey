@@ -8,12 +8,18 @@ public class UIGameManager : MonoBehaviour
 {
     public static UIGameManager Instance;
 
+    // UI Toolkit
     public UIDocument mainUIDocument;
     public VisualTreeAsset collectionSlot;
+    public VisualTreeAsset optionsButton;
 
     [HideInInspector] public VisualElement root;
     [HideInInspector] public UIGameScene uiGameScene;
 
+    // Unity UI
+    public InteractPopup interactPopoup;
+
+    // Private fields
     private PlayerData playerData;
     private GameData gameData;
     private bool onFirstGuiUpdate = false;

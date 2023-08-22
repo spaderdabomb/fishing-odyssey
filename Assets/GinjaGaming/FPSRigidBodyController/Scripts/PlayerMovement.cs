@@ -10,7 +10,7 @@ using TMPro;
 namespace PickleMan
 {
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-    public class PlayerMovement : MonoBehaviour, PlayerInput.IPlayerMovementActions
+    public class PlayerMovement : MonoBehaviour, PlayerInputActions.IPlayerMovementActions
     {
         #region Class Members
 
@@ -107,14 +107,14 @@ namespace PickleMan
         private Transform isGroundedTransform = null;
 
         // Game input
-        public PlayerInput CustomGameInput { get; private set; }
+        public PlayerInputActions CustomGameInput { get; private set; }
 
         #endregion
 
         #region Initialization
         private void Awake()
         {
-            CustomGameInput = new PlayerInput();
+            CustomGameInput = new PlayerInputActions();
             CustomGameInput.Enable();
             CustomGameInput.PlayerMovement.SetCallbacks(this);
         }
@@ -143,7 +143,7 @@ namespace PickleMan
 
             if (playerStates.CurrentMovementState.HasFlag(PlayerMovementState.Jumping))
             {
-                print("Jumping");
+                // print("Jumping");
             }
         }
 

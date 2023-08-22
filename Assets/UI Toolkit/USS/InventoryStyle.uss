@@ -1,0 +1,55 @@
+.inventory-standard-label {
+    color: rgb(230, 230, 230);
+    -unity-font-style: bold;
+    font-size: 18px;
+}
+
+.inventory-slot-count-label {
+    color: rgb(230, 230, 230);
+    -unity-font-style: bold;
+    font-size: 14px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold.ttf?fileID=12800000&guid=a920e2e8ea812f34a9d19380151c1df9&type=3#Montserrat-Bold');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold%20SDF.asset?fileID=11400000&guid=fcd2efa225414a34591e647d6f8ee0ea&type=2#Montserrat-Bold SDF');
+}
+
+.inventory-sorting-icon {
+    width: 34px;
+    height: 34px;
+}
+
+.inventory-slot {
+    background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/InventoryMenu/InventorySlot.psd?fileID=2800000&guid=54cd07b3e6ecf084eb61b17ee9b8ca24&type=3#InventorySlot');
+    width: 80px;
+    height: 80px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.inventory-slot:hover {
+    background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/InventoryMenu/InventorySlot.psd?fileID=2800000&guid=54cd07b3e6ecf084eb61b17ee9b8ca24&type=3#InventorySlot');
+    width: 80px;
+    height: 80px;
+    -unity-background-image-tint-color: rgb(210, 210, 210);
+}
+
+.inventory.unity-scroll-view__content-container {
+    flex-direction: row;
+}
+
+.inventory-page-arrow {
+    width: 30px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+}
+
+.inventory-content-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

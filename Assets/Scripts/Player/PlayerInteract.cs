@@ -1,32 +1,40 @@
 using PickleMan;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
-public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerInteractActions
+public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractActions
 {
     public GameObject bobStartLocation;
 
-    private PlayerInput playerInput;
+    private PlayerInputActions playerInput;
     private PlayerData playerData;
     private PlayerStates playerStates;
+    private PlayerMovement playerMovement;
+    private InteractPopup interactPopup;
+
+    public List<GameObject> interactingObjects = new();
 
     private bool castHeld = false;
     private bool castReleased = false;
     private bool canCast = false;
     private bool canCatchFish = false;
     private bool catchInitiated = false;
+    private int currentInteractObjectIndex = -1;
 
     private void Awake()
     {
         playerData = GameManager.Instance.playerData;
         playerStates = GetComponent<PlayerStates>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void OnEnable()
     {
-        playerInput = new PlayerInput();
+        playerInput = new PlayerInputActions();
         playerInput.Enable();
         playerInput.PlayerInteract.SetCallbacks(this);
 
@@ -42,12 +50,49 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerInteractActions
 
     private void Start()
     {
+        interactPopup = UIGameManager.Instance.interactPopoup.GetComponent<InteractPopup>();
         playerData.currentFishingRod = GameManager.Instance.allFishingRodData[0];
     }
 
     private void Update()
     {
         UpdateFishingAction();
+        UpdateInteractUI();
+    }
+
+    private void UpdateInteractUI()
+    {
+        if (interactingObjects.Count > 0)
+        {
+            currentInteractObjectIndex = GetBestInteractingObjectIndex();
+            string interactingObjectStr = interactingObjects[currentInteractObjectIndex].GetComponent<InteractingObject>().GetDisplayString();
+            interactPopup.ShowPopup(interactingObjectStr, GameManager.Instance.gameData.orangeTextColor);
+        }
+        else if (interactPopup.gameObject.activeSelf)
+        {
+            interactPopup.HidePopup();
+        }
+    }
+
+    private int GetBestInteractingObjectIndex()
+    {
+        float smallestAngle = 999f;
+        int currentIndex = -1;
+
+        for (int i = 0; i < interactingObjects.Count; i++)
+        {
+            GameObject interactingObject = interactingObjects[i];
+            Vector3 vectorToItem = interactingObject.transform.position - playerMovement.playerCamera.transform.position;
+            float angleFromCameraToItem = Mathf.Abs(Vector3.Angle(vectorToItem, playerMovement.playerCamera.transform.forward));
+
+            if (smallestAngle > angleFromCameraToItem)
+            {
+                smallestAngle = angleFromCameraToItem;
+                currentIndex = i;
+            }
+        }
+
+        return currentIndex;
     }
 
     private void UpdateFishingAction()
@@ -125,6 +170,16 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerInteractActions
         catchInitiated = false;
     }
 
+    public void AddInteractingObject(GameObject newObject)
+    {
+        interactingObjects.Add(newObject);
+    }
+
+    public void RemoveInteractingObject(GameObject newObject)
+    {
+        interactingObjects.Remove(newObject);
+    }
+
     public void OnFishPressed(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -145,7 +200,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerInteractActions
             OnReleaseRod();
         }
     }
-
+     
     public void OnFishCancelled(InputAction.CallbackContext context)
     {
         if (!context.performed)
@@ -157,5 +212,24 @@ public class PlayerInteract : MonoBehaviour, PlayerInput.IPlayerInteractActions
         GameManager.Instance.fishHooked = false;
         GameManager.Instance.DestroyCurrentBob();
         playerStates.CurrentFishingState = PlayerStates.PlayerFishingState.None;
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!context.performed || currentInteractObjectIndex == -1)
+            return;
+
+        GameObject currentInteractingObject = interactingObjects[currentInteractObjectIndex];
+        if (currentInteractingObject.GetComponent<ItemSpawned>() != null)
+        {
+            ItemData itemData = currentInteractingObject.GetComponent<ItemSpawned>().itemData;
+            int itemsRemaining = InventoryManager.Instance.inventory.TryAddItem(itemData);
+            print($"Items Remaining {itemsRemaining}");
+            if (itemsRemaining == 0)
+            {
+                Destroy(currentInteractingObject);
+                interactingObjects.Remove(currentInteractingObject);
+            }
+        }
     }
 }

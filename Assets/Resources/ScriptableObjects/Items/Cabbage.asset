@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc81b974f8f9e74d8d353258e07625c, type: 3}
+  m_Name: Cabbage
+  m_EditorClassIdentifier: 
+  itemID: 
+  baseName: Cabbage
+  displayName: Cabbage
+  description: A simple cabbage
+  stackCount: 20
+  maxStackCount: 50
+  itemType: 9
+  itemRarity: 1
+  itemCategories: 4
+  item3DPrefab: {fileID: 5583628007690008659, guid: 2ed8f2aceb3a59c4baf0195c44c5f94b,
+    type: 3}
+  itemSprite: {fileID: 21300000, guid: 6bcd7bcad5d6f8c469bfa6c250bcca19, type: 3}
+  itemHeldPrefab: {fileID: 0}

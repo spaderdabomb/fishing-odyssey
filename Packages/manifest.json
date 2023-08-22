@@ -3,6 +3,7 @@
     "com.brogrammist.jsam": "https://github.com/jackyyang09/Simple-Unity-Audio-Manager.git",
     "com.quickeye.ui-toolkit-plus": "https://github.com/ErnSur/UI-Toolkit-Plus.git",
     "com.richtools.filebasedplayerprefs": "https://github.com/richardelms/FileBasedPlayerPrefs.git",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.collab-proxy": "2.0.4",
     "com.unity.ide.rider": "3.0.21",
     "com.unity.ide.visualstudio": "2.0.18",

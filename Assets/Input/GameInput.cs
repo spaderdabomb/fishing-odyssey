@@ -35,6 +35,24 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleOptionsMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""05da4ae1-9517-4d1e-87eb-ef9cd5afac2f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TestGamepad"",
+                    ""type"": ""Button"",
+                    ""id"": ""b5039f87-cd86-4cc9-b9af-023b7f8a277c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -48,15 +66,56 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleGameMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a62c951-7422-4c7d-826b-57186a04b03f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleOptionsMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2580b70c-61d3-49b7-a0dc-b70a54cb4d22"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestGamepad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""New control scheme"",
+            ""bindingGroup"": ""New control scheme"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // MenuInput
         m_MenuInput = asset.FindActionMap("MenuInput", throwIfNotFound: true);
         m_MenuInput_ToggleGameMenu = m_MenuInput.FindAction("ToggleGameMenu", throwIfNotFound: true);
+        m_MenuInput_ToggleOptionsMenu = m_MenuInput.FindAction("ToggleOptionsMenu", throwIfNotFound: true);
+        m_MenuInput_TestGamepad = m_MenuInput.FindAction("TestGamepad", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +178,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_MenuInput;
     private List<IMenuInputActions> m_MenuInputActionsCallbackInterfaces = new List<IMenuInputActions>();
     private readonly InputAction m_MenuInput_ToggleGameMenu;
+    private readonly InputAction m_MenuInput_ToggleOptionsMenu;
+    private readonly InputAction m_MenuInput_TestGamepad;
     public struct MenuInputActions
     {
         private @GameInput m_Wrapper;
         public MenuInputActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @ToggleGameMenu => m_Wrapper.m_MenuInput_ToggleGameMenu;
+        public InputAction @ToggleOptionsMenu => m_Wrapper.m_MenuInput_ToggleOptionsMenu;
+        public InputAction @TestGamepad => m_Wrapper.m_MenuInput_TestGamepad;
         public InputActionMap Get() { return m_Wrapper.m_MenuInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +199,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @ToggleGameMenu.started += instance.OnToggleGameMenu;
             @ToggleGameMenu.performed += instance.OnToggleGameMenu;
             @ToggleGameMenu.canceled += instance.OnToggleGameMenu;
+            @ToggleOptionsMenu.started += instance.OnToggleOptionsMenu;
+            @ToggleOptionsMenu.performed += instance.OnToggleOptionsMenu;
+            @ToggleOptionsMenu.canceled += instance.OnToggleOptionsMenu;
+            @TestGamepad.started += instance.OnTestGamepad;
+            @TestGamepad.performed += instance.OnTestGamepad;
+            @TestGamepad.canceled += instance.OnTestGamepad;
         }
 
         private void UnregisterCallbacks(IMenuInputActions instance)
@@ -143,6 +212,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @ToggleGameMenu.started -= instance.OnToggleGameMenu;
             @ToggleGameMenu.performed -= instance.OnToggleGameMenu;
             @ToggleGameMenu.canceled -= instance.OnToggleGameMenu;
+            @ToggleOptionsMenu.started -= instance.OnToggleOptionsMenu;
+            @ToggleOptionsMenu.performed -= instance.OnToggleOptionsMenu;
+            @ToggleOptionsMenu.canceled -= instance.OnToggleOptionsMenu;
+            @TestGamepad.started -= instance.OnTestGamepad;
+            @TestGamepad.performed -= instance.OnTestGamepad;
+            @TestGamepad.canceled -= instance.OnTestGamepad;
         }
 
         public void RemoveCallbacks(IMenuInputActions instance)
@@ -160,8 +235,19 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         }
     }
     public MenuInputActions @MenuInput => new MenuInputActions(this);
+    private int m_NewcontrolschemeSchemeIndex = -1;
+    public InputControlScheme NewcontrolschemeScheme
+    {
+        get
+        {
+            if (m_NewcontrolschemeSchemeIndex == -1) m_NewcontrolschemeSchemeIndex = asset.FindControlSchemeIndex("New control scheme");
+            return asset.controlSchemes[m_NewcontrolschemeSchemeIndex];
+        }
+    }
     public interface IMenuInputActions
     {
         void OnToggleGameMenu(InputAction.CallbackContext context);
+        void OnToggleOptionsMenu(InputAction.CallbackContext context);
+        void OnTestGamepad(InputAction.CallbackContext context);
     }
 }

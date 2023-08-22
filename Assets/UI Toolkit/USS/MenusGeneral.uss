@@ -33,8 +33,11 @@
 }
 
 .menu-label-standard {
-    -unity-background-image-tint-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
     -unity-font-style: bold;
     color: rgb(230, 230, 230);
-    font-size: 28px;
+    font-size: 34px;
+    background-image: none;
+    -unity-text-outline-width: 0;
+    -unity-text-outline-color: rgb(255, 255, 255);
 }
