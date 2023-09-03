@@ -12,6 +12,8 @@ public class UIGameManager : MonoBehaviour
     public UIDocument mainUIDocument;
     public VisualTreeAsset collectionSlot;
     public VisualTreeAsset optionsButton;
+    public VisualTreeAsset popupMenuInventory;
+    public VisualTreeAsset popupMenuInventoryStatsContainer;
 
     [HideInInspector] public VisualElement root;
     [HideInInspector] public UIGameScene uiGameScene;

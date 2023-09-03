@@ -47,8 +47,9 @@ partial class UIGameScene
     private Label pSummaryStatsZenGemsLbl;
     private Label pSummaryStatsTrophiesLbl;
     private VisualElement menuInventory;
-    private VisualElement inventoryLeftContainer;
     private VisualElement inventoryRightContainer;
+    private VisualElement gearContainerLayout;
+    private VisualElement inventoryLeftContainer;
     
     protected void AssignQueryResults(VisualElement root)
     {
@@ -92,7 +93,8 @@ partial class UIGameScene
         pSummaryStatsZenGemsLbl = root.Q<Label>("PSummaryStatsZenGemsLbl");
         pSummaryStatsTrophiesLbl = root.Q<Label>("PSummaryStatsTrophiesLbl");
         menuInventory = root.Q<VisualElement>("MenuInventory");
-        inventoryLeftContainer = root.Q<VisualElement>("InventoryLeftContainer");
         inventoryRightContainer = root.Q<VisualElement>("InventoryRightContainer");
+        gearContainerLayout = root.Q<VisualElement>("GearContainerLayout");
+        inventoryLeftContainer = root.Q<VisualElement>("InventoryLeftContainer");
     }
 }

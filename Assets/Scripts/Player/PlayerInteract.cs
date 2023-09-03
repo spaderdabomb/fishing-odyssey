@@ -10,7 +10,8 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
 {
     public GameObject bobStartLocation;
 
-    private PlayerInputActions playerInput;
+    private PlayerInputActions playerInputActions;
+    private Player player;
     private PlayerData playerData;
     private PlayerStates playerStates;
     private PlayerMovement playerMovement;
@@ -28,22 +29,22 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
     private void Awake()
     {
         playerData = GameManager.Instance.playerData;
+        player = GetComponent<Player>();
         playerStates = GetComponent<PlayerStates>();
         playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void OnEnable()
     {
-        playerInput = new PlayerInputActions();
-        playerInput.Enable();
-        playerInput.PlayerInteract.SetCallbacks(this);
+        playerInputActions = player.playerInputActions;
+        playerInputActions.PlayerInteract.SetCallbacks(this);
 
         GameManager.Instance.gameData.OnFishCaught += CaughtFish;
     }
 
     private void OnDisable()
     {
-        playerInput.PlayerInteract.RemoveCallbacks(this);
+        playerInputActions.PlayerInteract.RemoveCallbacks(this);
 
         GameManager.Instance.gameData.OnFishCaught -= CaughtFish;
     }

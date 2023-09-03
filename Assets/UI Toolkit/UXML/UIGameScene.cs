@@ -14,10 +14,11 @@ public partial class UIGameScene
     public List<UIMenuButton> optionsButtons = new();
     public List<Tab> playerInfoTabs = new();
     public VisualElement ghosticonRef;
-
+    public VisualElement root;
     public UIGameScene(VisualElement root)
     {
         optionButtonNames = new string[] { "Stats", "Settings", "Quit" };
+        this.root = root;
 
         AssignQueryResults(root);
         InitCollectionMenu();
@@ -70,42 +71,54 @@ public partial class UIGameScene
             return;
         }
 
+        // Menu closing
         if (allMenus.style.display == DisplayStyle.Flex)
         {
-            allMenus.style.display = DisplayStyle.None;
-            gameSceneContainer.style.display = DisplayStyle.Flex;
-
-            UIGameManager.Instance.SetCursorStateVisible(false);
+            MenuClosed();
         }
+        // Menu opening
         else
         {
-            allMenus.style.display = DisplayStyle.Flex;
+            MenuOpened();
             menuOptions.style.display = DisplayStyle.None;
             menuPlayerInfo.style.display = DisplayStyle.Flex;
-            gameSceneContainer.style.display = DisplayStyle.None;
-
-            UIGameManager.Instance.SetCursorStateVisible(true);
         }
     }
 
     public void ToggleOptionsMenu()
     {
+        // Menu closing
         if (allMenus.style.display == DisplayStyle.Flex)
         {
-            allMenus.style.display = DisplayStyle.None;
-            gameSceneContainer.style.display = DisplayStyle.Flex;
-
-            UIGameManager.Instance.SetCursorStateVisible(false);
+            MenuClosed();
         }
+        // Menu opening
         else
         {
-            allMenus.style.display = DisplayStyle.Flex;
+            MenuOpened();
             menuOptions.style.display = DisplayStyle.Flex;
             menuPlayerInfo.style.display = DisplayStyle.None;
-            gameSceneContainer.style.display = DisplayStyle.None;
-
-            UIGameManager.Instance.SetCursorStateVisible(true);
         }
+    }
+
+    public void MenuOpened() 
+    {
+        allMenus.style.display = DisplayStyle.Flex;
+        gameSceneContainer.style.display = DisplayStyle.None;
+
+        InputManager.Instance.playerInputActions.Disable();
+        InputManager.Instance.gameInput.InMenuInput.Enable();
+        UIGameManager.Instance.SetCursorStateVisible(true);
+    }
+
+    public void MenuClosed()
+    {
+        gameSceneContainer.style.display = DisplayStyle.Flex;
+        allMenus.style.display = DisplayStyle.None;
+
+        InputManager.Instance.playerInputActions.Enable();
+        InputManager.Instance.gameInput.InMenuInput.Disable();
+        UIGameManager.Instance.SetCursorStateVisible(false);
     }
 
     private void OnPlayerInfoTabChanged(ChangeEvent<bool> evt, VisualElement tab)
@@ -140,5 +153,10 @@ public partial class UIGameScene
     public void AddInventoryToPlayerInfo(VisualElement inventory)
     {
         inventoryLeftContainer.Add(inventory);
+    }
+
+    public void AddElementToGearContainer(VisualElement newElement)
+    {
+        gearContainerLayout.Add(newElement);
     }
 }

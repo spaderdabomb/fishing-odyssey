@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PickleMan
 {
+    [DefaultExecutionOrder(-1)]
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public class Player : MonoBehaviour
     {
@@ -16,6 +18,23 @@ namespace PickleMan
         private PlayerMovement playerMovement;
         private Rigidbody rb;
         private CapsuleCollider capsuleCol;
+
+        public PlayerInputActions playerInputActions;
+
+        private void OnEnable()
+        {
+            print("enabling player input");
+
+            playerInputActions = new PlayerInputActions();
+            playerInputActions.Enable();
+            InputManager.Instance.SetInputActionRef(playerInputActions);
+        }
+
+        private void OnDisable()
+        {
+            
+        }
+
         private void Start()
         {
             playerStates = GetComponent<PlayerStates>();

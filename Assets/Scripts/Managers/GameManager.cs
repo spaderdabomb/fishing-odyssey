@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject player;
-    public PlayerStates playerStates;
+    [HideInInspector] public PlayerStates playerStates;
+    [HideInInspector] public PlayerMovement playerMovement;
 
     public GameData gameData;
     public PlayerData playerData;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> biomeLocations;
 
     public GameObject bobContainer;
+    public GameObject itemContainer;
 
     public GameObject fishingRodBob;
     public GameObject newFishParticlePrefab;
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
     private float timeSinceBobHitWater = 0f;
     public bool bobInWater = false;
     public bool fishHooked = false;
+
+    public ItemData testItemData;
 
     private void Awake()
     {
@@ -38,6 +42,7 @@ public class GameManager : MonoBehaviour
         gameData.InitDefaults();
         playerData.InitDefaults();
         playerStates = player.GetComponent<PlayerStates>();
+        playerMovement = player.GetComponent<PlayerMovement>();
 
         foreach (FishData fishData in allFishData)
         {

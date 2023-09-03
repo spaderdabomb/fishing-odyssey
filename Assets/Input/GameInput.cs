@@ -90,6 +90,136 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""InMenuInput"",
+            ""id"": ""78921d91-6e9b-43df-a720-9fb6ae4285c3"",
+            ""actions"": [
+                {
+                    ""name"": ""DropItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4fbf0e9-d5d0-4d13-806b-0dc86279bae4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SplitItemHalf"",
+                    ""type"": ""Button"",
+                    ""id"": ""758ebf4e-e952-4ee6-8d5a-d8e15f2af664"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SplitItemOne"",
+                    ""type"": ""Button"",
+                    ""id"": ""151cdc9a-e062-49af-9eff-b60fc044f6c1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""b17a697e-3d1d-47c1-8a3d-713b381c22be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action1"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e72d0d5-a188-4f53-a146-4de569ec6d88"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0fa34d3b-4d07-4c5c-ab8f-9d5578ed1148"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DropItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7334e848-507a-4068-bb84-14f68cf289b4"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SplitItemHalf"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""aa9a9e3a-4ed4-4259-b945-a6f3d1281afa"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipItem"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""3d78db49-5136-4387-860e-7b345606a9fc"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""EquipItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""4cdf0943-953f-4115-a8a4-847f6fa392e2"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""EquipItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00c1c5c6-942e-45f8-8683-61426bcd2f31"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Action1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6eb5907-86c3-472d-9b72-000068c4b7ee"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SplitItemOne"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -108,6 +238,22 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Keyboard&Mouse"",
+            ""bindingGroup"": ""Keyboard&Mouse"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -116,6 +262,13 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_MenuInput_ToggleGameMenu = m_MenuInput.FindAction("ToggleGameMenu", throwIfNotFound: true);
         m_MenuInput_ToggleOptionsMenu = m_MenuInput.FindAction("ToggleOptionsMenu", throwIfNotFound: true);
         m_MenuInput_TestGamepad = m_MenuInput.FindAction("TestGamepad", throwIfNotFound: true);
+        // InMenuInput
+        m_InMenuInput = asset.FindActionMap("InMenuInput", throwIfNotFound: true);
+        m_InMenuInput_DropItem = m_InMenuInput.FindAction("DropItem", throwIfNotFound: true);
+        m_InMenuInput_SplitItemHalf = m_InMenuInput.FindAction("SplitItemHalf", throwIfNotFound: true);
+        m_InMenuInput_SplitItemOne = m_InMenuInput.FindAction("SplitItemOne", throwIfNotFound: true);
+        m_InMenuInput_EquipItem = m_InMenuInput.FindAction("EquipItem", throwIfNotFound: true);
+        m_InMenuInput_Action1 = m_InMenuInput.FindAction("Action1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -235,6 +388,84 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         }
     }
     public MenuInputActions @MenuInput => new MenuInputActions(this);
+
+    // InMenuInput
+    private readonly InputActionMap m_InMenuInput;
+    private List<IInMenuInputActions> m_InMenuInputActionsCallbackInterfaces = new List<IInMenuInputActions>();
+    private readonly InputAction m_InMenuInput_DropItem;
+    private readonly InputAction m_InMenuInput_SplitItemHalf;
+    private readonly InputAction m_InMenuInput_SplitItemOne;
+    private readonly InputAction m_InMenuInput_EquipItem;
+    private readonly InputAction m_InMenuInput_Action1;
+    public struct InMenuInputActions
+    {
+        private @GameInput m_Wrapper;
+        public InMenuInputActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DropItem => m_Wrapper.m_InMenuInput_DropItem;
+        public InputAction @SplitItemHalf => m_Wrapper.m_InMenuInput_SplitItemHalf;
+        public InputAction @SplitItemOne => m_Wrapper.m_InMenuInput_SplitItemOne;
+        public InputAction @EquipItem => m_Wrapper.m_InMenuInput_EquipItem;
+        public InputAction @Action1 => m_Wrapper.m_InMenuInput_Action1;
+        public InputActionMap Get() { return m_Wrapper.m_InMenuInput; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InMenuInputActions set) { return set.Get(); }
+        public void AddCallbacks(IInMenuInputActions instance)
+        {
+            if (instance == null || m_Wrapper.m_InMenuInputActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InMenuInputActionsCallbackInterfaces.Add(instance);
+            @DropItem.started += instance.OnDropItem;
+            @DropItem.performed += instance.OnDropItem;
+            @DropItem.canceled += instance.OnDropItem;
+            @SplitItemHalf.started += instance.OnSplitItemHalf;
+            @SplitItemHalf.performed += instance.OnSplitItemHalf;
+            @SplitItemHalf.canceled += instance.OnSplitItemHalf;
+            @SplitItemOne.started += instance.OnSplitItemOne;
+            @SplitItemOne.performed += instance.OnSplitItemOne;
+            @SplitItemOne.canceled += instance.OnSplitItemOne;
+            @EquipItem.started += instance.OnEquipItem;
+            @EquipItem.performed += instance.OnEquipItem;
+            @EquipItem.canceled += instance.OnEquipItem;
+            @Action1.started += instance.OnAction1;
+            @Action1.performed += instance.OnAction1;
+            @Action1.canceled += instance.OnAction1;
+        }
+
+        private void UnregisterCallbacks(IInMenuInputActions instance)
+        {
+            @DropItem.started -= instance.OnDropItem;
+            @DropItem.performed -= instance.OnDropItem;
+            @DropItem.canceled -= instance.OnDropItem;
+            @SplitItemHalf.started -= instance.OnSplitItemHalf;
+            @SplitItemHalf.performed -= instance.OnSplitItemHalf;
+            @SplitItemHalf.canceled -= instance.OnSplitItemHalf;
+            @SplitItemOne.started -= instance.OnSplitItemOne;
+            @SplitItemOne.performed -= instance.OnSplitItemOne;
+            @SplitItemOne.canceled -= instance.OnSplitItemOne;
+            @EquipItem.started -= instance.OnEquipItem;
+            @EquipItem.performed -= instance.OnEquipItem;
+            @EquipItem.canceled -= instance.OnEquipItem;
+            @Action1.started -= instance.OnAction1;
+            @Action1.performed -= instance.OnAction1;
+            @Action1.canceled -= instance.OnAction1;
+        }
+
+        public void RemoveCallbacks(IInMenuInputActions instance)
+        {
+            if (m_Wrapper.m_InMenuInputActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IInMenuInputActions instance)
+        {
+            foreach (var item in m_Wrapper.m_InMenuInputActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_InMenuInputActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public InMenuInputActions @InMenuInput => new InMenuInputActions(this);
     private int m_NewcontrolschemeSchemeIndex = -1;
     public InputControlScheme NewcontrolschemeScheme
     {
@@ -244,10 +475,27 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_NewcontrolschemeSchemeIndex];
         }
     }
+    private int m_KeyboardMouseSchemeIndex = -1;
+    public InputControlScheme KeyboardMouseScheme
+    {
+        get
+        {
+            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
+            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+        }
+    }
     public interface IMenuInputActions
     {
         void OnToggleGameMenu(InputAction.CallbackContext context);
         void OnToggleOptionsMenu(InputAction.CallbackContext context);
         void OnTestGamepad(InputAction.CallbackContext context);
+    }
+    public interface IInMenuInputActions
+    {
+        void OnDropItem(InputAction.CallbackContext context);
+        void OnSplitItemHalf(InputAction.CallbackContext context);
+        void OnSplitItemOne(InputAction.CallbackContext context);
+        void OnEquipItem(InputAction.CallbackContext context);
+        void OnAction1(InputAction.CallbackContext context);
     }
 }

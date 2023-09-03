@@ -1,7 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False" gen-cs-file="3e500fd82f67a01439cf98db298cabe9">
-    <Style src="project://database/Assets/UI%20Toolkit/USS/InventoryStyle.uss?fileID=7433441132597879392&amp;guid=ae713f84ae84dc94d9eeab2be5b7df3e&amp;type=3#InventoryStyle" />
-    <ui:VisualElement name="slotContainer" class="inventory-slot" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-        <ui:VisualElement name="slotIcon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: none; -unity-background-scale-mode: scale-to-fit; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" />
-        <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="itemCountLabel" class="inventory-slot-count-label" style="position: absolute; transform-origin: center; flex-grow: 1; justify-content: flex-start; bottom: 0; right: 0;" />
-    </ui:VisualElement>
-</ui:UXML>

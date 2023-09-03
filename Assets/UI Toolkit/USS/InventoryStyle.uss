@@ -1,7 +1,7 @@
 .inventory-standard-label {
     color: rgb(230, 230, 230);
     -unity-font-style: bold;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .inventory-slot-count-label {

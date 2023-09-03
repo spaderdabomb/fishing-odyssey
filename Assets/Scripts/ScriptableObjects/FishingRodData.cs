@@ -56,3 +56,11 @@ public enum FishingRodType
     BasicRod,
     SpeedRod
 }
+
+public enum FishingMethod
+{ 
+    Standard,
+    NettingBig,
+    NettingSmall,
+    Harpooning
+}

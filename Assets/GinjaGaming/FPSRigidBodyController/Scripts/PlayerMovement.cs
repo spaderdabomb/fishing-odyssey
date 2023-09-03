@@ -107,27 +107,33 @@ namespace PickleMan
         private Transform isGroundedTransform = null;
 
         // Game input
-        public PlayerInputActions CustomGameInput { get; private set; }
+        private PlayerInputActions playerInputActions;
 
         #endregion
 
         #region Initialization
+
         private void Awake()
         {
-            CustomGameInput = new PlayerInputActions();
-            CustomGameInput.Enable();
-            CustomGameInput.PlayerMovement.SetCallbacks(this);
-        }
-
-        private void Start()
-        {
-            // Get components
             playerStates = GetComponent<PlayerStates>();
             player = GetComponent<Player>();
             rb = GetComponent<Rigidbody>();
             capsuleCol = GetComponent<CapsuleCollider>();
+        }
 
-            // Set initial conditions
+        private void OnEnable()
+        {
+            playerInputActions = player.playerInputActions;
+            playerInputActions.PlayerMovement.SetCallbacks(this);
+        }
+
+        private void OnDisable()
+        {
+            playerInputActions.PlayerMovement.RemoveCallbacks(this);
+        }
+
+        private void Start()
+        {
             SetNoDrag();
         }
 
@@ -272,7 +278,9 @@ namespace PickleMan
 
             // Move and rotate player rigidbody
             rb.AddForce(moveImpulse, ForceMode.Impulse);
-            rb.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSenseH, 0);
+            Vector3 cameraRotation = playerCamera.transform.rotation.eulerAngles;
+            Vector3 newRotation = new Vector3(rb.rotation.eulerAngles.x, cameraRotation.y, rb.rotation.eulerAngles.z);
+            rb.rotation = Quaternion.Euler(newRotation);
 
             // Reset player logic after physics update
             jumpPressed = false;
@@ -512,6 +520,9 @@ namespace PickleMan
             // Check triggers for ice layer
             foreach (var collider in player.ActiveColliders)
             {
+                if (collider == null)
+                    continue;
+
                 if (collider.gameObject.layer == LayerMask.NameToLayer("Ice"))
                 {
                     return true;
