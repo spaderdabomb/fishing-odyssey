@@ -99,23 +99,36 @@ public class ItemData : SerializedScriptableObject
 
     public enum ItemType
     {
-        None,
-        FishingRod,
-        FishingLine,
-        FishHook,
-        Bait,
-        Sinker,
-        Lure,
-        SmallFishingNet,
-        BigFishingNet,
-        Harpoon,
-        Food,
-        Potion,
-        Boots,
-        Gloves,
-        Hat,
-        Body,
-        Legs,
+        None = 0,
+        // Fishing techniques
+        FishingRod = 1,
+        SmallFishingNet = 2,
+        BigFishingNet = 3,
+        Harpoon = 4,
+        // Misc
+        Food = 5,
+        Potion = 6,
+        // Outfit
+        Boots = 7,
+        Gloves = 8,
+        Head = 9,
+        Body = 10,
+        Legs = 11,
+        Cape = 12,
+        // Tackle
+        Hook = 13,
+        Bait = 14,
+        Line = 15,
+        Reel = 16,
+        Lure = 17,
+        Special = 18,
+        // Acccessories
+        Amulet = 19,
+        Ring = 20,
+        Socks = 21,
+        Badge = 22,
+        Tattoo = 23,
+        Earrings = 24,
     }
 
     [Flags]
@@ -126,5 +139,8 @@ public class ItemData : SerializedScriptableObject
         Fishing = 2,
         Consumable = 4,
         Weapon = 8,
+        Outfit = 16,
+        Accessory = 32,
+        Tackle = 64,
     }
 }

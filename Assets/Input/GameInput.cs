@@ -220,6 +220,56 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""InDialogueInput"",
+            ""id"": ""68890702-5665-46ee-a0e4-47d6cd2ee46f"",
+            ""actions"": [
+                {
+                    ""name"": ""AdvanceText"",
+                    ""type"": ""Button"",
+                    ""id"": ""6fb4908f-fe20-4699-aaa4-b68afeb8e77e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1c6b9c0e-1c7f-4b24-a4ee-dee94d144ebd"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdvanceText"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17ff3118-1d83-4918-bd50-dc9d73e8660a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdvanceText"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""993507d1-f8d5-422c-88f4-26928a4e1711"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdvanceText"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -269,6 +319,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_InMenuInput_SplitItemOne = m_InMenuInput.FindAction("SplitItemOne", throwIfNotFound: true);
         m_InMenuInput_EquipItem = m_InMenuInput.FindAction("EquipItem", throwIfNotFound: true);
         m_InMenuInput_Action1 = m_InMenuInput.FindAction("Action1", throwIfNotFound: true);
+        // InDialogueInput
+        m_InDialogueInput = asset.FindActionMap("InDialogueInput", throwIfNotFound: true);
+        m_InDialogueInput_AdvanceText = m_InDialogueInput.FindAction("AdvanceText", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -466,6 +519,52 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         }
     }
     public InMenuInputActions @InMenuInput => new InMenuInputActions(this);
+
+    // InDialogueInput
+    private readonly InputActionMap m_InDialogueInput;
+    private List<IInDialogueInputActions> m_InDialogueInputActionsCallbackInterfaces = new List<IInDialogueInputActions>();
+    private readonly InputAction m_InDialogueInput_AdvanceText;
+    public struct InDialogueInputActions
+    {
+        private @GameInput m_Wrapper;
+        public InDialogueInputActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @AdvanceText => m_Wrapper.m_InDialogueInput_AdvanceText;
+        public InputActionMap Get() { return m_Wrapper.m_InDialogueInput; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InDialogueInputActions set) { return set.Get(); }
+        public void AddCallbacks(IInDialogueInputActions instance)
+        {
+            if (instance == null || m_Wrapper.m_InDialogueInputActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InDialogueInputActionsCallbackInterfaces.Add(instance);
+            @AdvanceText.started += instance.OnAdvanceText;
+            @AdvanceText.performed += instance.OnAdvanceText;
+            @AdvanceText.canceled += instance.OnAdvanceText;
+        }
+
+        private void UnregisterCallbacks(IInDialogueInputActions instance)
+        {
+            @AdvanceText.started -= instance.OnAdvanceText;
+            @AdvanceText.performed -= instance.OnAdvanceText;
+            @AdvanceText.canceled -= instance.OnAdvanceText;
+        }
+
+        public void RemoveCallbacks(IInDialogueInputActions instance)
+        {
+            if (m_Wrapper.m_InDialogueInputActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IInDialogueInputActions instance)
+        {
+            foreach (var item in m_Wrapper.m_InDialogueInputActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_InDialogueInputActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public InDialogueInputActions @InDialogueInput => new InDialogueInputActions(this);
     private int m_NewcontrolschemeSchemeIndex = -1;
     public InputControlScheme NewcontrolschemeScheme
     {
@@ -497,5 +596,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         void OnSplitItemOne(InputAction.CallbackContext context);
         void OnEquipItem(InputAction.CallbackContext context);
         void OnAction1(InputAction.CallbackContext context);
+    }
+    public interface IInDialogueInputActions
+    {
+        void OnAdvanceText(InputAction.CallbackContext context);
     }
 }

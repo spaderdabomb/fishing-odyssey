@@ -76,6 +76,80 @@ MonoBehaviour:
     - Name: itemStats
       Entry: 7
       Data: 4|ItemStats, Assembly-CSharp
+    - Name: statsDict
+      Entry: 7
+      Data: 5|System.Collections.Generic.Dictionary`2[[ItemStat, Assembly-CSharp],[System.Object,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 6|System.Collections.Generic.ObjectEqualityComparer`1[[ItemStat, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 7|System.Single, mscorlib
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 8|System.Int32, mscorlib
+    - Name: 
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 9|FishingMethod, Assembly-CSharp
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -87,7 +161,7 @@ MonoBehaviour:
   stackCount: 20
   maxStackCount: 50
   baseSellValue: 1
-  itemType: 10
+  itemType: 5
   itemRarity: 1
   itemCategories: 4
   item3DPrefab: {fileID: 5583628007690008659, guid: 2ed8f2aceb3a59c4baf0195c44c5f94b,

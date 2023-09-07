@@ -1,22 +1,19 @@
 using UnityEngine.UIElements;
 using UnityEngine;
 using ZenUI;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
+using ItemType = ItemData.ItemType;
 
 public partial class GearSlot : InventorySlot
 {
     public GearContainer gearContainer;
     public GearSlotData gearSlotData;
+    public ItemType itemType;
 
-    private Color labelColorDefault;
-    private Color iconTintColorDefault;
-    private Color slotContainerColorDefault;
-
-    public GearSlot(VisualElement newRoot, int slotIndex, GearContainer gearContainer, GearSlotData gearSlotData) : base(newRoot, slotIndex, gearContainer)
+    public GearSlot(VisualElement newRoot, int slotIndex, GearContainer gearContainer, GearSlotData gearSlotData, ItemType itemType) : base(newRoot, slotIndex, gearContainer)
     {
         this.gearContainer = gearContainer;
         this.gearSlotData = gearSlotData;
+        this.itemType = itemType;
         AssignQueryResults(root);
         InitGearSlot();
     }

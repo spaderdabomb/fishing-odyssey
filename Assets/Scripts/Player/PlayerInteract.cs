@@ -1,3 +1,4 @@
+using Dialogue;
 using PickleMan;
 using System.Collections;
 using System.Collections.Generic;
@@ -223,14 +224,28 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
         GameObject currentInteractingObject = interactingObjects[currentInteractObjectIndex];
         if (currentInteractingObject.GetComponent<ItemSpawned>() != null)
         {
-            ItemData itemData = currentInteractingObject.GetComponent<ItemSpawned>().itemData;
-            int itemsRemaining = InventoryManager.Instance.inventory.TryAddItem(itemData);
-            print($"Items Remaining {itemsRemaining}");
-            if (itemsRemaining == 0)
-            {
-                Destroy(currentInteractingObject);
-                interactingObjects.Remove(currentInteractingObject);
-            }
+            InteractWithItem(currentInteractingObject);
         }
+        else if (currentInteractingObject.GetComponent<NPCSpawned>() != null)
+        {
+            InteractWithNPC(currentInteractingObject);
+        }
+    }
+
+    public void InteractWithItem(GameObject interactingObject)
+    {
+        ItemData itemData = interactingObject.GetComponent<ItemSpawned>().itemData;
+        int itemsRemaining = InventoryManager.Instance.inventory.TryAddItem(itemData);
+        if (itemsRemaining == 0)
+        {
+            Destroy(interactingObject);
+            interactingObjects.Remove(interactingObject);
+        }
+    }
+
+    public void InteractWithNPC(GameObject interactingObject)
+    {
+        UIGameManager.Instance.SetPlayerInMenuOptions(true);
+        DialogueManager.Instance.EnterDialogueMode(interactingObject.GetComponent<NPCSpawned>().npcData.npcStory);
     }
 }

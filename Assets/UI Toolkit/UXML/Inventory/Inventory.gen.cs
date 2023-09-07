@@ -16,8 +16,6 @@ partial class Inventory
     private VisualElement inventoryPageLeftArrow;
     private Label inventoryPageLabel;
     private VisualElement inventoryPageRightArrow;
-    private VisualElement ghostIcon;
-    private Label ghostIconLabel;
     
     protected void AssignQueryResults(VisualElement root)
     {
@@ -30,7 +28,5 @@ partial class Inventory
         inventoryPageLeftArrow = root.Q<VisualElement>("InventoryPageLeftArrow");
         inventoryPageLabel = root.Q<Label>("InventoryPageLabel");
         inventoryPageRightArrow = root.Q<VisualElement>("InventoryPageRightArrow");
-        ghostIcon = root.Q<VisualElement>("ghostIcon");
-        ghostIconLabel = root.Q<Label>("ghostIconLabel");
     }
 }

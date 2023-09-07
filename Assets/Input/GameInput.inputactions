@@ -198,6 +198,56 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "InDialogueInput",
+            "id": "68890702-5665-46ee-a0e4-47d6cd2ee46f",
+            "actions": [
+                {
+                    "name": "AdvanceText",
+                    "type": "Button",
+                    "id": "6fb4908f-fe20-4699-aaa4-b68afeb8e77e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1c6b9c0e-1c7f-4b24-a4ee-dee94d144ebd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AdvanceText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17ff3118-1d83-4918-bd50-dc9d73e8660a",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AdvanceText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "993507d1-f8d5-422c-88f4-26928a4e1711",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AdvanceText",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

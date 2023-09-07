@@ -1,23 +1,19 @@
 using UnityEngine.UIElements;
 using UnityEngine;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
+using static ItemData;
 
 namespace ZenUI
 {
-    public partial class GearContainer
+    public partial class GearContainer : BaseSlotContainer
     {
-        VisualElement root;
         public GearContainerType gearContainerType;
         public List<GearSlot> gearSlots = new();
         public List<GearSlotData> gearSlotData = new();
-        public GearSlot currentHoverSlot = null;
-        public Dictionary<GearContainerSlotTypes, GearSlotData> gearSlotDataDict = new();
+        public List<ItemType> gearSlotKeys = new();
+        public Dictionary<ItemType, GearSlotData> gearSlotDataDict = new();
 
-        private int numRows = 1;
-        private int numColumns = 6;
-        public GearContainer(VisualElement root, GearContainerType gearContainerType)
+        public GearContainer(VisualElement root, int inventoryRows, int inventoryCols, GearContainerType gearContainerType) : base(root, inventoryRows, inventoryCols)
         {
             this.root = root;
             this.gearContainerType = gearContainerType;
@@ -37,29 +33,30 @@ namespace ZenUI
         public void InitGearContainer()
         {
             gearSubHeaderLabel.text = gearContainerType.ToString().ToUpper();
-            foreach (var keyValuePair in gearSlotDataDict.Values)
+            foreach (var keyValuePair in gearSlotDataDict)
             {
-                gearSlotData.Add(keyValuePair);
+                gearSlotData.Add(keyValuePair.Value);
+                gearSlotKeys.Add(keyValuePair.Key);
             }
         }
 
         public void InitGearSlots()
         {
-            for (int i = 0; i < numColumns; i++) 
+            inventorySlots = new List<InventorySlot>();
+
+            for (int i = 0; i < inventoryCols; i++) 
             {
                 VisualElement gearSlotClone = InventoryManager.Instance.gearSlotAsset.CloneTree();
                 GearSlotData tempGearSlotData = i >= gearSlotData.Count ? null : gearSlotData[i];
-                GearSlot newGearSlot = new GearSlot(gearSlotClone, i, this, tempGearSlotData);
-
+                ItemType tempItemType = i >= gearSlotKeys.Count ? ItemType.None : gearSlotKeys[i];
+                GearSlot newGearSlot = new GearSlot(gearSlotClone, i, this, tempGearSlotData, tempItemType);
                 newGearSlot.root.RegisterCallback<PointerDownEvent>(evt => InventoryManager.Instance.BeginDragHandler(evt, newGearSlot));
-
                 gearSlots.Add(newGearSlot);
+                inventorySlots.Add(newGearSlot);
                 gearSlotContainer.Add(gearSlotClone);
-
             }
         }
 
-        // WARNING: Only works with pointer/mouse events, does not work with general Input.mousePosition
         public GearSlot GetCurrentSlotMouseOver(PointerMoveEvent evt)
         {
             GearSlot currentSlot = null;
@@ -78,6 +75,24 @@ namespace ZenUI
         public void SetCurrentSlot(GearSlot newGearSlot)
         {
             currentHoverSlot = newGearSlot;
+        }
+
+        public override bool CanMoveItem(InventorySlot dragEndSlot, InventorySlot dragBeginSlot)
+        {
+            if (!base.CanMoveItem(dragEndSlot, dragBeginSlot))
+            {
+                return false;
+            }
+
+            GearSlot dragEndGearSlot = (GearSlot)dragEndSlot;
+
+            bool validItemType = dragEndGearSlot.itemType == dragBeginSlot.currentItemData.itemType;
+            bool validHandsType = InventoryManager.Instance.IsValidHandsSlotItem(dragBeginSlot.currentItemData);
+            bool isHandsContainer = dragEndGearSlot.gearContainer.gearContainerType == GearContainerType.Hands;
+
+            bool canMoveItem = validItemType || (validHandsType && isHandsContainer);
+
+            return canMoveItem;
         }
     }
 

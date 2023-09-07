@@ -5,16 +5,16 @@ public partial class InventorySlot : VisualElement
 {
     public VisualElement root;
     public ItemData currentItemData;
-    public Inventory parentContainer;
+    public BaseSlotContainer parentContainer;
     public int slotIndex;
     public bool slotFilled = false;
 
     private Color labelColorDefault;
     private Color iconTintColorDefault;
     private Color slotContainerColorDefault;
-    public InventorySlot(VisualElement newRoot, int slotIndex, Inventory parentContainer)
+    public InventorySlot(VisualElement root, int slotIndex, BaseSlotContainer parentContainer)
     {
-        this.root = newRoot;
+        this.root = root;
         this.slotIndex = slotIndex;
         this.parentContainer = parentContainer;
         AssignQueryResults(root);
@@ -24,8 +24,8 @@ public partial class InventorySlot : VisualElement
     private void RegisterCallbacks()
     {
         this.root.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-        root.RegisterCallback<PointerEnterEvent>(PointerEnterInventorySlot);
-        root.RegisterCallback<PointerLeaveEvent>(PointerLeaveInventorySlot);
+        root.RegisterCallback<PointerEnterEvent>(PointerEnterSlot);
+        root.RegisterCallback<PointerLeaveEvent>(PointerLeaveSlot);
     }
 
     private void UnRegisterCallbacks()
@@ -98,20 +98,30 @@ public partial class InventorySlot : VisualElement
         slotContainer.style.unityBackgroundImageTintColor = GameManager.Instance.gameData.standardTintColor;
     }
 
-    public void SetTintNormal()
+    public void ResetTint()
     {
         slotIcon.style.unityBackgroundImageTintColor = iconTintColorDefault;
         itemCountLabel.style.color = labelColorDefault;
         slotContainer.style.unityBackgroundImageTintColor = slotContainerColorDefault;
     }
 
-    public void PointerEnterInventorySlot(PointerEnterEvent evt)
+    public void SetHighlight()
+    {
+        slotContainer.AddToClassList("inventory-slot-highlighted");
+    }
+
+    public void ResetHighlight()
+    {
+        slotContainer.RemoveFromClassList("inventory-slot-highlighted");
+    }
+
+    public void PointerEnterSlot(PointerEnterEvent evt)
     {
         InventoryManager.Instance.UpdateCurrentHoverSlot(this, true);
         parentContainer.currentHoverSlot = this;
     }
 
-    public void PointerLeaveInventorySlot(PointerLeaveEvent evt)
+    public void PointerLeaveSlot(PointerLeaveEvent evt)
     {
         InventoryManager.Instance.UpdateCurrentHoverSlot(this, false);
         parentContainer.currentHoverSlot = null;

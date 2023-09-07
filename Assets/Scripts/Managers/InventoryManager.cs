@@ -8,6 +8,7 @@ using PickleMan;
 using ZenUI;
 using Random = UnityEngine.Random;
 using Sirenix.OdinInspector;
+using static ItemData;
 
 public class InventoryManager : SerializedMonoBehaviour
 {
@@ -25,6 +26,7 @@ public class InventoryManager : SerializedMonoBehaviour
     private Vector2 startElementPosition;
     public float timeToShowTooltip = 0.5f;
     [HideInInspector] public InventorySlot CurrentHoverSlot { get; set; } = null;
+    [HideInInspector] public InventorySlot CurrentDraggedSlot { get; set; } = null;
     [HideInInspector] public bool IsHoveringSlot { get; set; } = false;
     [HideInInspector] public float TimeSinceHoveringSlot { get; set; } = 0f;
 
@@ -32,14 +34,17 @@ public class InventoryManager : SerializedMonoBehaviour
     private Player player;
     public Inventory inventory { get; private set; } = null;
     public PopupMenuInventory popupMenuInventory { get; private set; } = null;
+    public VisualElement ghostIcon { get; set; }
 
     public Dictionary<GearContainerType, GearContainer> gearContainerDict = new();
-    public Dictionary<GearContainerType, Dictionary<GearContainerSlotTypes, GearSlotData>> gearContainerToDataDicts;
+    public Dictionary<GearContainerType, Dictionary<ItemType, GearSlotData>> gearContainerToDataDicts;
 
-    public Dictionary<GearContainerSlotTypes, GearSlotData> handsSlotsDataDict = new();
-    public Dictionary<GearContainerSlotTypes, GearSlotData> tackleSlotsDataDict = new();
-    public Dictionary<GearContainerSlotTypes, GearSlotData> outfitSlotsDataDict = new();
-    public Dictionary<GearContainerSlotTypes, GearSlotData> accessoriesSlotsDataDict = new();
+    public Dictionary<ItemType, GearSlotData> handsSlotsDataDict = new();
+    public Dictionary<ItemType, GearSlotData> tackleSlotsDataDict = new();
+    public Dictionary<ItemType, GearSlotData> outfitSlotsDataDict = new();
+    public Dictionary<ItemType, GearSlotData> accessoriesSlotsDataDict = new();
+
+    private List<GearSlot> gearSlotsHighlighted = new List<GearSlot>();
 
     private void Awake()
     {
@@ -55,17 +60,27 @@ public class InventoryManager : SerializedMonoBehaviour
         };
     }
 
+    private void OnDisable()
+    {
+        ghostIcon.UnregisterCallback<PointerMoveEvent>(MoveDragHandler);
+        ghostIcon.UnregisterCallback<PointerUpEvent>(EndDragHandler);
+    }
+
     void Start()
     {
         VisualElement inventoryClone = inventoryAsset.CloneTree();
         inventory = new Inventory(inventoryClone, inventoryRows, inventoryCols);
+        ghostIcon = UIGameManager.Instance.uiGameScene.GetGhostIconRef();
+        ghostIcon.RegisterCallback<PointerMoveEvent>(MoveDragHandler);
+        ghostIcon.RegisterCallback<PointerUpEvent>(EndDragHandler);
+
         popupMenuInventory = InitPopupMenu();
         UIGameManager.Instance.uiGameScene.AddInventoryToPlayerInfo(inventoryClone);
 
         foreach (GearContainerType gearContainerType in Enum.GetValues(typeof(GearContainerType)))
         {
             VisualElement gearContainerClone = gearContainerAsset.CloneTree();
-            gearContainerDict.Add(gearContainerType, new GearContainer(gearContainerClone, gearContainerType));
+            gearContainerDict.Add(gearContainerType, new GearContainer(gearContainerClone, 1, 6, gearContainerType));
             UIGameManager.Instance.uiGameScene.AddElementToGearContainer(gearContainerClone);
         }
     }
@@ -107,17 +122,17 @@ public class InventoryManager : SerializedMonoBehaviour
 
     public void ShowInventoryTooltip()
     {
-        if (inventory.currentHoverSlot?.currentItemData == null)
+        if (CurrentHoverSlot?.currentItemData == null)
             return;
 
-        Vector2 positionDiff = inventory.currentHoverSlot.root.ChangeCoordinatesTo(popupMenuInventory.root.parent, inventory.currentHoverSlot.root.layout.position);
+        Vector2 positionDiff = CurrentHoverSlot.parentContainer.root.ChangeCoordinatesTo(popupMenuInventory.root.parent, CurrentHoverSlot.root.layout.position);
         popupMenuInventory.root.style.display = DisplayStyle.Flex;
-        popupMenuInventory.root.style.left = inventory.currentHoverSlot.root.resolvedStyle.left + positionDiff.x + 45f;
-        popupMenuInventory.root.style.top = inventory.currentHoverSlot.root.resolvedStyle.top + positionDiff.y + 85f;
+        popupMenuInventory.root.style.left = positionDiff.x + 70f;
+        popupMenuInventory.root.style.top = positionDiff.y + 170f;
 
         if (!popupMenuInventory.itemDataShowing)
         {
-            popupMenuInventory.SetItemData(inventory.currentHoverSlot.currentItemData);
+            popupMenuInventory.SetItemData(CurrentHoverSlot.currentItemData);
         }
     }
 
@@ -151,61 +166,68 @@ public class InventoryManager : SerializedMonoBehaviour
         newItemRb.angularVelocity = new Vector3(Random.Range(0f, 10f), Random.Range(0f, 10f), Random.Range(0f, 10f));
     }
 
-    public void BeginDragHandler(PointerDownEvent evt, InventorySlot inventorySlot)
+    public void BeginDragHandler(PointerDownEvent evt, InventorySlot draggedInventorySlot)
     {
         // No item exists
-        if (inventorySlot.currentItemData == null || evt.button != 0)
+        if (draggedInventorySlot.currentItemData == null || evt.button != 0)
             return;
 
-        inventory.currentDraggedInventorySlot = inventorySlot;
-        inventory.currentDraggedInventorySlot.SetTinted();
+        CurrentDraggedSlot = draggedInventorySlot;
+        draggedInventorySlot.parentContainer.currentDraggedInventorySlot = draggedInventorySlot;
+        CurrentDraggedSlot.SetTinted();
+        CurrentDraggedSlot.SetHighlight();
+        SetAllValidSlotHighlights(CurrentDraggedSlot.currentItemData);
 
-        ShowGhostIcon(evt, inventorySlot.currentItemData.itemSprite.texture, inventorySlot.currentItemData.stackCount);
+        ShowGhostIcon(evt, draggedInventorySlot.currentItemData.itemSprite.texture, draggedInventorySlot.currentItemData.stackCount);
 
         evt.StopPropagation();
     }
 
     public void MoveDragHandler(PointerMoveEvent evt)
     {
-        VisualElement ghostIcon = inventory.GetGhostIconRef();
-        if (ghostIcon.HasPointerCapture(evt.pointerId))
-        {
-            Vector2 displacement = new Vector2(evt.position.x, evt.position.y) - startMousePosition;
-            ghostIcon.style.left = startElementPosition.x + displacement.x;
-            ghostIcon.style.top = startElementPosition.y + displacement.y;
+        if (!ghostIcon.HasPointerCapture(evt.pointerId))
+            return;
 
-            InventorySlot currentInventoryHoverSlot = inventory.GetCurrentSlotMouseOver(evt);
-            inventory.SetCurrentSlot(currentInventoryHoverSlot);
-            GearSlot currentGearHoverSlot = UpdateCurrentGearHoverSlot(evt);
-        }
+        Vector2 displacement = new Vector2(evt.position.x, evt.position.y) - startMousePosition;
+        ghostIcon.style.left = startElementPosition.x + displacement.x;
+        ghostIcon.style.top = startElementPosition.y + displacement.y;
+
+        CurrentHoverSlot = GetHoverSlotFromDrag(evt);
+        CurrentHoverSlot?.parentContainer.SetCurrentSlot(CurrentHoverSlot);
+        UpdateCurrentGearHoverSlot(evt);
     }
 
     public void EndDragHandler(PointerUpEvent evt)
     {
-        VisualElement ghostIcon = inventory.GetGhostIconRef();
-        if (ghostIcon.HasPointerCapture(evt.pointerId))
+        if (!ghostIcon.HasPointerCapture(evt.pointerId))
+            return;
+
+        if (CurrentHoverSlot != null)
         {
-            InventorySlot closestSlot = inventory.GetClosestSlotToRelease();
-            if (closestSlot != null)
+            // print(CurrentHoverSlot.parentContainer);
+            bool canMoveItem = CurrentHoverSlot.parentContainer.CanMoveItem(CurrentHoverSlot, CurrentDraggedSlot);
+            if (canMoveItem)
             {
-                inventory.MoveItem(closestSlot.slotIndex, inventory.currentDraggedInventorySlot.slotIndex);
+                CurrentHoverSlot.parentContainer.MoveItem(CurrentHoverSlot, CurrentDraggedSlot);
             }
-
-            ghostIcon.ReleasePointer(evt.pointerId);
-            evt.StopPropagation();
-            ghostIcon.style.left = 0f;
-            ghostIcon.style.top = 0f;
-            ghostIcon.style.visibility = Visibility.Hidden;
-
-            inventory.currentDraggedInventorySlot.SetTintNormal();
-            inventory.currentDraggedInventorySlot = null;
         }
+
+        ghostIcon.ReleasePointer(evt.pointerId);
+        evt.StopPropagation();
+        ghostIcon.style.left = 0f;
+        ghostIcon.style.top = 0f;
+        ghostIcon.style.visibility = Visibility.Hidden;
+
+        CurrentDraggedSlot.ResetTint();
+        CurrentDraggedSlot.ResetHighlight();
+        ResetAllValidSlotHighlights();
+        CurrentDraggedSlot = null;
+        inventory.currentDraggedInventorySlot = null;
     }
 
     private void ShowGhostIcon(PointerDownEvent evt, Texture2D bgTexture, int stackCount)
     {
-        VisualElement ghostIcon = inventory.GetGhostIconRef();
-        Label ghostIconLabel = inventory.GetGhostIconLabelRef();
+        Label ghostIconLabel = UIGameManager.Instance.uiGameScene.GetGhostIconLabelRef();
         ghostIcon.style.position = Position.Absolute;
         ghostIcon.style.visibility = Visibility.Visible;
         ghostIcon.style.backgroundImage = bgTexture;
@@ -221,14 +243,26 @@ public class InventoryManager : SerializedMonoBehaviour
         ghostIcon.CapturePointer(evt.pointerId);
     }
 
-    public GearSlot UpdateCurrentGearHoverSlot(PointerMoveEvent evt)
+    private InventorySlot GetHoverSlotFromDrag(PointerMoveEvent evt)
+    {
+        GearSlot currentGearSlot = UpdateCurrentGearHoverSlot(evt);
+        InventorySlot currentInventorySlot = inventory.GetCurrentSlotMouseOver(evt);
+        inventory.currentHoverSlot = currentInventorySlot;
+        InventorySlot currentSlot = currentGearSlot != null ? currentGearSlot : currentInventorySlot;
+
+        return currentSlot;
+    }
+
+    private GearSlot UpdateCurrentGearHoverSlot(PointerMoveEvent evt)
     {
         GearSlot currentGearSlot = null;
         foreach (GearContainer currentGearContainer in gearContainerDict.Values)
         {
             GearSlot tempGearSlot = currentGearContainer.GetCurrentSlotMouseOver(evt);
-            currentGearSlot = tempGearSlot != null ? currentGearSlot : null;
-            currentGearContainer.SetCurrentSlot(currentGearSlot);
+            if (tempGearSlot != null)
+                currentGearSlot = tempGearSlot;
+
+            currentGearContainer.SetCurrentSlot(tempGearSlot);
         }
 
         return currentGearSlot;
@@ -247,5 +281,37 @@ public class InventoryManager : SerializedMonoBehaviour
             IsHoveringSlot = false;
             TimeSinceHoveringSlot = 0f;
         }
+    }
+
+    public bool IsValidHandsSlotItem(ItemData itemData)
+    {
+        return (itemData.itemCategories == ItemCategory.Wieldable) ||
+               (itemData.itemCategories == ItemCategory.Consumable);
+    }
+
+    public void SetAllValidSlotHighlights(ItemData itemData)
+    {
+        foreach (GearContainer gearContainer in gearContainerDict.Values)
+        {
+            foreach (GearSlot gearSlot in gearContainer.gearSlots)
+            {
+                bool isHandsContainer = gearSlot.gearContainer.gearContainerType == GearContainerType.Hands;
+                if (gearSlot.itemType == itemData.itemType || (isHandsContainer && IsValidHandsSlotItem(itemData)))
+                {
+                    gearSlot.SetHighlight();
+                    gearSlotsHighlighted.Add(gearSlot);
+                }
+            }
+        }
+    }
+
+    public void ResetAllValidSlotHighlights()
+    {
+        foreach (GearSlot gearSlot in gearSlotsHighlighted)
+        {
+            gearSlot.ResetHighlight();
+        }
+
+        gearSlotsHighlighted.Clear();
     }
 }

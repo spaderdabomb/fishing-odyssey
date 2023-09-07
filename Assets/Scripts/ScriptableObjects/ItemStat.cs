@@ -17,6 +17,7 @@ public enum StatType
     FishingLevelRequired,
     FishingBonus,
     FishingMethod,
+    Speed,
 }
 
 public class ItemStats

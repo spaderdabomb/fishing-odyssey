@@ -8,17 +8,17 @@ using UnityEngine.UIElements;
 partial class GearSlot
 {
     private VisualElement slotContainer;
-    private VisualElement slotIcon;
     private Label itemCountLabel;
     private VisualElement backingIcon;
+    private VisualElement slotIcon;
     private Label slotNameLabel;
     
     protected void AssignQueryResults(VisualElement root)
     {
         slotContainer = root.Q<VisualElement>("slotContainer");
-        slotIcon = root.Q<VisualElement>("slotIcon");
         itemCountLabel = root.Q<Label>("itemCountLabel");
         backingIcon = root.Q<VisualElement>("backingIcon");
+        slotIcon = root.Q<VisualElement>("slotIcon");
         slotNameLabel = root.Q<Label>("slotNameLabel");
     }
 }

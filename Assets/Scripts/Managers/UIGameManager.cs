@@ -73,6 +73,8 @@ public class UIGameManager : MonoBehaviour
     {
         if (newState)
         {
+            print("yo");
+
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             UnityEngine.Cursor.visible = true;
         }
@@ -82,5 +84,31 @@ public class UIGameManager : MonoBehaviour
             UnityEngine.Cursor.visible = false;
         }
     }
+
+    public void SetPlayerInMenuOptions(bool inMenu)
+    {
+        if (inMenu)
+        {
+            InputManager.Instance.playerInputActions.Disable();
+            InputManager.Instance.gameInput.InMenuInput.Enable();
+            UIGameManager.Instance.SetCursorStateVisible(true);
+        }
+        else
+        {
+            InputManager.Instance.playerInputActions.Enable();
+            InputManager.Instance.gameInput.InMenuInput.Disable();
+            UIGameManager.Instance.SetCursorStateVisible(false);
+        }
+    }
+
+#if UNITY_EDITOR
+    protected void OnApplicationQuit()
+    {
+        {
+            // uiGameScene.root.Clear();
+        }
+    }
+
+#endif
 
 }

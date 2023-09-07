@@ -22,28 +22,3 @@ public enum GearContainerType
     Outfit,
     Accessories
 }
-
-public enum GearContainerSlotTypes
-{
-    // Tackle
-    Hook,
-    Bait,
-    Line,
-    Reel,
-    Lure,
-    Special,
-    // Outfit
-    Head,
-    Body,
-    Cape,
-    Legs,
-    Gloves,
-    Boots,
-    // Acccessories
-    Amulet,
-    Ring,
-    Socks,
-    Badge,
-    Tattoo,
-    Earrings
-}

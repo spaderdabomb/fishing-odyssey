@@ -3,7 +3,8 @@
     <Style src="project://database/Assets/UI%20Toolkit/USS/ScrollView.uss?fileID=7433441132597879392&amp;guid=7a302e4f8e9455a479199161a501abac&amp;type=3#ScrollView" />
     <Style src="project://database/Assets/UI%20Toolkit/USS/CustomTab.uss?fileID=7433441132597879392&amp;guid=1b365b8a288dfa74084bcd9c66c86c64&amp;type=3#CustomTab" />
     <Style src="project://database/Assets/UI%20Toolkit/USS/MenuSettings.uss?fileID=7433441132597879392&amp;guid=7ec309de8e342464f95b77cdfce6c9ad&amp;type=3#MenuSettings" />
-    <ui:VisualElement name="GameSceneContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/InventoryStyle.uss?fileID=7433441132597879392&amp;guid=ae713f84ae84dc94d9eeab2be5b7df3e&amp;type=3#InventoryStyle" />
+    <ui:VisualElement name="GameSceneContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
         <ui:VisualElement name="RightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; justify-content: flex-end; flex-direction: column-reverse;">
             <ui:VisualElement name="BottomRightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; flex-direction: column; margin-left: 30px; margin-right: 30px; margin-top: 30px; margin-bottom: 30px; justify-content: flex-end;">
                 <ui:VisualElement name="FishPowerContainer" style="flex-grow: 0; background-color: rgba(30, 30, 30, 0.59); width: 30px; height: 200px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: column-reverse;">
@@ -12,7 +13,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="AllMenus" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: center; display: flex;">
+    <ui:VisualElement name="AllMenus" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: center; display: none;">
         <ui:VisualElement name="MenuDimBg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.35); position: absolute; width: 100%; height: 100%; display: flex; top: -1px; left: 0;" />
         <ui:VisualElement name="MenuCollectionsContainer" class="menu-bg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); align-self: center; justify-content: flex-start; display: none;">
             <ui:VisualElement class="menu-header-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); margin-bottom: 20px;">
@@ -104,5 +105,8 @@
             </ui:VisualElement>
             <ui:Label tabindex="-1" text="Press ESC to Continue" display-tooltip-when-elided="true" style="font-size: 50px; color: rgba(230, 230, 230, 0.71); -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold.ttf?fileID=12800000&amp;guid=a920e2e8ea812f34a9d19380151c1df9&amp;type=3#Montserrat-Bold&apos;); -unity-font-definition: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold%20SDF.asset?fileID=11400000&amp;guid=fcd2efa225414a34591e647d6f8ee0ea&amp;type=2#Montserrat-Bold SDF&apos;); -unity-text-align: upper-center; margin-left: 0; margin-right: 0; margin-top: 40px; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; align-self: center; position: absolute; bottom: -75px; -unity-font-style: bold; left: 406px;" />
         </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="ghostIcon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 70px; height: 70px; position: absolute; background-image: url(&apos;project://database/Assets/Art/UI/UIItems/anvil.psd?fileID=2800000&amp;guid=7ab3c1e755e7ac847bf779b1132c5737&amp;type=3#anvil&apos;); display: flex; visibility: visible; -unity-background-image-tint-color: rgb(255, 255, 255);">
+        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" name="ghostIconLabel" class="inventory-slot-count-label" style="flex-grow: 1; -unity-text-align: lower-right;" />
     </ui:VisualElement>
 </ui:UXML>

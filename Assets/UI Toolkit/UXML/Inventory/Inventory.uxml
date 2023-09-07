@@ -18,7 +18,4 @@
             <ui:VisualElement name="InventoryPageRightArrow" class="inventory-page-arrow" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/UIMenus/MenuGeneral/MenuArrowNext.psd?fileID=2800000&amp;guid=d4577b3789b2bfe469a2376d6b05f578&amp;type=3#MenuArrowNext&apos;); scale: -1 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="ghostIcon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 70px; height: 70px; position: absolute; background-image: url(&apos;project://database/Assets/Art/UI/UIItems/anvil.psd?fileID=2800000&amp;guid=7ab3c1e755e7ac847bf779b1132c5737&amp;type=3#anvil&apos;); display: flex; visibility: visible; -unity-background-image-tint-color: rgb(255, 255, 255);">
-        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" name="ghostIconLabel" class="inventory-slot-count-label" style="flex-grow: 1; -unity-text-align: lower-right;" />
-    </ui:VisualElement>
 </ui:UXML>

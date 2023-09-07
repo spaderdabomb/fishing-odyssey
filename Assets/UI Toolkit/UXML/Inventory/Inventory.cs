@@ -1,43 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEngine;
-using UnityEditor.Search;
-using static UnityEngine.GraphicsBuffer;
-using System.Linq;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public partial class Inventory
+public partial class Inventory : BaseSlotContainer
 {
-    public VisualElement root; 
-    private int inventoryRows;
-    private int inventoryCols;
-    public List<InventorySlot> inventorySlots;
-    public InventorySlot currentDraggedInventorySlot { get; set; } = null;
-    public InventorySlot currentHoverSlot { get; set; } = null;
-
-    public Inventory(VisualElement root, int inventoryRows, int inventoryCols)
+    public Inventory(VisualElement root, int inventoryRows, int inventoryCols) : base(root, inventoryRows, inventoryCols)
     {
-        this.root = root;
         AssignQueryResults(root);
-        this.inventoryRows = inventoryRows;
-        this.inventoryCols = inventoryCols;
         InitInventorySlots();
-        AddCallbacks();
-
-        ghostIcon.RegisterCallback<PointerMoveEvent>(InventoryManager.Instance.MoveDragHandler);
-        ghostIcon.RegisterCallback<PointerUpEvent>(InventoryManager.Instance.EndDragHandler);
-    }
-
-    private void AddCallbacks()
-    {
-        this.root.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-    }
-
-    private void OnGeometryChanged(GeometryChangedEvent evt)
-    {
-        root.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
     }
 
     private void InitInventorySlots()
@@ -57,95 +27,12 @@ public partial class Inventory
         }
     }
 
-    // Returns number of remaining items in stack
-    public int TryAddItem(ItemData itemData)
-    {
-        int slotIndex = GetFirstFreeSlot(itemData);
-        if (slotIndex == -1)
-            return itemData.stackCount;
-
-        bool itemsRemainingBool = true;
-        int itemsRemaining = 0;
-        while (itemsRemainingBool)
-        {
-            itemsRemaining = AddItem(itemData, slotIndex);
-            itemsRemainingBool = (itemsRemaining > 0) ? true : false;
-
-            slotIndex = GetFirstFreeSlot(itemData);
-            if (slotIndex == -1)
-            {
-                break;
-            }
-        }
-
-        return itemsRemaining;
-    }
-
     private int AddItem(ItemData itemData, int slotIndex)
     {
         InventorySlot inventorySlot = inventorySlots[slotIndex];
         int numItemsRemaining = inventorySlot.AddItemToSlot(itemData);
 
         return numItemsRemaining;
-    }
-
-    public void RemoveItem(int slotIndex)
-    {
-        InventorySlot inventorySlot = inventorySlots[slotIndex];
-        inventorySlot.RemoveItemFromSlot();
-    }
-
-    public void MoveItem(int dragEndIndex, int dragBeginIndex)
-    {
-        if (dragEndIndex == dragBeginIndex)
-            return;
-
-        InventorySlot dragEndSlot = inventorySlots[dragEndIndex];
-        InventorySlot dragBeginSlot = inventorySlots[dragBeginIndex];
-        ItemData dragBeginItemData = InventoryManager.Instance.InstantiateItem(dragBeginSlot.currentItemData.itemDataAsset);
-
-        // If target slot has no items
-        if (dragEndSlot.currentItemData == null)
-        {
-            AddItem(dragBeginItemData, dragEndIndex);
-            RemoveItem(dragBeginIndex);
-        }
-        // If items in both slots are the same itemID
-        else if (dragEndSlot.currentItemData.itemID == dragBeginSlot.currentItemData.itemID)
-        {
-            int totalItemCount = dragEndSlot.currentItemData.stackCount + dragBeginSlot.currentItemData.stackCount;
-            bool exeedsStackCount = totalItemCount > dragEndSlot.currentItemData.maxStackCount;
-            if (exeedsStackCount)
-            {
-                SwapItems(dragEndIndex, dragBeginIndex);
-            }
-            else
-            {
-                AddItem(dragBeginItemData, dragEndIndex);
-                RemoveItem(dragBeginIndex);
-            }
-        }
-        // If both slots have items but are not same itemID
-        else
-        {
-            SwapItems(dragEndIndex, dragBeginIndex);
-        }
-    }
-
-    public void SwapItems(int dragEndIndex, int dragBeginIndex)
-    {
-        InventorySlot dragBeginSlot = inventorySlots[dragBeginIndex];
-        InventorySlot dragEndSlot = inventorySlots[dragEndIndex];
-
-        if (dragBeginSlot.currentItemData != null && dragEndSlot.currentItemData != null)
-        {
-            ItemData dragBeginItemData = dragBeginSlot.currentItemData;
-            ItemData dragEndItemData = dragEndSlot.currentItemData;
-            RemoveItem(dragBeginIndex);
-            RemoveItem(dragEndIndex);
-            AddItem(dragEndItemData, dragBeginIndex);
-            AddItem(dragBeginItemData, dragEndIndex);
-        }
     }
 
     public void TrySplitItem(bool splitHalf)
@@ -177,7 +64,7 @@ public partial class Inventory
             return;
 
         InventoryManager.Instance.InstantiateItemSpawned(currentHoverSlot.currentItemData);
-        RemoveItem(currentHoverSlot.slotIndex);
+        RemoveItem(currentHoverSlot);
     }
 
     public void GetItemAtIndex()
@@ -185,43 +72,36 @@ public partial class Inventory
 
     }
 
-    public int GetFirstFreeSlot(ItemData itemData, bool mergeSameItems = true)
+    public override bool CanMoveItem(InventorySlot dragEndSlot, InventorySlot dragBeginSlot)
     {
-        int slotIndex = -1;
-        for (int i = 0; i < inventorySlots.Count; i++)
+        // If base method can't move item, return false
+        if (!base.CanMoveItem(dragEndSlot, dragBeginSlot))
         {
-            // Add item to free slot
-            if (!inventorySlots[i].slotFilled)
-            {
-                slotIndex = i;
-                break;
-            }
-            // Unfilled slot with identical item
-            else if (inventorySlots[i].currentItemData.itemID == itemData.itemID && 
-                     inventorySlots[i].currentItemData.stackCount < inventorySlots[i].currentItemData.maxStackCount && 
-                     mergeSameItems)
-            {
-                slotIndex = i;
-                break;
-            }
+            return false;
         }
 
-        return slotIndex;
-    }
+        // If beginning slot is not a gear slot or we're dragging to an empty slot, return true
+        if (dragBeginSlot is not GearSlot || dragEndSlot.currentItemData == null)
+            return true;
+        
+        // Gear slot checks
+        GearSlot dragBeginGearSlot = (GearSlot)dragBeginSlot;
 
-    public InventorySlot GetClosestSlotToRelease()
-    {
-        InventorySlot closestSlot = null;
-        IEnumerable<InventorySlot> slots = inventorySlots.Where(x => x.root.worldBound.Overlaps(ghostIcon.worldBound));
-        if (slots.Count() != 0)
+        // Swapping from gear container to inventory container
+        bool canMoveItem = true;
+        bool isSwappingNonIdenticalItem = (dragBeginGearSlot.currentItemData != null && dragBeginGearSlot.currentItemData.itemID != dragEndSlot.currentItemData.itemID);
+        if (isSwappingNonIdenticalItem)
         {
-            closestSlot = slots.OrderBy(x => Vector2.Distance(x.root.worldBound.position, ghostIcon.worldBound.position)).First();
+            bool validItemType = dragBeginGearSlot.itemType == dragEndSlot.currentItemData.itemType;
+            bool validHandsType = InventoryManager.Instance.IsValidHandsSlotItem(dragEndSlot.currentItemData);
+            bool isHandsContainer = dragBeginGearSlot.gearContainer.gearContainerType == GearContainerType.Hands;
+
+            canMoveItem = validItemType || (validHandsType && isHandsContainer);
         }
 
-        return closestSlot;
+        return canMoveItem;
     }
 
-    // WARNING: Only works with pointer/mouse events, does not work with general Input.mousePosition
     public InventorySlot GetCurrentSlotMouseOver(PointerMoveEvent evt)
     {
         InventorySlot currentSlot = null;
@@ -235,20 +115,5 @@ public partial class Inventory
         }
 
         return currentSlot;
-    }
-
-    public VisualElement GetGhostIconRef()
-    {
-        return ghostIcon;
-    }
-
-    public Label GetGhostIconLabelRef()
-    {
-        return ghostIconLabel;
-    }
-
-    public void SetCurrentSlot(InventorySlot newSlot)
-    {
-        currentHoverSlot = newSlot;
     }
 }

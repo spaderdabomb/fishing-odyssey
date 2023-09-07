@@ -50,6 +50,8 @@ partial class UIGameScene
     private VisualElement inventoryRightContainer;
     private VisualElement gearContainerLayout;
     private VisualElement inventoryLeftContainer;
+    private VisualElement ghostIcon;
+    private Label ghostIconLabel;
     
     protected void AssignQueryResults(VisualElement root)
     {
@@ -96,5 +98,7 @@ partial class UIGameScene
         inventoryRightContainer = root.Q<VisualElement>("InventoryRightContainer");
         gearContainerLayout = root.Q<VisualElement>("GearContainerLayout");
         inventoryLeftContainer = root.Q<VisualElement>("InventoryLeftContainer");
+        ghostIcon = root.Q<VisualElement>("ghostIcon");
+        ghostIconLabel = root.Q<Label>("ghostIconLabel");
     }
 }

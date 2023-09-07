@@ -13,7 +13,6 @@ public partial class UIGameScene
     public List<CollectionSlot> collectionSlots = new();
     public List<UIMenuButton> optionsButtons = new();
     public List<Tab> playerInfoTabs = new();
-    public VisualElement ghosticonRef;
     public VisualElement root;
     public UIGameScene(VisualElement root)
     {
@@ -105,20 +104,14 @@ public partial class UIGameScene
     {
         allMenus.style.display = DisplayStyle.Flex;
         gameSceneContainer.style.display = DisplayStyle.None;
-
-        InputManager.Instance.playerInputActions.Disable();
-        InputManager.Instance.gameInput.InMenuInput.Enable();
-        UIGameManager.Instance.SetCursorStateVisible(true);
+        UIGameManager.Instance.SetPlayerInMenuOptions(true);
     }
 
     public void MenuClosed()
     {
         gameSceneContainer.style.display = DisplayStyle.Flex;
         allMenus.style.display = DisplayStyle.None;
-
-        InputManager.Instance.playerInputActions.Enable();
-        InputManager.Instance.gameInput.InMenuInput.Disable();
-        UIGameManager.Instance.SetCursorStateVisible(false);
+        UIGameManager.Instance.SetPlayerInMenuOptions(false);
     }
 
     private void OnPlayerInfoTabChanged(ChangeEvent<bool> evt, VisualElement tab)
@@ -158,5 +151,15 @@ public partial class UIGameScene
     public void AddElementToGearContainer(VisualElement newElement)
     {
         gearContainerLayout.Add(newElement);
+    }
+
+    public VisualElement GetGhostIconRef()
+    {
+        return ghostIcon;
+    }
+
+    public Label GetGhostIconLabelRef()
+    {
+        return ghostIconLabel;
     }
 }

@@ -33,6 +33,7 @@ MonoBehaviour:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - FileBasedPrefs
+    - Ink-Libraries
     - QuickEye.UIToolkit
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
