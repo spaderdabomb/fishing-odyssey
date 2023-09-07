@@ -1,8 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" gen-cs-namespace="Dialogue" gen-cs-file="6b35da635a5839d45a40b7ffdfc45cb0" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/DialogueStyle.uss?fileID=7433441132597879392&amp;guid=2146f7633b52d6542963d24b590a5a44&amp;type=3#DialogueStyle" />
     <ui:VisualElement name="DialogueContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
         <ui:VisualElement name="DialogueStoryContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
         </ui:VisualElement>
-        <TabbedView name="DialogueOptionsContainer" />
+        <QuickEye.UIToolkit.TabGroup style="align-items: auto; display: none;">
+            <QuickEye.UIToolkit.Tab class="dialogue-option" />
+            <QuickEye.UIToolkit.Tab />
+        </QuickEye.UIToolkit.TabGroup>
+        <QuickEye.UIToolkit.TabDropdown style="flex-direction: column; flex-grow: 1; height: auto; position: absolute; align-self: stretch; justify-content: space-around;">
+            <QuickEye.UIToolkit.Tab class="dialogue-option" />
+            <QuickEye.UIToolkit.Tab class="dialogue-option" />
+            <QuickEye.UIToolkit.Tab class="dialogue-option" />
+        </QuickEye.UIToolkit.TabDropdown>
     </ui:VisualElement>
+    <ui:GroupBox>
+        <ui:Button text="Button" display-tooltip-when-elided="true" />
+        <ui:Button text="Button" display-tooltip-when-elided="true" />
+        <ui:Button text="Button" display-tooltip-when-elided="true" />
+    </ui:GroupBox>
 </ui:UXML>

@@ -9,11 +9,13 @@ namespace Dialogue
 {
     partial class DialogueNPC
     {
-    
+        private VisualElement dialogueContainer;
+        private VisualElement dialogueStoryContainer;
     
         protected void AssignQueryResults(VisualElement root)
         {
-        
+            dialogueContainer = root.Q<VisualElement>("DialogueContainer");
+            dialogueStoryContainer = root.Q<VisualElement>("DialogueStoryContainer");
         }
     }
 }

@@ -1,0 +1,15 @@
+.dialogue-option.qe-tab {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/Art/UI/UIMenus/DialogueMenu/DialogueOptionBgHighlighted.psd?fileID=2800000&guid=87ea76b73599dea41a135ab735677a59&type=3#DialogueOptionBgHighlighted');
+    width: 323px;
+    height: 52px;
+    flex-grow: 0;
+}
+
+.dialogue-option.qe-tab--unchecked {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/Art/UI/UIMenus/DialogueMenu/DialogueOptionBg.psd?fileID=2800000&guid=964e2e95d248e324084f481f52127dcf&type=3#DialogueOptionBg');
+    width: 323px;
+    height: 52px;
+    flex-grow: 0;
+}
