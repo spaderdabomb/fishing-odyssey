@@ -32,8 +32,8 @@ namespace Dialogue
         private void Start()
         {
             root = mainDialogueDocument.rootVisualElement;
-/*            dialogueNPC = new DialogueNPC(root);
-            dialogueNPC.SetVisible(false);*/
+            dialogueNPC = new DialogueNPC(root);
+            dialogueNPC.SetVisible(false);
         }
 
         private void Update()
@@ -46,23 +46,23 @@ namespace Dialogue
         {
             currentStory = new Story(inkJSON.text);
             dialogueIsPlaying = true;
-/*            dialogueNPC.SetVisible(true);
-*/
+            dialogueNPC.SetVisible(true);
+
             ContinueStory();
         }
 
         private void ExitDialogueMode()
         {
             dialogueIsPlaying = false;
-/*            dialogueNPC.SetVisible(false);
-*/        }
+            dialogueNPC.SetVisible(false);
+        }
 
         public void ContinueStory()
         {
             if (currentStory.canContinue)
             {
-/*                dialogueNPC.SetCurrentStoryText(currentStory.Continue());
-*/            }
+                dialogueNPC.SetCurrentStoryText(currentStory.Continue());
+            }
             else
             {
                 ExitDialogueMode();
