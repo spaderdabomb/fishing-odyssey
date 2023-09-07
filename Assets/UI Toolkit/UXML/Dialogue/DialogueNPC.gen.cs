@@ -9,17 +9,11 @@ namespace Dialogue
 {
     partial class DialogueNPC
     {
-        private VisualElement dialogueContainer;
-        private VisualElement dialogueLabelContainer;
-        private Label dialogueHeaderLabel;
-        private Label dialogueCurrentText;
+    
     
         protected void AssignQueryResults(VisualElement root)
         {
-            dialogueContainer = root.Q<VisualElement>("DialogueContainer");
-            dialogueLabelContainer = root.Q<VisualElement>("DialogueLabelContainer");
-            dialogueHeaderLabel = root.Q<Label>("DialogueHeaderLabel");
-            dialogueCurrentText = root.Q<Label>("DialogueCurrentText");
+        
         }
     }
 }
