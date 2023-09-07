@@ -1,2 +1,8 @@
-﻿<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" gen-cs-namespace="Dialogue" gen-cs-file="6b35da635a5839d45a40b7ffdfc45cb0">
-</engine:UXML>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" gen-cs-namespace="Dialogue" gen-cs-file="6b35da635a5839d45a40b7ffdfc45cb0" editor-extension-mode="False">
+    <ui:VisualElement name="DialogueContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement name="DialogueStoryContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+        </ui:VisualElement>
+        <TabbedView name="DialogueOptionsContainer" />
+    </ui:VisualElement>
+</ui:UXML>
