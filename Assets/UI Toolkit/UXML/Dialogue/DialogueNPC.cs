@@ -14,13 +14,23 @@ namespace Dialogue
 
         public void SetCurrentStoryText(string currentText)
         {
-            // dialogueCurrentText.text = currentText;
+            storyLabel.text = currentText;
         }
 
         public void SetVisible(bool isVisible)
         {
 
             root.style.display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        public void AddToOptionsGroupBox(VisualElement newOption)
+        {
+            optionsGroupBox.Add(newOption);
+        }
+
+        public void ClearOptionsGroupBox()
+        {
+            optionsGroupBox.Clear();
         }
     }
 }

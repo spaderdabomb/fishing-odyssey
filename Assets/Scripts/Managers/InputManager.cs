@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Dialogue;
 
-public class InputManager : MonoBehaviour, GameInput.IMenuInputActions, GameInput.IInMenuInputActions
+public class InputManager : MonoBehaviour, GameInput.IMenuInputActions, GameInput.IInMenuInputActions, GameInput.IInDialogueInputActions
 {
     public static InputManager Instance;
 
@@ -26,6 +27,8 @@ public class InputManager : MonoBehaviour, GameInput.IMenuInputActions, GameInpu
         gameInput.MenuInput.Enable();
         gameInput.MenuInput.SetCallbacks(this);
         gameInput.InMenuInput.SetCallbacks(this);
+        gameInput.InDialogueInput.Enable();
+        gameInput.InDialogueInput.SetCallbacks(this);
 
         // Subscribe to Input changed event
         InputSystem.onDeviceChange += OnDeviceChange;
@@ -36,6 +39,8 @@ public class InputManager : MonoBehaviour, GameInput.IMenuInputActions, GameInpu
     private void OnDisable()
     {
         gameInput.MenuInput.RemoveCallbacks(this);
+        gameInput.InMenuInput.RemoveCallbacks(this);
+        gameInput.InDialogueInput.RemoveCallbacks(this);
     }
 
     private void Update()
@@ -123,6 +128,14 @@ public class InputManager : MonoBehaviour, GameInput.IMenuInputActions, GameInpu
     {
         if (!context.performed)
             return;
+    }
+
+    public void OnAdvanceText(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        DialogueManager.Instance.ContinueStory();
     }
 
     public enum LastInputSystem

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False" gen-cs-namespace="Dialogue" gen-cs-file="96173ae232c9c1f478f22c3d9b5c1dc4">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/DialogueStyle.uss?fileID=7433441132597879392&amp;guid=2146f7633b52d6542963d24b590a5a44&amp;type=3#DialogueStyle" />
+    <ui:Button text="Yes" display-tooltip-when-elided="true" name="optionsButton" class="dialogue-option-button" style="-unity-text-align: middle-left; padding-left: 50px; margin-left: 0; margin-right: 0; margin-top: -2px; margin-bottom: -2px; color: rgb(230, 230, 230);">
+        <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/UIMenus/MenuGeneral/MenuArrowNext.psd?fileID=2800000&amp;guid=d4577b3789b2bfe469a2376d6b05f578&amp;type=3#MenuArrowNext&apos;); scale: -0.75 0.75; width: 30px; height: 35px; position: absolute; top: 4px; left: 9px;" />
+    </ui:Button>
+</ui:UXML>

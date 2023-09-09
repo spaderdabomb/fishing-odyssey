@@ -245,7 +245,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
 
     public void InteractWithNPC(GameObject interactingObject)
     {
-        UIGameManager.Instance.SetPlayerInMenuOptions(true);
+        UIGameManager.Instance.SetPlayerInMenuOptions(MenuType.Dialogue);
         DialogueManager.Instance.EnterDialogueMode(interactingObject.GetComponent<NPCSpawned>().npcData.npcStory);
     }
 }

@@ -1,3 +1,4 @@
+using ATL.AudioData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,8 +74,6 @@ public class UIGameManager : MonoBehaviour
     {
         if (newState)
         {
-            print("yo");
-
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             UnityEngine.Cursor.visible = true;
         }
@@ -85,30 +84,47 @@ public class UIGameManager : MonoBehaviour
         }
     }
 
-    public void SetPlayerInMenuOptions(bool inMenu)
+    public void SetPlayerInMenuOptions(MenuType menuType)
     {
-        if (inMenu)
+
+        if (menuType == MenuType.Options)
         {
             InputManager.Instance.playerInputActions.Disable();
             InputManager.Instance.gameInput.InMenuInput.Enable();
-            UIGameManager.Instance.SetCursorStateVisible(true);
+            SetCursorStateVisible(true);
         }
-        else
+        else if (menuType == MenuType.PlayerInfo)
+        {
+            InputManager.Instance.playerInputActions.Disable();
+            InputManager.Instance.gameInput.InMenuInput.Enable();
+            SetCursorStateVisible(true);
+        }
+        else if (menuType == MenuType.Settings)
+        {
+
+        }
+        else if (menuType == MenuType.Dialogue)
+        {
+            InputManager.Instance.playerInputActions.Disable();
+            InputManager.Instance.gameInput.InMenuInput.Disable();
+            InputManager.Instance.gameInput.InDialogueInput.Enable();
+            SetCursorStateVisible(true);
+        }
+        else if (menuType == MenuType.GameScene)
         {
             InputManager.Instance.playerInputActions.Enable();
             InputManager.Instance.gameInput.InMenuInput.Disable();
-            UIGameManager.Instance.SetCursorStateVisible(false);
+            InputManager.Instance.gameInput.InDialogueInput.Disable();
+            SetCursorStateVisible(false);
         }
     }
+}
 
-#if UNITY_EDITOR
-    protected void OnApplicationQuit()
-    {
-        {
-            // uiGameScene.root.Clear();
-        }
-    }
-
-#endif
-
+public enum MenuType
+{
+    Options = 0,
+    PlayerInfo = 1,
+    Settings = 2,
+    Dialogue = 3,
+    GameScene = 4
 }

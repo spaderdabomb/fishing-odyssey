@@ -104,14 +104,14 @@ public partial class UIGameScene
     {
         allMenus.style.display = DisplayStyle.Flex;
         gameSceneContainer.style.display = DisplayStyle.None;
-        UIGameManager.Instance.SetPlayerInMenuOptions(true);
+        UIGameManager.Instance.SetPlayerInMenuOptions(MenuType.PlayerInfo);
     }
 
     public void MenuClosed()
     {
         gameSceneContainer.style.display = DisplayStyle.Flex;
         allMenus.style.display = DisplayStyle.None;
-        UIGameManager.Instance.SetPlayerInMenuOptions(false);
+        UIGameManager.Instance.SetPlayerInMenuOptions(MenuType.GameScene);
     }
 
     private void OnPlayerInfoTabChanged(ChangeEvent<bool> evt, VisualElement tab)
