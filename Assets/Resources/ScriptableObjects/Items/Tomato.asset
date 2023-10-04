@@ -60,7 +60,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  itemDataAsset: {fileID: 11400000}
   itemID: TomatoCommon
   baseName: Tomato
   displayName: Tomato
@@ -71,7 +70,7 @@ MonoBehaviour:
   itemType: 5
   itemRarity: 1
   itemCategories: 4
-  item3DPrefab: {fileID: 5583628007690008659, guid: 2ed8f2aceb3a59c4baf0195c44c5f94b,
+  item3DPrefab: {fileID: 8013446975014168929, guid: 4beb064ef336ac64cbfe44ba5194f5fb,
     type: 3}
   itemSprite: {fileID: 21300000, guid: e3fcea9b73ea22c4a96c6b7979735c0d, type: 3}
   itemHeldPrefab: {fileID: 0}

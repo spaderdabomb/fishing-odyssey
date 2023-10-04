@@ -19,11 +19,11 @@ public partial class UIMenuButton
 
     private void OnHover(MouseEnterEvent evt)
     {
-        AudioManager.PlaySound(MainAudioLibrarySounds.click_suppressed);
+        AudioManager.PlaySound(MainAudioLibrarySounds.WoodenTick);
     }
 
     private void OnClick()
     {
-        AudioManager.PlaySound(MainAudioLibrarySounds.digi_plink);
+        AudioManager.PlaySound(MainAudioLibrarySounds.ConfirmTick);
     }
 }

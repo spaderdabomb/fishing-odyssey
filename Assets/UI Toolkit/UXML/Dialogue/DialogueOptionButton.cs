@@ -10,6 +10,12 @@ namespace Dialogue
         public DialogueOptionButton(VisualElement root)
         {
             AssignQueryResults(root);
+            optionsButton.RegisterCallback<PointerOverEvent>(OnHover);
+        }
+
+        public void RemoveCallbacks()
+        {
+            optionsButton.UnregisterCallback<PointerOverEvent>(OnHover);
         }
 
         public void SetOptionsText(string newText)
@@ -30,8 +36,12 @@ namespace Dialogue
         private void OptionsButtonClicked(Choice choice)
         {
             DialogueManager.Instance.ChooseChoice(choice.index);
-            AudioManager.PlaySound(MainAudioLibrarySounds.digi_plink);
-            Debug.Log("Playing sounds");
+            AudioManager.PlaySound(MainAudioLibrarySounds.ConfirmTick);
+        }
+
+        private void OnHover(PointerOverEvent evt)
+        {
+            AudioManager.PlaySound(MainAudioLibrarySounds.WoodenTick);
         }
     }
 }

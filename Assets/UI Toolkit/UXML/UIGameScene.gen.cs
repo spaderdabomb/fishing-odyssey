@@ -50,6 +50,8 @@ partial class UIGameScene
     private VisualElement inventoryRightContainer;
     private VisualElement gearContainerLayout;
     private VisualElement inventoryLeftContainer;
+    private TemplateContainer menuMissionsRoot;
+    private TemplateContainer menuCollections;
     private VisualElement ghostIcon;
     private Label ghostIconLabel;
     
@@ -98,6 +100,8 @@ partial class UIGameScene
         inventoryRightContainer = root.Q<VisualElement>("InventoryRightContainer");
         gearContainerLayout = root.Q<VisualElement>("GearContainerLayout");
         inventoryLeftContainer = root.Q<VisualElement>("InventoryLeftContainer");
+        menuMissionsRoot = root.Q<TemplateContainer>("MenuMissionsRoot");
+        menuCollections = root.Q<TemplateContainer>("MenuCollections");
         ghostIcon = root.Q<VisualElement>("ghostIcon");
         ghostIconLabel = root.Q<Label>("ghostIconLabel");
     }

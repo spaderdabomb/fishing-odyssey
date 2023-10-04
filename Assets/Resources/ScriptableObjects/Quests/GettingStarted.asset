@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd0dbdfb48c170649bd20a672d415e11, type: 3}
+  m_Name: GettingStarted
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 28bb8912c501d7d46bd63acb4f7c2ca5, type: 2}
+    - {fileID: 11400000, guid: 2d25672f89365be458e85e075ba3b0d5, type: 2}
+    - {fileID: 11400000, guid: b7b96123f26d9f94da1e35edc2c33ff0, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: questStory
+      Entry: 7
+      Data: 0|Ink.Runtime.Story, Ink-Libraries
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: questStepInfos
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[IGenericQuestStep, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 2|CollectFishTypeQuestStep, Assembly-CSharp
+    - Name: fishType
+      Entry: 3
+      Data: 18446744073709551615
+    - Name: myInt
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|NPCDialogueQuestStep, Assembly-CSharp
+    - Name: npc
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: rewards
+      Entry: 7
+      Data: 4|System.Collections.Generic.Dictionary`2[[ItemData, Assembly-CSharp],[System.Int32,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 5|System.Collections.Generic.ObjectEqualityComparer`1[[ItemData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 1
+    - Name: $v
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 2
+    - Name: $v
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  <questID>k__BackingField: GettingStarted
+  displayName: Getting Started
+  questDescription: Learn how to fish from the Wise Old Man located on Tutorial Island.
+  questStartDescription: Talk to the Wise Old Man
+  biomeLocation: 0
+  questStoryAsset: {fileID: 4900000, guid: 9230efdfac2640e4388fd79cc1442c5d, type: 3}
+  levelRequirement: 0
+  questPrerequisites: []
+  questStepPrefabs:
+  - {fileID: 3079677486168117854, guid: f43d0851d6207f541b44111a9db2547e, type: 3}
+  - {fileID: 3079677486168117854, guid: 2b1d4c119b1ca884bb0c978d9c494610, type: 3}
+  goldReward: 200
+  experienceReward: 100

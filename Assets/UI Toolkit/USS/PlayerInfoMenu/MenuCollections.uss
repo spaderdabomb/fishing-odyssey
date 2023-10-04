@@ -1,0 +1,28 @@
+.biome-tab {
+    margin-right: 15px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.biome-tab.qe-tab--unchecked {
+    background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/MissionsMenu/MissionsTabQuests.psd?fileID=2800000&guid=f50e1b1386cce1e47913bf111ae8d554&type=3#MissionsTabQuests');
+    width: 35px;
+    height: 35px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.39);
+}
+
+.biome-tab.qe-tab--checked {
+    background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/MissionsMenu/MissionsTabQuests.psd?fileID=2800000&guid=f50e1b1386cce1e47913bf111ae8d554&type=3#MissionsTabQuests');
+    width: 35px;
+    height: 35px;
+}
+
+.biome-tab.qe-tab--unchecked:hover {
+    background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/MissionsMenu/MissionsTabQuests.psd?fileID=2800000&guid=f50e1b1386cce1e47913bf111ae8d554&type=3#MissionsTabQuests');
+    width: 35px;
+    height: 35px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.71);
+}

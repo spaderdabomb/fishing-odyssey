@@ -1,6 +1,10 @@
     public enum MainAudioLibrarySounds {
-        click_suppressed,
-        digi_plink
+        WoodenTick,
+        SelectSuppressed,
+        ConfirmTick,
+        DialogueNext,
+        ItemDrop,
+        ItemPickup
     }
     public enum MainAudioLibraryMusic {
         Ghostrifter

@@ -42,8 +42,8 @@ namespace ZenUI
 
         public void InitGearSlots()
         {
+            // Init slots
             inventorySlots = new List<InventorySlot>();
-
             for (int i = 0; i < inventoryCols; i++) 
             {
                 VisualElement gearSlotClone = InventoryManager.Instance.gearSlotAsset.CloneTree();
@@ -54,6 +54,20 @@ namespace ZenUI
                 gearSlots.Add(newGearSlot);
                 inventorySlots.Add(newGearSlot);
                 gearSlotContainer.Add(gearSlotClone);
+            }
+
+            // Init persistent data
+            BaseItemData[] baseItemData = DataManager.Instance.LoadGearContainerData(gearContainerType);
+            for (int i = 0; i < baseItemData.Length; i++)
+            {
+                BaseItemData baseItem = baseItemData[i];
+                if (baseItem != null)
+                {
+                    ItemData itemDataAsset = ItemExtensions.GetItemData(baseItem.itemID);
+                    ItemData newItem = itemDataAsset.GetItemDataInstantiated();
+                    newItem.SetItemDataToBaseItemData(baseItem);
+                    AddItem(newItem, inventorySlots[i]);
+                }
             }
         }
 

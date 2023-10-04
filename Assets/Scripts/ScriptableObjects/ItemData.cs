@@ -13,13 +13,12 @@ using static UnityEngine.GraphicsBuffer;
 [CreateAssetMenu(fileName = "ItemData", menuName = "Fishing Odyssey/Items/ItemData")]
 public class ItemData : SerializedScriptableObject
 {
-    public ItemData itemDataAsset;
-
     [Header("Details")]
-    [ReadOnly] public string itemID;
+    [ReadOnly] public string itemID = Guid.NewGuid().ToString();
     public string baseName;
     public string displayName;
     public string description;
+
     public int stackCount;
     public int maxStackCount = 50;
     public int baseSellValue = 1;
@@ -40,13 +39,17 @@ public class ItemData : SerializedScriptableObject
 
     private void OnEnable()
     {
-        itemID = baseName + itemRarity.ToString();
-
         itemStats = new();
         foreach (IGenericItemStat genericItemStat in itemStatList)
         {
             itemStats.SetStat(genericItemStat.ItemStat, genericItemStat.GetValue());
         }
+    }
+
+    public void SetItemDataToBaseItemData(BaseItemData baseItemData)
+    {
+        itemID = baseItemData.itemID;
+        stackCount = baseItemData.stackCount;
     }
 
     public interface IGenericItemStat
@@ -142,5 +145,58 @@ public class ItemData : SerializedScriptableObject
         Outfit = 16,
         Accessory = 32,
         Tackle = 64,
+    }
+}
+
+public class BaseItemData
+{
+    public string itemID;
+    public int stackCount;
+
+    public BaseItemData(ItemData itemData)
+    {
+        itemID = itemData.itemID;
+        stackCount = itemData.stackCount;
+    }
+}
+
+public static class ItemExtensions
+{
+    private static readonly Dictionary<string, ItemData> _items = new Dictionary<string, ItemData>();
+    public static ItemData GetItemData(string uniqueID)
+    {
+        if (_items.Count <= 0)
+        {
+            var items = Resources.LoadAll<ItemData>("ScriptableObjects/Items");
+            foreach ( var item in items )
+            {
+                _items.Add(item.itemID, item);
+            }
+        }
+
+        if (_items.TryGetValue(uniqueID, out ItemData itemData))
+        {
+            return itemData;
+        }
+
+        Debug.LogWarning($"Item not found: {uniqueID}");
+        return null;
+    }
+
+    public static ItemData GetItemDataInstantiated(this ItemData itemData)
+    {
+        ItemData originalItemData = GetItemData(itemData.itemID);
+        if (originalItemData == null)
+            return null;
+
+        ItemData spawnedItemData = ScriptableObject.Instantiate(originalItemData);
+        Debug.Log(spawnedItemData.stackCount);
+        return spawnedItemData;
+    }
+
+    public static ItemData CloneItemData(this ItemData itemData)
+    {
+        ItemData spawnedItemData = ScriptableObject.Instantiate(itemData);
+        return spawnedItemData;
     }
 }

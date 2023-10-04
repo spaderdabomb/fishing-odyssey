@@ -1,4 +1,5 @@
 using Dialogue;
+using JSAM;
 using PickleMan;
 using System.Collections;
 using System.Collections.Generic;
@@ -218,8 +219,11 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (!context.performed || currentInteractObjectIndex == -1)
+        if (!context.performed || currentInteractObjectIndex == -1 || interactingObjects.Count <= 0)
             return;
+
+        // GameEventsManager.Instance.inputEvents.SubmitPressed();
+
 
         GameObject currentInteractingObject = interactingObjects[currentInteractObjectIndex];
         if (currentInteractingObject.GetComponent<ItemSpawned>() != null)
@@ -236,6 +240,12 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
     {
         ItemData itemData = interactingObject.GetComponent<ItemSpawned>().itemData;
         int itemsRemaining = InventoryManager.Instance.inventory.TryAddItem(itemData);
+
+        if (itemsRemaining < itemData.stackCount)
+        {
+            AudioManager.PlaySound(MainAudioLibrarySounds.ItemPickup);
+        }
+
         if (itemsRemaining == 0)
         {
             Destroy(interactingObject);
@@ -246,6 +256,6 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
     public void InteractWithNPC(GameObject interactingObject)
     {
         UIGameManager.Instance.SetPlayerInMenuOptions(MenuType.Dialogue);
-        DialogueManager.Instance.EnterDialogueMode(interactingObject.GetComponent<NPCSpawned>().npcData.npcStory);
+        DialogueManager.Instance.EnterDialogueMode(interactingObject.GetComponent<NPCSpawned>().npcData.currentStory);
     }
 }

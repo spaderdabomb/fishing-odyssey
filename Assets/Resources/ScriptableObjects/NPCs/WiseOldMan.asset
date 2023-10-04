@@ -20,9 +20,13 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  npcID: 
+    SerializationNodes:
+    - Name: currentStory
+      Entry: 6
+      Data: 
+  npcID: WiseOldMan
   baseName: WiseOldMan
   displayName: Wise Old Man
   description: There is something frightening about his wisdom
-  npcStory: {fileID: 4900000, guid: 64533539289fb8b448479233c1dc9798, type: 3}
+  npcStoryAsset: {fileID: 4900000, guid: dfecdee73580751438d46b6a0f907560, type: 3}
+  currentStoryIndex: 0

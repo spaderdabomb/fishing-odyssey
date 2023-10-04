@@ -57,7 +57,7 @@ public class InputManager : MonoBehaviour, GameInput.IMenuInputActions, GameInpu
         }
     }
 
-
+    // Called when "Tab" is pressed from game scene actions
     public void OnToggleGameMenu(InputAction.CallbackContext context)
     {
         if (!context.performed)
@@ -66,6 +66,7 @@ public class InputManager : MonoBehaviour, GameInput.IMenuInputActions, GameInpu
         UIGameManager.Instance.uiGameScene.TogglePlayerDataMenu();
     }
 
+    // Called when "Esc" is pressed from game scene actions
     public void OnToggleOptionsMenu(InputAction.CallbackContext context)
     {
         if (!context.performed)

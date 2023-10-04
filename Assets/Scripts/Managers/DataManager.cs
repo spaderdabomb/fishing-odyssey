@@ -1,25 +1,26 @@
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Build.Content;
+using Ink.Parsed;
+using System;
 using UnityEngine;
-using static UnityEngine.Mesh;
+using System.Collections.Generic;
+using UnityEngine.Events;
+using System.Linq;
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
 
-    // Persistent data keys
-    public static string masterVolume = "masterVolume";
-    public static string musicVolume = "musicVolume";
-    public static string sfxVolume = "sfxVolume";
+    // Save data values
+    [HideInInspector] public float MasterVolume = 1f;
+    [HideInInspector] public float MusicVolume = 1f;
+    [HideInInspector] public float SfxVolume = 1f;
 
-    // Persistent data values
-    public Dictionary<string, bool> fishCollectionDict = new();
+    [HideInInspector] public BaseItemData[] inventoryItemData;
+    [HideInInspector] public BaseItemData[] handsContainerItemData;
+    [HideInInspector] public BaseItemData[] tackleContainerItemData;
+    [HideInInspector] public BaseItemData[] outfitContainerItemData;
+    [HideInInspector] public BaseItemData[] accessoriesContainerItemData;
 
-    // Default values
-    public static float masterVolumeDefault = 1f;
-    public static float musicVolumeDefault = 1f;
-    public static float sfxVolumeDefault = 1f;
+    public UnityAction<float> OnSaveData;
 
     private void Awake()
     {
@@ -27,9 +28,8 @@ public class DataManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            InitAllData();
-            SetConfig();
-            LoadData();
+            InitData();
+            LoadAllData();
         }
         else
         {
@@ -37,61 +37,113 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private void InitAllData()
+    public T Load<T>(string saveKeyName, T saveKey)
     {
-        for (int i = 0; i < GameManager.Instance.allFishData.Count; i++)
+        return ES3.Load<T>(saveKeyName, defaultValue: saveKey);
+    }
+
+    private void InitData()
+    {
+        inventoryItemData = new BaseItemData[GameManager.Instance.gameData.inventoryRows*GameManager.Instance.gameData.inventoryCols];
+        handsContainerItemData = new BaseItemData[GameManager.Instance.gameData.gearCols];
+        tackleContainerItemData = new BaseItemData[GameManager.Instance.gameData.gearCols];
+        outfitContainerItemData = new BaseItemData[GameManager.Instance.gameData.gearCols];
+        accessoriesContainerItemData = new BaseItemData[GameManager.Instance.gameData.gearCols];
+    }
+
+    private void LoadAllData()
+    {
+        IPersistable[] persistables = FindObjectsOfType<MonoBehaviour>().OfType<IPersistable>().ToArray();
+        foreach (var persistable in persistables)
         {
-            fishCollectionDict.Add(GameManager.Instance.allFishData[i].fishID, false);
+            persistable.LoadData();
+            print($"persistable load: {persistable}");
         }
     }
 
-    private void SetConfig()
+    public void Save<T>(string saveKeyName, T saveKeyValue)
     {
-        // build your config
-        var config = new FBPPConfig()
-        {
-            SaveFileName = "URP-template-name.txt",
-            AutoSaveData = false,
-            ScrambleSaveData = false,
-            // EncryptionSecret = "spadersecretcode",
-            // SaveFilePath = "C:/Repositories/unity-2d-builtin-template"
-        };
-        // pass it to FBPP
-        FBPP.Start(config);
+        ES3.Save(saveKeyName, saveKeyValue);
     }
 
-    private void LoadData()
+    public void SaveAllData()
     {
-        for (int i = 0; i < DataManager.Instance.fishCollectionDict.Count; i++)
+        IPersistable[] persistables = FindObjectsOfType<MonoBehaviour>().OfType<IPersistable>().ToArray();
+        foreach (var persistable in persistables)
         {
-            FishData fishData = GameManager.Instance.allFishData[i];
-            GetSavedFishBool(fishData);
+            persistable.SaveData();
+            print($"persistable save: {persistable}");
+        }
+
+        // All gear containers
+        GearContainerType[] gearContainerTypes = (GearContainerType[])Enum.GetValues(typeof(GearContainerType));
+        foreach (GearContainerType gearContainerType in gearContainerTypes)
+        {
+            BaseItemData[] tempItemData = InventoryManager.Instance.GetGearSlotData(gearContainerType);
+            SaveGearContainerData(gearContainerType, tempItemData);
+        }
+
+        // Inventory
+        inventoryItemData = InventoryManager.Instance.GetAllInventorySlotData();
+        Save(nameof(inventoryItemData), inventoryItemData);
+    }
+
+    private void OnApplicationQuit()
+    {
+        // SaveAllData();
+    }
+
+    public void SaveGearContainerData(GearContainerType gearContainerType, BaseItemData[] newItemData)
+    {
+        switch (gearContainerType)
+        {
+            case GearContainerType.Hands:
+                handsContainerItemData = newItemData;
+                Save(nameof(handsContainerItemData), handsContainerItemData); 
+                break;
+            case GearContainerType.Tackle: 
+                tackleContainerItemData = newItemData;
+                Save(nameof(tackleContainerItemData), tackleContainerItemData); 
+                break;
+            case GearContainerType.Outfit: 
+                outfitContainerItemData = newItemData;
+                Save(nameof(outfitContainerItemData), outfitContainerItemData);
+                break;
+            case GearContainerType.Accessories: 
+                accessoriesContainerItemData = newItemData;
+                Save(nameof(accessoriesContainerItemData), accessoriesContainerItemData); 
+                break;
+            default:
+                Debug.Log($"failed to save gearContainerType {gearContainerType}");
+                break;
         }
     }
 
-    public void SaveData()
+    public BaseItemData[] LoadGearContainerData(GearContainerType gearContainerType)
     {
-        FBPP.Save();
-
-        for (int i = 0; i < DataManager.Instance.fishCollectionDict.Count; i++)
+        switch (gearContainerType)
         {
-            FishData fishData = GameManager.Instance.allFishData[i];
-            SetFishBool(fishData, DataManager.Instance.fishCollectionDict[fishData.fishID]);
+            case GearContainerType.Hands:
+                handsContainerItemData = Load(nameof(handsContainerItemData), handsContainerItemData);
+                return handsContainerItemData;
+            case GearContainerType.Tackle:
+                tackleContainerItemData = Load(nameof(tackleContainerItemData), tackleContainerItemData);
+                return tackleContainerItemData;
+            case GearContainerType.Outfit:
+                outfitContainerItemData = Load(nameof(outfitContainerItemData), outfitContainerItemData);
+                return outfitContainerItemData;
+            case GearContainerType.Accessories:
+                accessoriesContainerItemData = Load(nameof(accessoriesContainerItemData), accessoriesContainerItemData);
+                return accessoriesContainerItemData;
+            default:
+                Debug.Log($"failed to load gearContainerType {gearContainerType}");
+                return null;
         }
     }
-    public void SetFishBool(FishData newFishData, bool value)
-    {
-        FBPP.SetBool(newFishData.fishID, value);
-        DataManager.Instance.fishCollectionDict[newFishData.fishID] = value;
-    }
+}
 
-    public bool GetFishBool(FishData newFishData)
-    {
-        return DataManager.Instance.fishCollectionDict[newFishData.fishID];
-    }
-
-    private void GetSavedFishBool(FishData newFishData)
-    {
-        DataManager.Instance.fishCollectionDict[newFishData.fishID] = FBPP.GetBool(newFishData.fishID, false);
-    }
+public interface IPersistable
+{
+    public void SaveData();
+    public void LoadData();
 }

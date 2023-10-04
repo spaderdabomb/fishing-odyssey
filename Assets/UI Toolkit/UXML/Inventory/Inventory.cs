@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEngine;
+using JSAM;
+using System.Linq;
 
 public partial class Inventory : BaseSlotContainer
 {
+    public BaseItemData[] inventoryItemData;
     public Inventory(VisualElement root, int inventoryRows, int inventoryCols) : base(root, inventoryRows, inventoryCols)
     {
         AssignQueryResults(root);
@@ -12,8 +15,8 @@ public partial class Inventory : BaseSlotContainer
 
     private void InitInventorySlots()
     {
+        // Init slots
         inventorySlots = new List<InventorySlot>();
-
         for (int i = 0; i < inventoryRows; i++)
         {
             for (int j = 0; j < inventoryCols; j++)
@@ -25,22 +28,30 @@ public partial class Inventory : BaseSlotContainer
                 inventoryContainer.Add(inventoryAsset);
             }
         }
-    }
 
-    private int AddItem(ItemData itemData, int slotIndex)
-    {
-        InventorySlot inventorySlot = inventorySlots[slotIndex];
-        int numItemsRemaining = inventorySlot.AddItemToSlot(itemData);
+        // Load item data
+        //DataManager.Instance.inventoryItemData = DataManager.Instance.Load(nameof(DataManager.Instance.inventoryItemData), DataManager.Instance.inventoryItemData);
 
-        return numItemsRemaining;
+        inventoryItemData = ES3.Load(nameof(inventoryItemData), defaultValue: inventoryItemData);
+        for (int i = 0; i < DataManager.Instance.inventoryItemData.Length; i++)
+        {
+            BaseItemData baseItem = DataManager.Instance.inventoryItemData[i];
+            if (baseItem != null)
+            {
+                ItemData itemDataAsset = ItemExtensions.GetItemData(baseItem.itemID);
+                ItemData newItem = itemDataAsset.GetItemDataInstantiated();
+                newItem.SetItemDataToBaseItemData(baseItem);
+                AddItem(newItem, inventorySlots[i]);
+            }
+        }
     }
 
     public void TrySplitItem(bool splitHalf)
     {
-        if (currentHoverSlot == null)
+        if (!ItemExistsInCurrentSlot())
             return;
 
-        ItemData newItemData = InventoryManager.Instance.InstantiateItem(currentHoverSlot.currentItemData.itemDataAsset);
+        ItemData newItemData = currentHoverSlot.currentItemData.CloneItemData();
         int firstSlot = GetFirstFreeSlot(newItemData, mergeSameItems: false);
         if (firstSlot == -1 || currentHoverSlot.currentItemData.stackCount == 1)
             return;
@@ -55,16 +66,28 @@ public partial class Inventory : BaseSlotContainer
         currentHoverSlot.SetStackCount(oldStackCount);
         newItemData.stackCount = newStackCount;
 
-        AddItem(newItemData, firstSlot);
+        AddItem(newItemData, inventorySlots[firstSlot]);
     }
 
     public void DropItem()
     {
-        if (currentHoverSlot == null)
+        if (!ItemExistsInCurrentSlot())
             return;
 
         InventoryManager.Instance.InstantiateItemSpawned(currentHoverSlot.currentItemData);
         RemoveItem(currentHoverSlot);
+        AudioManager.PlaySound(MainAudioLibrarySounds.ItemDrop);
+    }
+
+    public bool ItemExistsInCurrentSlot()
+    {
+        if (currentHoverSlot == null)
+            return false;
+
+        if (currentHoverSlot.currentItemData == null)
+            return false;
+
+        return true;
     }
 
     public void GetItemAtIndex()
@@ -115,5 +138,10 @@ public partial class Inventory : BaseSlotContainer
         }
 
         return currentSlot;
+    }
+
+    public void SaveData()
+    {
+        ES3.Save(nameof(inventoryItemData), inventoryItemData);
     }
 }

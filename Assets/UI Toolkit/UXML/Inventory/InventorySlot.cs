@@ -1,5 +1,6 @@
 using UnityEngine.UIElements;
 using UnityEngine;
+using JSAM;
 
 public partial class InventorySlot : VisualElement
 {
@@ -119,6 +120,7 @@ public partial class InventorySlot : VisualElement
     {
         InventoryManager.Instance.UpdateCurrentHoverSlot(this, true);
         parentContainer.currentHoverSlot = this;
+        AudioManager.PlaySound(MainAudioLibrarySounds.WoodenTick);
     }
 
     public void PointerLeaveSlot(PointerLeaveEvent evt)

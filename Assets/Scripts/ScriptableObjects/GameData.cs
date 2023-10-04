@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
@@ -19,6 +21,11 @@ public class GameData : ScriptableObject
     public Color standardTextColor;
     public Color orangeTextColor;
     public Color standardTintColor;
+
+    [Header("Settings")]
+    public int inventoryRows = 8;
+    public int inventoryCols = 4;
+    public int gearCols = 6;
 
     // Health
     [SerializeField, ReadOnly] private FishData lastFishCaught;
@@ -54,18 +61,22 @@ public class GameData : ScriptableObject
 
 public enum BiomeType
 {
-    Grassy,
-    Desert
+    [Description("Tutorial Island")]
+    TutorialIsland = 0,
+    [Description("Grassy Biome")]
+    Grassy = 1,
+    [Description("Desert Island")]
+    Desert = 2
 }
 
 public enum ObjectRarities
 {
-    None,
-    Common,
-    Uncommon,
-    Rare,
-    Special,
-    Epic,
-    Legendary,
-    Mythic
+    None = 0, 
+    Common = 1,
+    Uncommon = 2,
+    Rare = 3,
+    Special = 4, 
+    Epic = 5,
+    Legendary = 6,
+    Mythic = 7
 }

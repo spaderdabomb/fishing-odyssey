@@ -6,6 +6,7 @@ using static UnityEngine.Rendering.DebugUI.MessageBox;
 using UnityEditor.Rendering.LookDev;
 using static UnityEngine.Mesh;
 using QuickEye.UIToolkit;
+using Dialogue;
 
 public partial class UIGameScene
 {
@@ -14,6 +15,8 @@ public partial class UIGameScene
     public List<UIMenuButton> optionsButtons = new();
     public List<Tab> playerInfoTabs = new();
     public VisualElement root;
+
+    public MenuMissions menuMissions;
     public UIGameScene(VisualElement root)
     {
         optionButtonNames = new string[] { "Stats", "Settings", "Quit" };
@@ -23,6 +26,7 @@ public partial class UIGameScene
         InitCollectionMenu();
         InitOptionsMenu();
         InitPlayerInfoMenu();
+        InitMissionsMenu();
     }
 
     private void InitPlayerInfoMenu()
@@ -45,6 +49,11 @@ public partial class UIGameScene
         }
     }
 
+    private void InitMissionsMenu()
+    {
+        menuMissions = new MenuMissions(menuMissionsRoot);
+    }
+
     private void InitOptionsMenu()
     {
         foreach (string buttonName in optionButtonNames)
@@ -64,8 +73,9 @@ public partial class UIGameScene
 
     public void TogglePlayerDataMenu()
     {
-        // If different menu already open, return
-        if (allMenus.style.display == DisplayStyle.Flex && menuOptions.style.display == DisplayStyle.Flex)
+        // If different menu already open, return (first && statement because menuOptions inside of allMenus)
+        if ((allMenus.style.display == DisplayStyle.Flex && menuOptions.style.display == DisplayStyle.Flex) ||
+            (DialogueManager.Instance.dialogueNPC.root.style.display == DisplayStyle.Flex))
         {
             return;
         }
@@ -87,7 +97,7 @@ public partial class UIGameScene
     public void ToggleOptionsMenu()
     {
         // Menu closing
-        if (allMenus.style.display == DisplayStyle.Flex)
+        if (allMenus.style.display == DisplayStyle.Flex || DialogueManager.Instance.dialogueNPC.root.style.display == DisplayStyle.Flex)
         {
             MenuClosed();
         }
@@ -111,6 +121,11 @@ public partial class UIGameScene
     {
         gameSceneContainer.style.display = DisplayStyle.Flex;
         allMenus.style.display = DisplayStyle.None;
+        if (DialogueManager.Instance.dialogueNPC.root.style.display == DisplayStyle.Flex)
+        {
+            DialogueManager.Instance.ExitDialogueMode();
+        }
+        DialogueManager.Instance.dialogueNPC.root.style.display = DisplayStyle.None;
         UIGameManager.Instance.SetPlayerInMenuOptions(MenuType.GameScene);
     }
 
@@ -127,7 +142,7 @@ public partial class UIGameScene
     public void OnFishCaught(FishData caughtFishData)
     {
         Debug.Log(caughtFishData.fishID);
-        bool hasBeenCaught = DataManager.Instance.GetFishBool(caughtFishData);
+/*        bool hasBeenCaught = DataManager.Instance.GetFishBool(caughtFishData);
         if (hasBeenCaught)
         {
 
@@ -140,7 +155,7 @@ public partial class UIGameScene
             Debug.Log(DataManager.Instance.GetFishBool(caughtFishData));
             ClearCollectionMenu();
             InitCollectionMenu();
-        }
+        }*/
     }
 
     public void AddInventoryToPlayerInfo(VisualElement inventory)

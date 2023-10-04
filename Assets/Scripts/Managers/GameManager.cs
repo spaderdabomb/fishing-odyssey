@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject player;
+    public GameObject camera;
     [HideInInspector] public PlayerStates playerStates;
     [HideInInspector] public PlayerMovement playerMovement;
 
@@ -34,6 +35,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Debug.LogError($"Found more than one {this} in the scene.");
+        }
         Instance = this;
     }
 
@@ -112,6 +117,7 @@ public class GameManager : MonoBehaviour
 
     public void CaughtFish()
     {
+        GameEventsManager.Instance.miscEvents.FishCollected();
         FishData caughtFishData = SpawnRandomFish();
         print(caughtFishData);
         gameData.LastFishCaught = caughtFishData;

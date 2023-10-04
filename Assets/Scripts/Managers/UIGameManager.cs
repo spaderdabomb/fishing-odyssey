@@ -9,12 +9,17 @@ public class UIGameManager : MonoBehaviour
 {
     public static UIGameManager Instance;
 
-    // UI Toolkit
+    [Header("Visual Element Assets")]
     public UIDocument mainUIDocument;
     public VisualTreeAsset collectionSlot;
     public VisualTreeAsset optionsButton;
     public VisualTreeAsset popupMenuInventory;
     public VisualTreeAsset popupMenuInventoryStatsContainer;
+    public VisualTreeAsset missionContainer;
+
+    [Header("Visual Element Assets")]
+    public Texture2D questStatusIconDark;
+    public Texture2D questStatusIconLight;
 
     [HideInInspector] public VisualElement root;
     [HideInInspector] public UIGameScene uiGameScene;
@@ -29,6 +34,10 @@ public class UIGameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Debug.LogError("Found more than one Game Events Manager in the scene.");
+        }
         Instance = this;
     }
 

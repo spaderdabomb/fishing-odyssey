@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemSpawned : InteractingObject
 {
@@ -9,7 +11,20 @@ public class ItemSpawned : InteractingObject
     [ReadOnly] public ItemData itemData;
 
     private bool itemDataInitialized = false;
-    protected override string DisplayString { get; set; } = string.Empty;
+
+    private string displayString = string.Empty;
+    protected override string DisplayString
+    {
+        get { return displayString; }
+        set
+        {
+            displayString = value;
+            StackCountChanged?.Invoke(displayString);
+        }
+    }
+
+    public UnityAction<string> StackCountChanged;
+
 
     private void OnValidate()
     {
@@ -34,8 +49,13 @@ public class ItemSpawned : InteractingObject
     public void InitItemData()
     {
         itemData = Instantiate(itemDataAsset);
-        DisplayString = itemData.displayName + " x" + itemData.stackCount.ToString();
+        SetStackCount(itemData.stackCount);
         itemDataInitialized = true;
     }
 
+    public void SetStackCount(int newStackCount)
+    {
+        itemData.stackCount = newStackCount;
+        DisplayString = itemData.displayName + " x" + itemData.stackCount.ToString();
+    }
 }

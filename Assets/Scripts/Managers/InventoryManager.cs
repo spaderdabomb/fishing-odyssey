@@ -19,9 +19,8 @@ public class InventoryManager : SerializedMonoBehaviour
     public VisualTreeAsset gearContainerAsset;
     public VisualTreeAsset gearSlotAsset;
 
-    public int inventoryRows;
-    public int inventoryCols;
-
+    private int inventoryRows;
+    private int inventoryCols;
     private Vector2 startMousePosition;
     private Vector2 startElementPosition;
     public float timeToShowTooltip = 0.5f;
@@ -50,6 +49,8 @@ public class InventoryManager : SerializedMonoBehaviour
     {
         Instance = this;
         player = GameManager.Instance.player.GetComponent<Player>();
+        inventoryRows = GameManager.Instance.gameData.inventoryRows;
+        inventoryCols = GameManager.Instance.gameData.inventoryCols;
 
         gearContainerToDataDicts = new()
         {
@@ -80,7 +81,7 @@ public class InventoryManager : SerializedMonoBehaviour
         foreach (GearContainerType gearContainerType in Enum.GetValues(typeof(GearContainerType)))
         {
             VisualElement gearContainerClone = gearContainerAsset.CloneTree();
-            gearContainerDict.Add(gearContainerType, new GearContainer(gearContainerClone, 1, 6, gearContainerType));
+            gearContainerDict.Add(gearContainerType, new GearContainer(gearContainerClone, 1, GameManager.Instance.gameData.gearCols, gearContainerType));
             UIGameManager.Instance.uiGameScene.AddElementToGearContainer(gearContainerClone);
         }
     }
@@ -145,7 +146,7 @@ public class InventoryManager : SerializedMonoBehaviour
 
     public ItemData InstantiateItem(ItemData itemData)
     {
-        ItemData newItemData = Instantiate(itemData.itemDataAsset);
+        ItemData newItemData = Instantiate(itemData);
 
         return newItemData;
     }
@@ -155,7 +156,7 @@ public class InventoryManager : SerializedMonoBehaviour
         GameObject newItemSpawned = Instantiate(itemData.item3DPrefab, GameManager.Instance.itemContainer.transform);
         ItemSpawned newItemSpanwedInst = newItemSpawned.GetComponent<ItemSpawned>();
         newItemSpanwedInst.InitItemData();
-        newItemSpanwedInst.itemData.stackCount = itemData.stackCount;
+        newItemSpanwedInst.SetStackCount(itemData.stackCount);
 
         Transform playerTransform = player.transform;
         Camera playerCamera = GameManager.Instance.playerMovement.playerCamera;
@@ -313,5 +314,41 @@ public class InventoryManager : SerializedMonoBehaviour
         }
 
         gearSlotsHighlighted.Clear();
+    }
+
+    public BaseItemData[] GetAllInventorySlotData()
+    {
+        BaseItemData[] baseItemDataArray = new BaseItemData[inventory.inventorySlots.Count];
+        for (int i = 0; i < inventory.inventorySlots.Count; i++)
+        {
+            if (inventory.inventorySlots[i].currentItemData != null)
+            {
+                BaseItemData baseItemData = new BaseItemData(inventory.inventorySlots[i].currentItemData);
+                baseItemDataArray[i] = baseItemData;
+            }
+        }
+
+        return baseItemDataArray;
+    }
+
+    public BaseItemData[] GetGearSlotData(GearContainerType gearContainerType)
+    {
+        GearContainer currentGearContainer = gearContainerDict[gearContainerType];
+        BaseItemData[] baseItemDataArray = new BaseItemData[currentGearContainer.inventorySlots.Count];
+        for (int i = 0; i < currentGearContainer.inventorySlots.Count; i++)
+        {
+            if (currentGearContainer.inventorySlots[i].currentItemData != null)
+            {
+                BaseItemData baseItemData = new BaseItemData(currentGearContainer.inventorySlots[i].currentItemData);
+                baseItemDataArray[i] = baseItemData;
+            }
+        }
+
+        return baseItemDataArray;
+    }
+
+    public void SetAllInventorySlotData()
+    {
+
     }
 }

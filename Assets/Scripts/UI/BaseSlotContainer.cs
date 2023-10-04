@@ -9,9 +9,12 @@ public class BaseSlotContainer
     public VisualElement root;
     public int inventoryRows;
     public int inventoryCols;
+    public bool readOnly = false;
     public List<InventorySlot> inventorySlots;
     public InventorySlot currentDraggedInventorySlot { get; set; } = null;
     public InventorySlot currentHoverSlot { get; set; } = null;
+
+    public string inventoryID;
 
     public BaseSlotContainer(VisualElement root, int inventoryRows, int inventoryCols)
     {
@@ -61,7 +64,7 @@ public class BaseSlotContainer
         return itemsRemaining;
     }
 
-    private int AddItem(ItemData itemData, InventorySlot addSlot)
+    public int AddItem(ItemData itemData, InventorySlot addSlot)
     {
         int numItemsRemaining = addSlot.AddItemToSlot(itemData);
 
@@ -83,10 +86,10 @@ public class BaseSlotContainer
 
     public void MoveItem(InventorySlot dragEndSlot, InventorySlot dragBeginSlot)
     {
-/*        if (!CanMoveItem(dragEndSlot, dragBeginSlot))
-            return;*/
+        /*        if (!CanMoveItem(dragEndSlot, dragBeginSlot))
+                    return;*/
 
-        ItemData dragBeginItemData = InventoryManager.Instance.InstantiateItem(dragBeginSlot.currentItemData.itemDataAsset);
+        ItemData dragBeginItemData = dragBeginSlot.currentItemData.CloneItemData();
 
         // If target slot has no items
         if (dragEndSlot.currentItemData == null)

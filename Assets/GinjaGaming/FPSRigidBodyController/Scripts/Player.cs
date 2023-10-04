@@ -23,8 +23,6 @@ namespace PickleMan
 
         private void OnEnable()
         {
-            print("enabling player input");
-
             playerInputActions = new PlayerInputActions();
             playerInputActions.Enable();
             InputManager.Instance.SetInputActionRef(playerInputActions);

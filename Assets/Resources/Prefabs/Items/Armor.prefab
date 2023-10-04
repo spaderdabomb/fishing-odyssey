@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4778474322992253480}
   - component: {fileID: 8980963003422145008}
   - component: {fileID: 7103950625136657480}
+  - component: {fileID: -9216489903615986603}
+  - component: {fileID: 7780504731698276394}
   m_Layer: 14
   m_Name: Armor
   m_TagString: Untagged
@@ -148,3 +150,63 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.2859, y: 2.5965862, z: 6.9390197}
   m_Center: {x: 0.07092404, y: -0.057399526, z: 0.37371394}
+--- !u!114 &-9216489903615986603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530993145626696818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 1708698388202324417
+  localRefs:
+    _Keys:
+    - {fileID: 7780504731698276394}
+    - {fileID: 4800000, guid: e6e9a19c3678ded42a3bc431ebef7dbd, type: 3}
+    - {fileID: 4800000, guid: 36e335017ad71d54fbb10842863188ae, type: 3}
+    - {fileID: 4778474322992253480}
+    - {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+    - {fileID: 7103950625136657480}
+    - {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+    - {fileID: 11500000, guid: 641c9897fd906f541a0a8d7d7ff6a96c, type: 3}
+    - {fileID: 3530993145626696818}
+    - {fileID: -9216489903615986603}
+    - {fileID: 11500000, guid: db90e8faf99dc8248b6e1671a39854c0, type: 3}
+    - {fileID: 8980963003422145008}
+    - {fileID: 11500000, guid: 7bc81b974f8f9e74d8d353258e07625c, type: 3}
+    - {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+    - {fileID: 5709169017572461142}
+    - {fileID: 6396484670868043325}
+    - {fileID: 7352648658495099062}
+    - {fileID: 2800000, guid: 8da52f4dbb7763349b68a4a35f936140, type: 3}
+    - {fileID: 11400000, guid: b7b96123f26d9f94da1e35edc2c33ff0, type: 2}
+    - {fileID: 2100000, guid: 888561839677f234480c17fc23d4e979, type: 2}
+    - {fileID: 2800000, guid: 045184087d4f3114096188b79473381a, type: 3}
+    - {fileID: 8754520153780093426, guid: 8b48e8cf9584b504e989fc464a506591, type: 3}
+    - {fileID: 21300000, guid: 8da52f4dbb7763349b68a4a35f936140, type: 3}
+    - {fileID: 11400000, guid: 8febd40ee9de38542896c7a50093555d, type: 2}
+    _Values: c1c06b34875e32036d379b187d2830239db76e246b9fae65ddbe881875860a7d69abaebf6a32121fc0a95e562ecb65063bbe7578a3ffaa437d9c86557cbc751c8d589519af85a059b4db0ea792b42f7d85fc8d2b512ea90177e06106666fad265fe5b8a6aa96a72154af4f630e3d736dbaa086e109c7ef2fbc5857d4f426d446068c9863ade1137f2d8ba06f1183130beb8be542b9fb671364bcb065dd49d87848a6190e1be58d7bb779c74f28c6dc2df91639ef31fbaa79d2cb77e13e3ffd45
+--- !u!114 &7780504731698276394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530993145626696818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveLayer: 0
+  saveTag: 0
+  saveName: 0
+  saveHideFlags: 0
+  saveActive: 0
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 7352648658495099062}
