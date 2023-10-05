@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,14 +9,11 @@ using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 [CreateAssetMenu(fileName = "GameData", menuName = "Fishing Odyssey/GameData")]
-public class GameData : ScriptableObject
+public class GameData : SerializedScriptableObject
 {
+    [Header("General")]
     public float baseSpawnChance = 1f / 30f;
-
-    public List<Color> rarityColors;
-    public List<FishRarity> fishRarities;
-    public Dictionary<FishRarity, Color> rarityToColorDict;
-    public Dictionary<BiomeType, FishType[]> fishInBiomeDict;
+    public Dictionary<ObjectRarity, Color> rarityToColorDict;
 
     [Header("Colors")]
     public Color standardTextColor;
@@ -44,18 +42,7 @@ public class GameData : ScriptableObject
     public void InitDefaults()
     {
         rarityToColorDict = new();
-        fishInBiomeDict = new();
         lastFishCaught = GameManager.Instance.allFishData[0];
-
-        for (int i = 0; i < fishRarities.Count; i++)
-        {
-            rarityToColorDict.Add(fishRarities[i], rarityColors[i]);
-        }
-
-        FishType[] grassyFishTypes = new FishType[] { FishType.Salmon, FishType.Tuna, FishType.Trout, FishType.Bass };
-        FishType[] desertFishTypes = new FishType[] { FishType.Salmon, FishType.Tuna, FishType.Trout, FishType.Bass };
-        fishInBiomeDict.Add(BiomeType.Grassy, grassyFishTypes);
-        fishInBiomeDict.Add(BiomeType.Desert, desertFishTypes);
     }
 }
 
@@ -69,14 +56,13 @@ public enum BiomeType
     Desert = 2
 }
 
-public enum ObjectRarities
+public enum ObjectRarity
 {
     None = 0, 
     Common = 1,
     Uncommon = 2,
     Rare = 3,
-    Special = 4, 
-    Epic = 5,
-    Legendary = 6,
-    Mythic = 7
+    Epic = 4,
+    Legendary = 5,
+    Mythic = 6
 }

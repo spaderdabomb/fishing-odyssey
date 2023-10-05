@@ -14,8 +14,6 @@ partial class UIGameScene
     private VisualElement fishPowerMeter;
     private VisualElement allMenus;
     private VisualElement menuDimBg;
-    private VisualElement menuCollectionsContainer;
-    private ScrollView scrollViewCollections;
     private VisualElement menuOptions;
     private VisualElement optionsHeaaderContainer;
     private VisualElement optionsButtonContainer;
@@ -51,7 +49,7 @@ partial class UIGameScene
     private VisualElement gearContainerLayout;
     private VisualElement inventoryLeftContainer;
     private TemplateContainer menuMissionsRoot;
-    private TemplateContainer menuCollections;
+    private TemplateContainer menuCollectionsRoot;
     private VisualElement ghostIcon;
     private Label ghostIconLabel;
     
@@ -64,8 +62,6 @@ partial class UIGameScene
         fishPowerMeter = root.Q<VisualElement>("FishPowerMeter");
         allMenus = root.Q<VisualElement>("AllMenus");
         menuDimBg = root.Q<VisualElement>("MenuDimBg");
-        menuCollectionsContainer = root.Q<VisualElement>("MenuCollectionsContainer");
-        scrollViewCollections = root.Q<ScrollView>("ScrollViewCollections");
         menuOptions = root.Q<VisualElement>("MenuOptions");
         optionsHeaaderContainer = root.Q<VisualElement>("OptionsHeaaderContainer");
         optionsButtonContainer = root.Q<VisualElement>("OptionsButtonContainer");
@@ -101,7 +97,7 @@ partial class UIGameScene
         gearContainerLayout = root.Q<VisualElement>("GearContainerLayout");
         inventoryLeftContainer = root.Q<VisualElement>("InventoryLeftContainer");
         menuMissionsRoot = root.Q<TemplateContainer>("MenuMissionsRoot");
-        menuCollections = root.Q<TemplateContainer>("MenuCollections");
+        menuCollectionsRoot = root.Q<TemplateContainer>("MenuCollectionsRoot");
         ghostIcon = root.Q<VisualElement>("ghostIcon");
         ghostIconLabel = root.Q<Label>("ghostIconLabel");
     }

@@ -7,6 +7,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/USS/InventoryStyle.uss?fileID=7433441132597879392&amp;guid=ae713f84ae84dc94d9eeab2be5b7df3e&amp;type=3#InventoryStyle" />
     <Style src="project://database/Assets/UI%20Toolkit/USS/PlayerInfoMenus.uss?fileID=7433441132597879392&amp;guid=da9b4f7b6b51a494eae43b326ba9a5b6&amp;type=3#PlayerInfoMenus" />
     <Style src="project://database/Assets/UI%20Toolkit/USS/PlayerInfoMenu/MenuMissions.uss?fileID=7433441132597879392&amp;guid=7c96661b5f739a54e8591a2a59bdce9e&amp;type=3#MenuMissions" />
+    <Style src="project://database/Assets/UI%20Toolkit/USS/PlayerInfoMenu/MenuCollections.uss?fileID=7433441132597879392&amp;guid=9f7505e4057c6054098827846f7f6c21&amp;type=3#MenuCollections" />
     <ui:VisualElement name="GameSceneContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;">
         <ui:VisualElement name="RightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; justify-content: flex-end; flex-direction: column-reverse;">
             <ui:VisualElement name="BottomRightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; flex-direction: column; margin-left: 30px; margin-right: 30px; margin-top: 30px; margin-bottom: 30px; justify-content: flex-end;">
@@ -18,15 +19,6 @@
     </ui:VisualElement>
     <ui:VisualElement name="AllMenus" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: center; display: flex;">
         <ui:VisualElement name="MenuDimBg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.35); position: absolute; width: 100%; height: 100%; display: flex; top: -1px; left: 0;" />
-        <ui:VisualElement name="MenuCollectionsContainer" class="menu-bg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); align-self: center; justify-content: flex-start; display: none;">
-            <ui:VisualElement class="menu-header-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); margin-bottom: 20px;">
-                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); justify-content: flex-start; align-items: center;">
-                    <ui:Label tabindex="-1" text="Fishing Collection Log" display-tooltip-when-elided="true" class="menu-header-label" style="-unity-text-outline-width: 0;" />
-                    <ui:VisualElement class="menu-header-spacer" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:ScrollView name="ScrollViewCollections" style="height: 680px;" />
-        </ui:VisualElement>
         <ui:VisualElement name="MenuOptions" class="menu-bg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/UIMenus/OptionsMenu/OptionsBg.psd?fileID=2800000&amp;guid=7803d9776a1056c45bb3d09dbc8a533d&amp;type=3#OptionsBg&apos;); width: 930px; height: 779px; align-self: center; display: none;">
             <ui:VisualElement name="OptionsHeaaderContainer" class="menu-header-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/UIMenus/OptionsMenu/OptionsHeaderBg.psd?fileID=2800000&amp;guid=89ec281fa2ef53742947f258f4253d10&amp;type=3#OptionsHeaderBg&apos;); width: 452px; height: 154px; align-self: center; scale: 1.2 1.2; margin-top: -90px; justify-content: center; align-items: center; padding-bottom: 15px;">
                 <ui:Label tabindex="-1" text="OPTIONS" display-tooltip-when-elided="true" class="menu-header-label" style="-unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold.ttf?fileID=12800000&amp;guid=a920e2e8ea812f34a9d19380151c1df9&amp;type=3#Montserrat-Bold&apos;); -unity-font-style: bold; -unity-font-definition: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold%20SDF.asset?fileID=11400000&amp;guid=fcd2efa225414a34591e647d6f8ee0ea&amp;type=2#Montserrat-Bold SDF&apos;); -unity-text-outline-width: 5px; -unity-text-outline-color: rgb(110, 73, 33); text-shadow: 0 0 0 rgb(0, 0, 0); letter-spacing: -5px; font-size: 55px;" />
@@ -107,7 +99,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:Instance template="MenuMissions" name="MenuMissionsRoot" style="align-self: stretch; justify-content: center; align-items: stretch; display: none;" />
-            <ui:Instance template="MenuCollections" name="MenuCollections" />
+            <ui:Instance template="MenuCollections" name="MenuCollectionsRoot" />
             <ui:Label tabindex="-1" text="Press ESC to Continue" display-tooltip-when-elided="true" style="font-size: 50px; color: rgba(230, 230, 230, 0.71); -unity-font: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold.ttf?fileID=12800000&amp;guid=a920e2e8ea812f34a9d19380151c1df9&amp;type=3#Montserrat-Bold&apos;); -unity-font-definition: url(&apos;project://database/Assets/UI%20Toolkit/Fonts/Monserrat/Montserrat-Bold%20SDF.asset?fileID=11400000&amp;guid=fcd2efa225414a34591e647d6f8ee0ea&amp;type=2#Montserrat-Bold SDF&apos;); -unity-text-align: upper-center; margin-left: 0; margin-right: 0; margin-top: 40px; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; align-self: center; position: absolute; bottom: -75px; -unity-font-style: bold; left: 406px;" />
         </ui:VisualElement>
     </ui:VisualElement>

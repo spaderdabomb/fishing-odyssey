@@ -12,10 +12,12 @@ public class UIGameManager : MonoBehaviour
     [Header("Visual Element Assets")]
     public UIDocument mainUIDocument;
     public VisualTreeAsset collectionSlot;
+    public VisualTreeAsset collectionsBiomeTab;
     public VisualTreeAsset optionsButton;
     public VisualTreeAsset popupMenuInventory;
     public VisualTreeAsset popupMenuInventoryStatsContainer;
     public VisualTreeAsset missionContainer;
+    public VisualTreeAsset raritySlotContainer;
 
     [Header("Visual Element Assets")]
     public Texture2D questStatusIconDark;

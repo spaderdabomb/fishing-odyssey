@@ -6,7 +6,7 @@ using UnityEngine;
 public class FishingRodData : ScriptableObject
 {
     public FishingRodType type;
-    public ObjectRarities rarity;
+    public ObjectRarity rarity;
     public GameObject fishingRodPrefab;
 
     public FishingRodStats fishingRodStats;
@@ -25,20 +25,20 @@ public class FishingRodData : ScriptableObject
 public struct FishingRodStats
 {
     public FishingRodType type;
-    public ObjectRarities rarity;
+    public ObjectRarity rarity;
 
     public float hookChance;
     public float maxCastDistance;
     public float waitTimeMultiplier;
     public float escapeChanceMultiplier;
 
-    public FishingRodStats(FishingRodType type, ObjectRarities rarity, 
+    public FishingRodStats(FishingRodType type, ObjectRarity rarity, 
                            float hookChance, float maxCastDistance, float waitTimeMultiplier, float escapeChanceMultiplier)
     {
         float scaleFactor = 1f;
-        if (rarity == ObjectRarities.Common)
+        if (rarity == ObjectRarity.Common)
             scaleFactor = 1f;
-        else if (rarity == ObjectRarities.Uncommon)
+        else if (rarity == ObjectRarity.Uncommon)
             scaleFactor = 1.5f;
         
         this.type = type;

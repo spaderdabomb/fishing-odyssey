@@ -66,28 +66,8 @@
 }
 
 .subheader-icon {
-    margin-right: 10px;
     background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/MissionsMenu/QuestLocationIcon.psd?fileID=2800000&guid=1c1fb4bdab3dd614b82be45ca797cfaf&type=3#QuestLocationIcon');
     width: 32px;
     height: 32px;
-    flex-grow: 0;
-}
-
-.submenu-container {
-    background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/CollectionLog/SubheaderBg.psd?fileID=2800000&guid=f8f6248733ec0a744977fc39e754ead6&type=3#SubheaderBg');
-    -unity-slice-left: 60;
-    -unity-slice-top: 60;
-    -unity-slice-right: 60;
-    -unity-slice-bottom: 60;
-    align-self: center;
-    flex-grow: 0;
-}
-
-.submenu-header {
-    padding-left: 20px;
-    padding-right: 20px;
-    height: 52px;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    margin-right: 10px;
 }

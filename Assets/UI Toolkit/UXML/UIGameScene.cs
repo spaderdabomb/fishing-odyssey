@@ -11,12 +11,12 @@ using Dialogue;
 public partial class UIGameScene
 {
     public string[] optionButtonNames;
-    public List<CollectionSlot> collectionSlots = new();
     public List<UIMenuButton> optionsButtons = new();
     public List<Tab> playerInfoTabs = new();
     public VisualElement root;
 
     public MenuMissions menuMissions;
+    public MenuCollections menuCollections;
     public UIGameScene(VisualElement root)
     {
         optionButtonNames = new string[] { "Stats", "Settings", "Quit" };
@@ -40,13 +40,7 @@ public partial class UIGameScene
 
     private void InitCollectionMenu()
     {
-        for (int i = 0; i < GameManager.Instance.allFishData.Count; i++)
-        {
-            VisualElement newSlotTemplate = UIGameManager.Instance.collectionSlot.CloneTree();
-            CollectionSlot newSlot = new CollectionSlot(newSlotTemplate, GameManager.Instance.allFishData[i]);
-            collectionSlots.Add(newSlot);
-            scrollViewCollections.Add(newSlotTemplate);
-        }
+        menuCollections = new MenuCollections(menuCollectionsRoot);
     }
 
     private void InitMissionsMenu()
@@ -67,8 +61,8 @@ public partial class UIGameScene
 
     public void ClearCollectionMenu()
     {
-        scrollViewCollections.Clear();
-        collectionSlots.Clear();
+/*        scrollViewCollections.Clear();
+        collectionSlots.Clear();*/
     }
 
     public void TogglePlayerDataMenu()

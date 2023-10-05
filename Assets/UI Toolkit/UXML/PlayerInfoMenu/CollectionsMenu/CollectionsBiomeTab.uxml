@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" gen-cs-file="2a9d9f61a4de4ba46a3e579ff691b88b" editor-extension-mode="False">
+    <QuickEye.UIToolkit.Tab name="tabRoot" class="biome-tab" />
+</ui:UXML>

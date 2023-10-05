@@ -7,8 +7,10 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "FishData", menuName = "Fishing Odyssey/Fish", order = 1)]
 public class FishData : ScriptableObject
 {
-    public FishType fishType = FishType.None;
-    public FishRarity fishRarity = FishRarity.None;
+    public string fishID;
+    public FishType fishType;
+    public ObjectRarity fishRarity;
+    public BiomeType biomeType;
     public Texture2D fishIcon;
 
     public float catchWeightChance = 100f;
@@ -23,7 +25,6 @@ public class FishData : ScriptableObject
 
     [HideInInspector] public string fishTypeStr;
     [HideInInspector] public string fishRarityStr;
-    [HideInInspector] public string fishID;
 
     // Health
     [SerializeField, ReadOnly] private float healthCurrent;
@@ -42,34 +43,60 @@ public class FishData : ScriptableObject
 
     public UnityAction<float> HealthChanged;
 
+    private void OnValidate()
+    {
+#if UNITY_EDITOR
+        fishID = this.name;
+        UnityEditor.EditorUtility.SetDirty(this);
+#endif
+    }
+
 
     public void InitDefaults()
     {
         healthCurrent = health;
         fishTypeStr = fishType.ToString();
         fishRarityStr = fishRarity.ToString();
-        fishID = GetUniqueFishID(fishType, fishRarity);
-    }
-
-    public string GetUniqueFishID(FishType newFishType, FishRarity newFishRarity)
-    {
-        int fishTypeValue = (int)newFishType;
-        int rarityValue = (int)newFishRarity;
-
-        return $"{fishTypeValue:D2}{rarityValue:D2}";
     }
 }
 
-public enum FishRarity
+public static class FishDataExtensions
 {
-    None,
-    Common,
-    Uncommon,
-    Rare,
-    Special,
-    Epic,
-    Legendary,
-    Mythic
+    public static readonly Dictionary<string, FishData> dataDict = new Dictionary<string, FishData>();
+
+    public static FishData GetFishData(string uniqueID)
+    {
+        if (dataDict.Count <= 0)
+        {
+            var scriptableObjects = Resources.LoadAll<FishData>("ScriptableObjects/Biomes");
+            foreach (var scriptableObject in scriptableObjects)
+            {
+                dataDict.Add(scriptableObject.fishID, scriptableObject);
+            }
+        }
+
+        if (dataDict.TryGetValue(uniqueID, out FishData data))
+        {
+            return data;
+        }
+
+        Debug.LogWarning($"Data not found: {uniqueID}");
+        return null;
+    }
+
+    public static Dictionary<string, FishData> GetAllData()
+    {
+        if (dataDict.Count <= 0)
+        {
+            var scriptableObjects = Resources.LoadAll<FishData>("ScriptableObjects/Fish");
+            foreach (var scriptableObject in scriptableObjects)
+            {
+                dataDict.Add(scriptableObject.fishID, scriptableObject);
+            }
+        }
+
+        return dataDict;
+    }
 }
 
 public enum FishMoveState
