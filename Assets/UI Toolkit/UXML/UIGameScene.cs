@@ -15,6 +15,7 @@ public partial class UIGameScene
     public List<Tab> playerInfoTabs = new();
     public VisualElement root;
 
+    public MenuPlayerSummary menuPlayerSummary;
     public MenuMissions menuMissions;
     public MenuCollections menuCollections;
     public UIGameScene(VisualElement root)
@@ -23,6 +24,7 @@ public partial class UIGameScene
         this.root = root;
 
         AssignQueryResults(root);
+        InitPlayerSummaryMenu();
         InitCollectionMenu();
         InitOptionsMenu();
         InitPlayerInfoMenu();
@@ -36,6 +38,11 @@ public partial class UIGameScene
             playerInfoTabs.Add(tab);
             tab.RegisterValueChangedCallback(evt => OnPlayerInfoTabChanged(evt, tab));
         }
+    }
+
+    private void InitPlayerSummaryMenu()
+    {
+        menuPlayerSummary = new MenuPlayerSummary(menuPlayerSummaryRoot);
     }
 
     private void InitCollectionMenu()
@@ -57,12 +64,6 @@ public partial class UIGameScene
             optionsButtons.Add(spawnedOptionsButton);
             optionsButtonContainer.Add(optionsButtonTemplate);
         }
-    }
-
-    public void ClearCollectionMenu()
-    {
-/*        scrollViewCollections.Clear();
-        collectionSlots.Clear();*/
     }
 
     public void TogglePlayerDataMenu()
@@ -125,7 +126,33 @@ public partial class UIGameScene
 
     private void OnPlayerInfoTabChanged(ChangeEvent<bool> evt, VisualElement tab)
     {
-        Debug.Log(tab);
+        menuPlayerSummary.root.style.display = DisplayStyle.None;
+        menuInventory.style.display = DisplayStyle.None;
+        menuCollections.root.style.display = DisplayStyle.None;
+        menuMissions.root.style.display = DisplayStyle.None;
+
+        switch (tab.tabIndex)
+        {
+            case 0:
+                menuPlayerSummary.root.style.display = DisplayStyle.Flex;
+                break;
+            case 1:
+                menuInventory.style.display = DisplayStyle.Flex;
+                break;
+            case 2:
+                break;
+            case 3:
+                menuCollections.root.style.display = DisplayStyle.Flex;
+                break;
+            case 4:
+                menuMissions.root.style.display = DisplayStyle.Flex;
+                break;
+            case 5:
+                break;
+            default:
+                break;
+        }
+
     }
 
     public void OnFishPowerChanged(float newValue)
@@ -136,20 +163,6 @@ public partial class UIGameScene
     public void OnFishCaught(FishData caughtFishData)
     {
         Debug.Log(caughtFishData.fishID);
-/*        bool hasBeenCaught = DataManager.Instance.GetFishBool(caughtFishData);
-        if (hasBeenCaught)
-        {
-
-        }
-        else
-        {
-            DataManager.Instance.SetFishBool(caughtFishData, true);
-            DataManager.Instance.SaveData();
-
-            Debug.Log(DataManager.Instance.GetFishBool(caughtFishData));
-            ClearCollectionMenu();
-            InitCollectionMenu();
-        }*/
     }
 
     public void AddInventoryToPlayerInfo(VisualElement inventory)

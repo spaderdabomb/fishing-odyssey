@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder(-20)]
+[DefaultExecutionOrder(-91)]
 public class GameEventsManager : MonoBehaviour
 {
     public static GameEventsManager Instance;

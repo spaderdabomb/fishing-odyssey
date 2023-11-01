@@ -9,24 +9,26 @@ partial class CollectionSlot
 {
     private QuickEye.UIToolkit.Tab tabRoot;
     private VisualElement fishIcon;
-    private VisualElement starContainer;
-    private VisualElement starCommon;
-    private VisualElement starUncommon;
-    private VisualElement starRare;
-    private VisualElement starEpic;
-    private VisualElement starLegendary;
-    private VisualElement starMythic;
+    private Label fishLabel;
+    private VisualElement rarityLightsContainer;
+    private VisualElement lightCommon;
+    private VisualElement lightUncommon;
+    private VisualElement lightRare;
+    private VisualElement lightEpic;
+    private VisualElement lightLegendary;
+    private VisualElement lightMythic;
     
     protected void AssignQueryResults(VisualElement root)
     {
         tabRoot = root.Q<QuickEye.UIToolkit.Tab>("tabRoot");
         fishIcon = root.Q<VisualElement>("FishIcon");
-        starContainer = root.Q<VisualElement>("StarContainer");
-        starCommon = root.Q<VisualElement>("StarCommon");
-        starUncommon = root.Q<VisualElement>("StarUncommon");
-        starRare = root.Q<VisualElement>("StarRare");
-        starEpic = root.Q<VisualElement>("StarEpic");
-        starLegendary = root.Q<VisualElement>("StarLegendary");
-        starMythic = root.Q<VisualElement>("StarMythic");
+        fishLabel = root.Q<Label>("FishLabel");
+        rarityLightsContainer = root.Q<VisualElement>("RarityLightsContainer");
+        lightCommon = root.Q<VisualElement>("LightCommon");
+        lightUncommon = root.Q<VisualElement>("LightUncommon");
+        lightRare = root.Q<VisualElement>("LightRare");
+        lightEpic = root.Q<VisualElement>("LightEpic");
+        lightLegendary = root.Q<VisualElement>("LightLegendary");
+        lightMythic = root.Q<VisualElement>("LightMythic");
     }
 }

@@ -24,26 +24,6 @@ public class GameData : SerializedScriptableObject
     public int inventoryRows = 8;
     public int inventoryCols = 4;
     public int gearCols = 6;
-
-    // Health
-    [SerializeField, ReadOnly] private FishData lastFishCaught;
-    public FishData LastFishCaught
-    {
-        get { return lastFishCaught; }
-        set
-        {
-            lastFishCaught = value;
-            OnFishCaught?.Invoke(lastFishCaught);
-        }
-    }
-
-    public UnityAction<FishData> OnFishCaught;
-
-    public void InitDefaults()
-    {
-        rarityToColorDict = new();
-        lastFishCaught = GameManager.Instance.allFishData[0];
-    }
 }
 
 public enum BiomeType
@@ -58,7 +38,6 @@ public enum BiomeType
 
 public enum ObjectRarity
 {
-    None = 0, 
     Common = 1,
     Uncommon = 2,
     Rare = 3,

@@ -8,16 +8,23 @@ using UnityEngine.Events;
 public class FishData : ScriptableObject
 {
     public string fishID;
+    public string fishName;
+    public string displayName;
+    public string description;
     public FishType fishType;
     public ObjectRarity fishRarity;
     public BiomeType biomeType;
     public Texture2D fishIcon;
+    public Texture2D uncaughtFishIcon;
 
     public float catchWeightChance = 100f;
     public float health = 0f;
     public float swimSpeed = 5f;
     public float playerFollowSpeed = 10f;
     public float fleeSpeed = 10f;
+    public float weightRangeLow = 0.1f;
+    public float weightRangeHigh = 10f;
+    public float weight = 1f;
 
     public float stateChangeTimerMin = 10f;
     public float stateChangeTimerMax = 15f;
@@ -46,33 +53,23 @@ public class FishData : ScriptableObject
     private void OnValidate()
     {
 #if UNITY_EDITOR
-        fishID = this.name;
+        fishName = this.name;
+        fishID = this.name + this.fishRarity.ToString();
         UnityEditor.EditorUtility.SetDirty(this);
 #endif
-    }
-
-
-    public void InitDefaults()
-    {
-        healthCurrent = health;
-        fishTypeStr = fishType.ToString();
-        fishRarityStr = fishRarity.ToString();
     }
 }
 
 public static class FishDataExtensions
 {
     public static readonly Dictionary<string, FishData> dataDict = new Dictionary<string, FishData>();
+    public static string path = "ScriptableObjects/Fish";
 
     public static FishData GetFishData(string uniqueID)
     {
         if (dataDict.Count <= 0)
         {
-            var scriptableObjects = Resources.LoadAll<FishData>("ScriptableObjects/Biomes");
-            foreach (var scriptableObject in scriptableObjects)
-            {
-                dataDict.Add(scriptableObject.fishID, scriptableObject);
-            }
+            CreateDataDictionary();
         }
 
         if (dataDict.TryGetValue(uniqueID, out FishData data))
@@ -88,16 +85,46 @@ public static class FishDataExtensions
     {
         if (dataDict.Count <= 0)
         {
-            var scriptableObjects = Resources.LoadAll<FishData>("ScriptableObjects/Fish");
-            foreach (var scriptableObject in scriptableObjects)
-            {
-                dataDict.Add(scriptableObject.fishID, scriptableObject);
-            }
+            CreateDataDictionary();
         }
 
         return dataDict;
     }
+
+    public static int GetTotalUniqueFish()
+    {
+        if (dataDict.Count <= 0)
+        {
+            CreateDataDictionary();
+        }
+
+        return dataDict.Count * Enum.GetValues(typeof(ObjectRarity)).Length;
+    }
+
+    private static void CreateDataDictionary()
+    {
+        var scriptableObjects = Resources.LoadAll<FishData>(path);
+        foreach (var scriptableObject in scriptableObjects)
+        {
+            dataDict.Add(scriptableObject.fishID, scriptableObject);
+        }
+    }
+
+    public static FishData Clone(this FishData data)
+    {
+        FishData spawnedData = ScriptableObject.Instantiate(data);
+        return spawnedData;
+    }
+
+    public static FishData CreateNew(this FishData data, ObjectRarity objectRarity)
+    {
+        FishData spawnedData = ScriptableObject.Instantiate(data);
+        spawnedData.fishRarity = objectRarity;
+        spawnedData.fishID = data.name + objectRarity.ToString();
+        return spawnedData;
+    }
 }
+
 
 public enum FishMoveState
 {

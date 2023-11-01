@@ -12,16 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6544dc6524869e43b544b5a20a70079, type: 3}
   m_Name: Trout
   m_EditorClassIdentifier: 
-  fishID: Trout
+  fishID: TroutCommon
+  fishName: Trout
+  displayName: Trout
+  description: This is a Trout
   fishType: 3
   fishRarity: 1
   biomeType: 0
-  fishIcon: {fileID: 2800000, guid: 7ab3c1e755e7ac847bf779b1132c5737, type: 3}
+  fishIcon: {fileID: 2800000, guid: b10ba6963018d6240a0ce8c8cbb49f42, type: 3}
+  uncaughtFishIcon: {fileID: 2800000, guid: 6c8886bfe23bcbf43bfceed2c758199d, type: 3}
   catchWeightChance: 100
   health: 0
   swimSpeed: 5
   playerFollowSpeed: 10
   fleeSpeed: 10
+  weightRangeLow: 0.1
+  weightRangeHigh: 10
+  weight: 1
   stateChangeTimerMin: 10
   stateChangeTimerMax: 15
   allowableMoveStates: 0100000002000000

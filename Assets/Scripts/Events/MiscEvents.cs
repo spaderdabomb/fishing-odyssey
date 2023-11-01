@@ -2,12 +2,25 @@ using System;
 
 public class MiscEvents
 {
-    public event Action onFishCollected;
-    public void FishCollected()
+    public event Action<FishData> onFishCaught;
+    public void FishCaught(FishData fishData)
     {
-        if (onFishCollected != null)
+        if (onFishCaught != null)
         {
-            onFishCollected();
+            onFishCaught(fishData);
+            if (!DataManager.Instance.FishCaughtDict.ContainsKey(fishData.fishID))
+            {
+                NewFishCaught(fishData);
+            }
+        }
+    }
+
+    public event Action<FishData> onNewFishCaught;
+    public void NewFishCaught(FishData fishData)
+    {
+        if (onNewFishCaught != null)
+        {
+            onNewFishCaught(fishData);
         }
     }
 

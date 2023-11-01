@@ -1,8 +1,11 @@
 using JSAM;
 using PickleMan;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
@@ -16,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     public GameData gameData;
     public PlayerData playerData;
-    public List<FishData> allFishData;
     public List<FishingRodData> allFishingRodData;
     public List<GameObject> biomeLocations;
 
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     private float timeSinceBobHitWater = 0f;
     public bool bobInWater = false;
     public bool fishHooked = false;
+    [HideInInspector] public FishData lastFishCaught = null;
 
     public ItemData testItemData;
 
@@ -44,15 +47,9 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        gameData.InitDefaults();
         playerData.InitDefaults();
         playerStates = player.GetComponent<PlayerStates>();
         playerMovement = player.GetComponent<PlayerMovement>();
-
-        foreach (FishData fishData in allFishData)
-        {
-            fishData.InitDefaults();
-        }
 
         foreach (FishingRodData fishingRodData in allFishingRodData)
         {
@@ -73,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        SpawnRandomFish();
+        // SpawnRandomFish();
     }
 
     private void FixedUpdate()
@@ -101,7 +98,7 @@ public class GameManager : MonoBehaviour
         // Spawn fish
         if (randomHookChance < spawnChance)
         {
-            print(timeSinceBobHitWater);
+            // print(timeSinceBobHitWater);
             fishHooked = true;
             CaughtFish();
         }
@@ -109,18 +106,15 @@ public class GameManager : MonoBehaviour
 
     public void BobHitWater(GameObject spawnedBob)
     {
-        print("bob hit water");
-
         playerStates.CurrentFishingState = PlayerStates.PlayerFishingState.Fishing;
         bobInWater = true;
     }
 
     public void CaughtFish()
     {
-        GameEventsManager.Instance.miscEvents.FishCollected();
         FishData caughtFishData = SpawnRandomFish();
-        print(caughtFishData);
-        gameData.LastFishCaught = caughtFishData;
+        GameEventsManager.Instance.miscEvents.FishCaught(caughtFishData);
+        lastFishCaught = caughtFishData;
         bobInWater = false;
         fishHooked = false;
         timeSinceBobHitWater = 0f;
@@ -131,32 +125,39 @@ public class GameManager : MonoBehaviour
     public FishData SpawnRandomFish()
     {
         float totalFishWeight = 0f;
-        float[] weightListThresholds = new float[allFishData.Count];
+        List<float> weightListThresholds = new();
 
-        int i = 0;
-        foreach (FishData fishData in allFishData)
+        Dictionary<string, FishData> fishDataDict = FishDataExtensions.GetAllData();
+        foreach (var fishDataKVP in fishDataDict)
         {
+            FishData fishData = fishDataKVP.Value;
             totalFishWeight += fishData.catchWeightChance;
             float fishWeight = totalFishWeight;
-            weightListThresholds[i] = fishWeight;
-            i += 1;
+            weightListThresholds.Add(fishWeight);
         }
 
         float randomFishWieght = Random.Range(0f, totalFishWeight);
         int index = FindClosestIndex(randomFishWieght, weightListThresholds);
-        FishData randomFishData = allFishData[index];
 
-        return randomFishData;
+        ObjectRarity[] enumValues = (ObjectRarity[])Enum.GetValues(typeof(ObjectRarity));
+        int randomRarity = Random.Range(0, enumValues.Length);
+        ObjectRarity randomRarityEnum = enumValues[randomRarity];
+
+        FishData randomFishData = fishDataDict.Values.ToList()[index];
+        FishData newFishData = randomFishData.CreateNew(randomRarityEnum);
+        newFishData.weight = Random.Range(newFishData.weightRangeLow, newFishData.weightRangeHigh);
+
+        return newFishData;
     }
 
-    private int FindClosestIndex(float targetValue, float[] array)
+    private int FindClosestIndex(float targetValue, List<float> weightList)
     {
-        float closestDifference = Mathf.Abs(targetValue - array[0]);
+        float closestDifference = Mathf.Abs(targetValue - weightList[0]);
         int closestIndex = 0;
 
-        for (int i = 1; i < array.Length; i++)
+        for (int i = 1; i < weightList.Count; i++)
         {
-            float difference = Mathf.Abs(targetValue - array[i]);
+            float difference = Mathf.Abs(targetValue - weightList[i]);
             if (difference < closestDifference)
             {
                 closestDifference = difference;

@@ -69,10 +69,10 @@
 }
 
 .menu-progress-bar .unity-progress-bar__progress {
-    background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/MissionsMenu/QuestProgressBar.psd?fileID=2800000&guid=720781ae87719224eadfbe08c594c747&type=3#QuestProgressBar');
+    background-image: url('project://database/Assets/Art/UI/UIMenus/PlayerInfoMenu/PlayerInfoProgressBar.psd?fileID=2800000&guid=15ac3611512841943bfd15d5eda133d3&type=3#PlayerInfoProgressBar');
     width: auto;
     height: 23px;
-    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-background-image-tint-color: rgb(255, 221, 0);
     background-color: rgba(0, 0, 0, 0);
     -unity-slice-left: 10;
     -unity-slice-top: 10;

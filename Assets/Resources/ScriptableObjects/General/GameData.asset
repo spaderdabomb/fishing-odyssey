@@ -52,16 +52,16 @@ MonoBehaviour:
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.5882353
+      Data: 0.407843143
     - Name: 
       Entry: 4
-      Data: 0.5882353
+      Data: 0.407843143
     - Name: 
       Entry: 4
-      Data: 0.5882353
+      Data: 0.407843143
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -88,7 +88,7 @@ MonoBehaviour:
       Data: 0.298039228
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -115,7 +115,7 @@ MonoBehaviour:
       Data: 0.8392157
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -133,16 +133,16 @@ MonoBehaviour:
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.733333349
+      Data: 0.7254902
     - Name: 
       Entry: 4
-      Data: 0.1764706
+      Data: 0.3137255
     - Name: 
       Entry: 4
-      Data: 0.905882359
+      Data: 0.6627451
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -160,16 +160,16 @@ MonoBehaviour:
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.972549
+      Data: 0.7647059
     - Name: 
       Entry: 4
-      Data: 0.196078435
+      Data: 0.266666681
     - Name: 
       Entry: 4
-      Data: 0.3882353
+      Data: 0.3254902
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -196,7 +196,7 @@ MonoBehaviour:
       Data: 0.196078435
     - Name: 
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

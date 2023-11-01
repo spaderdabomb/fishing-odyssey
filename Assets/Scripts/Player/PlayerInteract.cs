@@ -41,14 +41,13 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
         playerInputActions = player.playerInputActions;
         playerInputActions.PlayerInteract.SetCallbacks(this);
 
-        GameManager.Instance.gameData.OnFishCaught += CaughtFish;
+        GameEventsManager.Instance.miscEvents.onFishCaught += CaughtFish;
     }
 
     private void OnDisable()
     {
         playerInputActions.PlayerInteract.RemoveCallbacks(this);
-
-        GameManager.Instance.gameData.OnFishCaught -= CaughtFish;
+        GameEventsManager.Instance.miscEvents.onFishCaught -= CaughtFish;
     }
 
     private void Start()

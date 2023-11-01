@@ -19,9 +19,11 @@ public class UIGameManager : MonoBehaviour
     public VisualTreeAsset missionContainer;
     public VisualTreeAsset raritySlotContainer;
 
-    [Header("Visual Element Assets")]
+    [Header("UI Textures")]
     public Texture2D questStatusIconDark;
     public Texture2D questStatusIconLight;
+    public Texture2D statusLightLit;
+    public Texture2D statusLightUnlit;
 
     [HideInInspector] public VisualElement root;
     [HideInInspector] public UIGameScene uiGameScene;
@@ -53,14 +55,13 @@ public class UIGameManager : MonoBehaviour
         gameData = GameManager.Instance.gameData;
 
         playerData.FishPowerChanged += uiGameScene.OnFishPowerChanged;
-        gameData.OnFishCaught += uiGameScene.OnFishCaught;
+        GameEventsManager.Instance.miscEvents.onFishCaught += uiGameScene.OnFishCaught;
     }
 
     private void OnDisable()
     {
         playerData.FishPowerChanged -= uiGameScene.OnFishPowerChanged;
-        gameData.OnFishCaught -= uiGameScene.OnFishCaught;
-
+        GameEventsManager.Instance.miscEvents.onFishCaught -= uiGameScene.OnFishCaught;
     }
 
     void Start()

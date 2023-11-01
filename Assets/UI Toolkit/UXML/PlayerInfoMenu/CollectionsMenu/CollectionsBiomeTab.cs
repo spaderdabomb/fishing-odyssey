@@ -6,13 +6,15 @@ using System.Runtime.CompilerServices;
 public partial class CollectionsBiomeTab
 {
     public VisualElement root;
-    public CollectionsBiomeTab(VisualElement root, int tabIndex)
+    public BiomeData biomeData;
+    public CollectionsBiomeTab(VisualElement root, BiomeData biomeData, int tabIndex)
     {
         AssignQueryResults(root);
         InitBiomeTab();
         RegisterCallbacks();
 
         this.root = root;
+        this.biomeData = biomeData;
         tabRoot.tabIndex = tabIndex;
     }
 

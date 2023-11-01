@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder(-99)]
+[DefaultExecutionOrder(-90)]
 public class BootManager : MonoBehaviour
 {
     public static BootManager Instance;

@@ -27,15 +27,15 @@ public class CollectFishQuestStep : QuestStep
 
     private void OnEnable()
     {
-        GameEventsManager.Instance.miscEvents.onFishCollected += FishCollected;
+        GameEventsManager.Instance.miscEvents.onFishCaught += FishCaught;
     }
 
     private void OnDisable()
     {
-        GameEventsManager.Instance.miscEvents.onFishCollected -= FishCollected;
+        GameEventsManager.Instance.miscEvents.onFishCaught -= FishCaught;
     }
 
-    private void FishCollected()
+    private void FishCaught(FishData fishData)
     {
         if (fishCollected < fishToComplete)
         {

@@ -194,9 +194,9 @@ public static class ItemExtensions
         return spawnedItemData;
     }
 
-    public static ItemData CloneItemData(this ItemData itemData)
+    public static ItemData CloneItemData(this ItemData data)
     {
-        ItemData spawnedItemData = ScriptableObject.Instantiate(itemData);
-        return spawnedItemData;
+        ItemData spawnedData = ScriptableObject.Instantiate(data);
+        return spawnedData;
     }
 }
