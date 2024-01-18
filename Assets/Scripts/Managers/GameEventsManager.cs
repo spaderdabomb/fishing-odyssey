@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder(-91)]
+[DefaultExecutionOrder(-101)]
 public class GameEventsManager : MonoBehaviour
 {
     public static GameEventsManager Instance;
@@ -10,6 +10,7 @@ public class GameEventsManager : MonoBehaviour
     public MiscEvents miscEvents;
     public QuestEvents questEvents;
     public InputEvents inputEvents;
+    public FishingEvents fishingEvents;
     private void Awake()
     {
         if (Instance != null)
@@ -21,5 +22,6 @@ public class GameEventsManager : MonoBehaviour
         miscEvents = new MiscEvents();
         questEvents = new QuestEvents();
         inputEvents = new InputEvents();
+        fishingEvents = new FishingEvents();
     }
 }

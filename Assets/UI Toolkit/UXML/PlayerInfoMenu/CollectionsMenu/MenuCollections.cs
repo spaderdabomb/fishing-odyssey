@@ -31,12 +31,12 @@ public partial class MenuCollections
 
     private void RegisterCallbacks()
     {
-        GameEventsManager.Instance.miscEvents.onNewFishCaught += NewFishCaught;
+        GameEventsManager.Instance.fishingEvents.onNewFishCaught += NewFishCaught;
     }
 
     private void UnregisterCallbacks()
     {
-        GameEventsManager.Instance.miscEvents.onNewFishCaught -= NewFishCaught;
+        GameEventsManager.Instance.fishingEvents.onNewFishCaught -= NewFishCaught;
     }
 
     private void InitBiomeTabs()

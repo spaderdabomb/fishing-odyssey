@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class FishingRod : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public LineRenderer lineRenderer;
+    private GameObject currentBob = null;
+
+    private void OnEnable()
     {
-        
+        GameEventsManager.Instance.fishingEvents.onCastRod += CastRod;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        GameEventsManager.Instance.fishingEvents.onCastRod -= CastRod;
+    }
+
+    private void Update()
+    {
+        UpdateFishingLineRenderer();
+    }
+
+    private void UpdateFishingLineRenderer()
+    {
+        if (currentBob == null)
+            return;
+
+        lineRenderer.SetPosition(0, GameManager.Instance.bobStartLocation.transform.position);
+        lineRenderer.SetPosition(1, currentBob.transform.position);
+    }
+
+    private void CastRod(GameObject fishingBob)
+    {
+        currentBob = fishingBob;
     }
 }

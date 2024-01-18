@@ -4,7 +4,13 @@
         ConfirmTick,
         DialogueNext,
         ItemDrop,
-        ItemPickup
+        ItemPickup,
+        BeatNoteGood,
+        BeatNotePerfect,
+        BeatSequenceComplete,
+        FishSplashSmall,
+        BobSplash,
+        FishHooked
     }
     public enum MainAudioLibraryMusic {
         Ghostrifter

@@ -77,17 +77,6 @@ namespace UnityEngine.InputSystem
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""978bfe49-cc26-4a3d-ab7b-7d7a29327403"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""WASD"",
                     ""id"": ""00ca640b-d935-4593-8157-c05846ea39b3"",
                     ""path"": ""Dpad"",
@@ -185,28 +174,6 @@ namespace UnityEngine.InputSystem
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8"",
-                    ""path"": ""<XRController>/{Primary2DAxis}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3ea4d645-4504-4529-b061-ab81934c3752"",
-                    ""path"": ""<Joystick>/stick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -317,6 +284,24 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BeatNotePressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ae72008-b42c-4947-bb8c-11b14fdbb332"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HookFish"",
+                    ""type"": ""Button"",
+                    ""id"": ""947618e2-10f6-4ede-8aba-168a9929c4e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -326,7 +311,7 @@ namespace UnityEngine.InputSystem
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""FishPressed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -361,6 +346,28 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""859f8da0-43ea-4527-8583-3014971b45aa"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""BeatNotePressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0100aa2-ab8a-46b8-9463-9f45c7a02135"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""HookFish"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -442,6 +449,8 @@ namespace UnityEngine.InputSystem
             m_PlayerInteract_FishPressed = m_PlayerInteract.FindAction("FishPressed", throwIfNotFound: true);
             m_PlayerInteract_FishCancelled = m_PlayerInteract.FindAction("FishCancelled", throwIfNotFound: true);
             m_PlayerInteract_Interact = m_PlayerInteract.FindAction("Interact", throwIfNotFound: true);
+            m_PlayerInteract_BeatNotePressed = m_PlayerInteract.FindAction("BeatNotePressed", throwIfNotFound: true);
+            m_PlayerInteract_HookFish = m_PlayerInteract.FindAction("HookFish", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -584,6 +593,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_PlayerInteract_FishPressed;
         private readonly InputAction m_PlayerInteract_FishCancelled;
         private readonly InputAction m_PlayerInteract_Interact;
+        private readonly InputAction m_PlayerInteract_BeatNotePressed;
+        private readonly InputAction m_PlayerInteract_HookFish;
         public struct PlayerInteractActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -591,6 +602,8 @@ namespace UnityEngine.InputSystem
             public InputAction @FishPressed => m_Wrapper.m_PlayerInteract_FishPressed;
             public InputAction @FishCancelled => m_Wrapper.m_PlayerInteract_FishCancelled;
             public InputAction @Interact => m_Wrapper.m_PlayerInteract_Interact;
+            public InputAction @BeatNotePressed => m_Wrapper.m_PlayerInteract_BeatNotePressed;
+            public InputAction @HookFish => m_Wrapper.m_PlayerInteract_HookFish;
             public InputActionMap Get() { return m_Wrapper.m_PlayerInteract; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -609,6 +622,12 @@ namespace UnityEngine.InputSystem
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @BeatNotePressed.started += instance.OnBeatNotePressed;
+                @BeatNotePressed.performed += instance.OnBeatNotePressed;
+                @BeatNotePressed.canceled += instance.OnBeatNotePressed;
+                @HookFish.started += instance.OnHookFish;
+                @HookFish.performed += instance.OnHookFish;
+                @HookFish.canceled += instance.OnHookFish;
             }
 
             private void UnregisterCallbacks(IPlayerInteractActions instance)
@@ -622,6 +641,12 @@ namespace UnityEngine.InputSystem
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @BeatNotePressed.started -= instance.OnBeatNotePressed;
+                @BeatNotePressed.performed -= instance.OnBeatNotePressed;
+                @BeatNotePressed.canceled -= instance.OnBeatNotePressed;
+                @HookFish.started -= instance.OnHookFish;
+                @HookFish.performed -= instance.OnHookFish;
+                @HookFish.canceled -= instance.OnHookFish;
             }
 
             public void RemoveCallbacks(IPlayerInteractActions instance)
@@ -697,6 +722,8 @@ namespace UnityEngine.InputSystem
             void OnFishPressed(InputAction.CallbackContext context);
             void OnFishCancelled(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnBeatNotePressed(InputAction.CallbackContext context);
+            void OnHookFish(InputAction.CallbackContext context);
         }
     }
 }

@@ -55,13 +55,13 @@ public class UIGameManager : MonoBehaviour
         gameData = GameManager.Instance.gameData;
 
         playerData.FishPowerChanged += uiGameScene.OnFishPowerChanged;
-        GameEventsManager.Instance.miscEvents.onFishCaught += uiGameScene.OnFishCaught;
+        GameEventsManager.Instance.fishingEvents.onFishCaught += uiGameScene.OnFishCaught;
     }
 
     private void OnDisable()
     {
         playerData.FishPowerChanged -= uiGameScene.OnFishPowerChanged;
-        GameEventsManager.Instance.miscEvents.onFishCaught -= uiGameScene.OnFishCaught;
+        GameEventsManager.Instance.fishingEvents.onFishCaught -= uiGameScene.OnFishCaught;
     }
 
     void Start()

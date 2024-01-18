@@ -56,7 +56,7 @@ public class QuestIcon : MonoBehaviour
         {
             if (icon.gameObject.activeSelf)
             {
-                icon.transform.LookAt(GameManager.Instance.camera.transform);
+                icon.transform.LookAt(GameManager.Instance.playerCamera.transform);
                 icon.transform.eulerAngles = new Vector3(0f, icon.transform.eulerAngles.y, 0f);
             }
         }

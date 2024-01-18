@@ -12,29 +12,40 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    // Player
     public GameObject player;
-    public GameObject camera;
+    public GameObject playerCamera;
     [HideInInspector] public PlayerStates playerStates;
     [HideInInspector] public PlayerMovement playerMovement;
 
+    // Data
     public GameData gameData;
     public PlayerData playerData;
     public List<FishingRodData> allFishingRodData;
     public List<GameObject> biomeLocations;
 
+    // Containers
     public GameObject bobContainer;
+    public GameObject bobStartLocation;
     public GameObject itemContainer;
+    public FishingLine fishingLine;
+    public GameObject fishingEffectsContainer;
 
+    // Prefabs
     public GameObject fishingRodBob;
-    public GameObject newFishParticlePrefab;
+    public GameObject rippleParticleSystemPrefab;
+    public GameObject fishSplashNormal;
 
+    // Public properties
+    public bool BobInWater { get; private set; } = false;
+    public bool FishIsHooked { get; private set; } = false;
+    public bool FishIsSpawned { get; private set; } = false;
+    public FishData CurrentFishData { get; private set; } = null;
+
+    // Member fields
     private GameObject currentBob;
     private float timeSinceBobHitWater = 0f;
-    public bool bobInWater = false;
-    public bool fishHooked = false;
-    [HideInInspector] public FishData lastFishCaught = null;
-
-    public ItemData testItemData;
+    private FishData lastFishCaught = null;
 
     private void Awake()
     {
@@ -55,11 +66,21 @@ public class GameManager : MonoBehaviour
         {
             fishingRodData.InitDefaults();
         }
+
+        GameEventsManager.Instance.fishingEvents.onCastRod += CastRod;
+        GameEventsManager.Instance.fishingEvents.onStoppedFishing += StoppedFishing;
+        GameEventsManager.Instance.fishingEvents.onFishSpawned += FishSpawned;
+        GameEventsManager.Instance.fishingEvents.onFishHooked += FishHooked;
+        GameEventsManager.Instance.fishingEvents.onFishCaught += FishCaught;
     }
 
     private void OnDisable()
     {
-        
+        GameEventsManager.Instance.fishingEvents.onCastRod -= CastRod;
+        GameEventsManager.Instance.fishingEvents.onStoppedFishing -= StoppedFishing;
+        GameEventsManager.Instance.fishingEvents.onFishHooked -= FishHooked;
+        GameEventsManager.Instance.fishingEvents.onFishCaught -= FishCaught;
+        GameEventsManager.Instance.fishingEvents.onFishSpawned -= FishSpawned;
     }
 
     void Start()
@@ -70,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // SpawnRandomFish();
+
     }
 
     private void FixedUpdate()
@@ -80,7 +101,8 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdateFishing()
     {
-        if (bobInWater && !fishHooked)
+        // Need to use fixed time because it rolls a chance of catching every 1/60 seconds
+        if (BobInWater && !FishIsSpawned)
         {
             timeSinceBobHitWater += Time.deltaTime;
             DidFishSpawn();
@@ -98,28 +120,42 @@ public class GameManager : MonoBehaviour
         // Spawn fish
         if (randomHookChance < spawnChance)
         {
-            // print(timeSinceBobHitWater);
-            fishHooked = true;
-            CaughtFish();
+            FishData spawnedFishData = SpawnRandomFish();
+            GameEventsManager.Instance.fishingEvents.FishSpawned(spawnedFishData, currentBob);
         }
     }
 
-    public void BobHitWater(GameObject spawnedBob)
+    private void FishSpawned(FishData fishData, GameObject spawnedBob)
     {
-        playerStates.CurrentFishingState = PlayerStates.PlayerFishingState.Fishing;
-        bobInWater = true;
+        FishIsSpawned = true;
+        CurrentFishData = fishData;
+
+        GameObject splashParticles = Instantiate(fishSplashNormal, fishingEffectsContainer.transform);
+        FishSplash fishSplash = splashParticles.GetComponent<FishSplash>();
+        fishSplash.OnInstantiate(fishData, spawnedBob);
     }
 
-    public void CaughtFish()
+    public void BobHitWater(GameObject spawnedBob, GameObject water)
+    {
+        playerStates.CurrentFishingState = PlayerStates.PlayerFishingState.Fishing;
+        BobInWater = true;
+
+        GameObject rippleParticles = Instantiate(rippleParticleSystemPrefab, fishingEffectsContainer.transform);
+        rippleParticles.transform.position = spawnedBob.transform.position;
+
+        AudioManager.PlaySound(MainAudioLibrarySounds.BobSplash);
+    }
+
+    public void FishHooked(FishData fishData)
+    {
+        FishIsHooked = true;
+        AudioManager.PlaySound(MainAudioLibrarySounds.FishHooked);
+    }
+
+    public void FishCaught(FishData fishData)
     {
         FishData caughtFishData = SpawnRandomFish();
-        GameEventsManager.Instance.miscEvents.FishCaught(caughtFishData);
         lastFishCaught = caughtFishData;
-        bobInWater = false;
-        fishHooked = false;
-        timeSinceBobHitWater = 0f;
-        DestroyCurrentBob();
-        playerStates.CurrentFishingState = PlayerStates.PlayerFishingState.None;
     }
 
     public FishData SpawnRandomFish()
@@ -168,22 +204,30 @@ public class GameManager : MonoBehaviour
         return closestIndex;
     }
 
-    public void DestroyCurrentBob()
+    private void ClearFishingParameters()
     {
-        fishHooked = false;
-        bobInWater = false;
-        Destroy(currentBob);
-        ResetBobTime();
-    }
-
-    public void ResetBobTime()
-    {
+        FishIsHooked = false;
+        BobInWater = false;
+        FishIsSpawned = false;
+        CurrentFishData = null;
         timeSinceBobHitWater = 0f;
+        fishingLine.lineRenderer.enabled = false;
+
+        Destroy(currentBob);
     }
 
-    public void SetCurrentBob(GameObject newBob)
+    public void CastRod(GameObject newBob)
     {
+        ClearFishingParameters();
+
+        fishingLine.lineRenderer.enabled = true;
         currentBob = newBob;
+    }
+
+    public void StoppedFishing()
+    {
+        ClearFishingParameters();
+        playerStates.CurrentFishingState = PlayerStates.PlayerFishingState.None;
     }
 
     public void UsePortal(int biomeNum)

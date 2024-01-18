@@ -41,13 +41,13 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
         playerInputActions = player.playerInputActions;
         playerInputActions.PlayerInteract.SetCallbacks(this);
 
-        GameEventsManager.Instance.miscEvents.onFishCaught += CaughtFish;
+        GameEventsManager.Instance.fishingEvents.onFishCaught += CaughtFish;
     }
 
     private void OnDisable()
     {
         playerInputActions.PlayerInteract.RemoveCallbacks(this);
-        GameEventsManager.Instance.miscEvents.onFishCaught -= CaughtFish;
+        GameEventsManager.Instance.fishingEvents.onFishCaught -= CaughtFish;
     }
 
     private void Start()
@@ -119,16 +119,10 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
     private void CastRod()
     {
         GameObject spawnedBob = Instantiate(GameManager.Instance.fishingRodBob);
-        Rigidbody spawnedBobRb = spawnedBob.GetComponent<Rigidbody>();
-        spawnedBobRb.position = bobStartLocation.transform.position;
+        FishingRodBob newBob = spawnedBob.GetComponent<FishingRodBob>();
+        newBob.OnInstantiate(playerData);
 
-        GameManager.Instance.DestroyCurrentBob();
-        GameManager.Instance.SetCurrentBob(spawnedBob);
-
-        Vector3 lookDirection = transform.GetComponent<PlayerMovement>().playerCamera.transform.forward;
-        lookDirection = lookDirection.normalized;
-        lookDirection = new Vector3(lookDirection.x, lookDirection.y, lookDirection.z);
-        spawnedBobRb.velocity = lookDirection * playerData.FishPowerCurrent * playerData.currentFishingRod.fishingRodStats.maxCastDistance * 0.0075f;
+        GameEventsManager.Instance.fishingEvents.CastRod(spawnedBob);
 
         playerData.FishPowerCurrent = 0;
         castHeld = false;
@@ -151,7 +145,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
 
     private bool CanCast()
     {
-        return GameManager.Instance.fishHooked ? false : true;
+        return GameManager.Instance.FishIsHooked ? false : true;
     }
 
     private bool CanCatchFish()
@@ -184,14 +178,14 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
 
     public void OnFishPressed(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started || GameManager.Instance.FishIsSpawned)
             return;
 
-        if (context.performed && !GameManager.Instance.fishHooked)
+        if (context.performed && !GameManager.Instance.FishIsHooked)
         {
             OnChargeRod();
         }
-        else if (context.performed && GameManager.Instance.fishHooked)
+        else if (context.performed && GameManager.Instance.FishIsHooked)
         {
             castHeld = false;
             castReleased = false;
@@ -211,9 +205,24 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
         castHeld = false;
         castReleased = false;
         catchInitiated = false;
-        GameManager.Instance.fishHooked = false;
-        GameManager.Instance.DestroyCurrentBob();
-        playerStates.CurrentFishingState = PlayerStates.PlayerFishingState.None;
+
+        GameEventsManager.Instance.fishingEvents.StoppedFishing();
+    }
+
+    public void OnHookFish(InputAction.CallbackContext context)
+    {
+        if (!context.performed || !GameManager.Instance.FishIsSpawned || GameManager.Instance.FishIsHooked)
+            return;
+
+        GameEventsManager.Instance.fishingEvents.FishHooked(GameManager.Instance.CurrentFishData);
+    }
+
+    public void OnBeatNotePressed(InputAction.CallbackContext context)
+    {
+        if (!context.performed || !GameManager.Instance.FishIsHooked)
+            return;
+
+        BeatSequencer.Instance.BeatNotePressed();
     }
 
     public void OnInteract(InputAction.CallbackContext context)

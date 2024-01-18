@@ -58,18 +58,23 @@ public class DataManager : MonoBehaviour
 
     private void RegisterEvents()
     {
-        GameEventsManager.Instance.miscEvents.onFishCaught += FishCaught;
-        GameEventsManager.Instance.miscEvents.onNewFishCaught += NewFishCaught;
+        GameEventsManager.Instance.fishingEvents.onFishCaught += FishCaught;
+        GameEventsManager.Instance.fishingEvents.onNewFishCaught += NewFishCaught;
     }
 
     private void UnregisterEvents()
     {
-        GameEventsManager.Instance.miscEvents.onFishCaught -= FishCaught;
-        GameEventsManager.Instance.miscEvents.onNewFishCaught -= NewFishCaught;
+        GameEventsManager.Instance.fishingEvents.onFishCaught -= FishCaught;
+        GameEventsManager.Instance.fishingEvents.onNewFishCaught -= NewFishCaught;
     }
 
     private void FishCaught(FishData fishData)
     {
+        if (!FishCaughtDict.ContainsKey(fishData.fishID))
+        {
+            GameEventsManager.Instance.fishingEvents.NewFishCaught(fishData);
+        }
+
         TotalFishCaught += 1;
         IncrementOrCreateKey(FishTotalCaughtDict, fishData.fishID);
     }

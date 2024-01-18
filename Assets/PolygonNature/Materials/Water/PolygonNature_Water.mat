@@ -108,7 +108,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_989A1C37: 0.9
+    - Vector1_989A1C37: 0.92
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -142,17 +142,17 @@ Material:
     - __dirty: 1
     - _edgeFoamAmount: 18.89
     - _edgeFoamCutoff: 0.32
-    - _fakeSpecular: 10
-    - _waterDepth: 6.8
-    - _waterSmoothness: 7.24
+    - _fakeSpecular: 6.8
+    - _waterDepth: 8
+    - _waterSmoothness: 6
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _WaterDeepColor: {r: 0.14901961, g: 0.28235295, b: 0.29411766, a: 0}
     - _WaterShallowColor: {r: 0.3019608, g: 0.427451, b: 0.41960788, a: 0}
-    - _deepColor: {r: 0.018689925, g: 0.15729661, b: 0.18867925, a: 1}
+    - _deepColor: {r: 0.033463866, g: 0.1304311, b: 0.1509434, a: 1}
     - _edgeFoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - _shallowColor: {r: 0.031372376, g: 0.14150944, b: 0.13089383, a: 1}
+    - _shallowColor: {r: 0.011792451, g: 0.34135404, b: 0.5, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2397024298469534303
 MonoBehaviour:
