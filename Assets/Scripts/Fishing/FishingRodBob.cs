@@ -32,7 +32,7 @@ public class FishingRodBob : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             hitWater = true;
 
-            GameManager.Instance.BobHitWater(gameObject, other.gameObject);
+            GameEventsManager.Instance.fishingEvents.BobHitWater(gameObject, other.gameObject);
         }
     }
 

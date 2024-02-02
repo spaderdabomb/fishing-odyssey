@@ -10,7 +10,16 @@
         BeatSequenceComplete,
         FishSplashSmall,
         BobSplash,
-        FishHooked
+        FishHooked,
+        FishOnHookNormal,
+        BobSplashHeavy,
+        BobSplashLight,
+        BobSplashNormal,
+        CastRod,
+        CastRodWhoosh,
+        CastRodWhooshLight,
+        ReelFishHooked,
+        ReelFishShort
     }
     public enum MainAudioLibraryMusic {
         Ghostrifter

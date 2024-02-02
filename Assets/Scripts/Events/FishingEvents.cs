@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
 
-public class FishingEvents
-{
+public class FishingEvents 
+{ 
+    public event Action<GameObject, GameObject> onBobHitWater;
+    public void BobHitWater(GameObject currentBob, GameObject hitWater) => onBobHitWater?.Invoke(currentBob, hitWater);
+
     public event Action<FishData, GameObject> onFishSpawned;
     public void FishSpawned(FishData fishData, GameObject currentBob) => onFishSpawned?.Invoke(fishData, currentBob);
 
@@ -16,7 +19,11 @@ public class FishingEvents
     public void CastRod(GameObject fishingBob) => onCastRod?.Invoke(fishingBob);
 
     public event Action onStoppedFishing;
-    public void StoppedFishing() => onStoppedFishing?.Invoke();
+    public void StoppedFishing()
+    {
+        onStoppedFishing?.Invoke();
+        GameEventsManager.Instance.destroyOnStoppedFishing.Raise();
+    }
 
     public event Action<bool> onBeatNoteSubmitted;
     public void BeatNoteSubmitted(bool result) => onBeatNoteSubmitted?.Invoke(result);
@@ -25,6 +32,6 @@ public class FishingEvents
     public void FishCaught(FishData fishData)
     {
         onFishCaught?.Invoke(fishData);
-        onStoppedFishing?.Invoke();
+        StoppedFishing();
     }
 }

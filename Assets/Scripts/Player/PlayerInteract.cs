@@ -17,6 +17,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
     private PlayerData playerData;
     private PlayerStates playerStates;
     private PlayerMovement playerMovement;
+    private PlayerAnimation playerAnimation;
     private InteractPopup interactPopup;
 
     public List<GameObject> interactingObjects = new();
@@ -34,6 +35,7 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
         player = GetComponent<Player>();
         playerStates = GetComponent<PlayerStates>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
     private void OnEnable()
@@ -132,6 +134,8 @@ public class PlayerInteract : MonoBehaviour, PlayerInputActions.IPlayerInteractA
     private void OnChargeRod()
     {
         playerStates.CurrentFishingState = PlayerStates.PlayerFishingState.Charging;
+        playerAnimation.PlayerFishingAnimationState = PlayerFishingAnimationState.Charging;
+
         castHeld = true;
         castReleased = false;
     }

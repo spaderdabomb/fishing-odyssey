@@ -14,6 +14,7 @@ public class GameData : SerializedScriptableObject
     [Header("General")]
     public float baseSpawnChance = 1f / 30f;
     public Dictionary<ObjectRarity, Color> rarityToColorDict;
+    public Dictionary<ObjectRarity, Color> rarityToSaturatedColorDict;
 
     [Header("Colors")]
     public Color standardTextColor;

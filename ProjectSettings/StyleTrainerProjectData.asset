@@ -39,8 +39,8 @@ MonoBehaviour:
     - rid: 443973019995734017
       type: {class: StyleTrainerData, ns: Unity.Muse.StyleTrainer, asm: Unity.Muse.StyleTrainer}
       data:
-        m_Guid: 11000000-0000-0000-0000-000000000011
-        m_State: 1
+        m_Guid: 00000000-0000-0000-0000-000000000000
+        m_State: 4
         m_Styles:
         - rid: 443973060315841241
         - rid: 443973060315841242

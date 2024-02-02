@@ -1,0 +1,556 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799809cba631448718307acd1df5bb43, type: 3}
+  m_Name: Radial texture from pink to black
+  m_EditorClassIdentifier: 
+  guid: 060e7143-72c7-4e68-a296-538e8e4b833c
+  assetsData:
+  - rid: 6691965339471183885
+  - rid: 6691965339471183893
+  - rid: 6691965339471183901
+  - rid: 6691965339471183909
+  currentMode: TextToSprite
+  m_Data:
+  - rid: 6691965339471183872
+  - rid: 6691965339471183873
+  - rid: 6691965339471183874
+  - rid: 6691965339471183875
+  - rid: 6691965339471183876
+  - rid: 6691965339471183884
+  preRefinedArtifact:
+    rid: -2
+  refinedArtifact:
+    rid: -2
+  selectedArtifact:
+    rid: -2
+  m_Operators:
+  - rid: 6691965339471183877
+  - rid: 6691965339471183878
+  - rid: 6691965339471183879
+  - rid: 6691965339471183880
+  - rid: 6691965339471183881
+  - rid: 6691965339471183882
+  - rid: 6691965339471183883
+  m_PreRefineOperators: []
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6691965339471183872
+      type: {class: FeedbackManager, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_Disliked:
+          m_Values: []
+    - rid: 6691965339471183873
+      type: {class: DefaultStyleData, ns: Unity.Muse.Sprite.Data, asm: Unity.Muse.Sprite}
+    - rid: 6691965339471183874
+      type: {class: MainUI/UISize, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_NodeListWidth: 300
+        m_NodeListRefineWidth: 300
+        m_AssetListRefineWidth: 200
+    - rid: 6691965339471183875
+      type: {class: SessionData, ns: Unity.Muse.Sprite.Data, asm: Unity.Muse.Sprite}
+      data:
+        m_SessionId: 7e8d1326-f73b-4a6b-a295-fd43a0e085be
+        sessionLoaded: 
+    - rid: 6691965339471183876
+      type: {class: BookmarkManager, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_BookmarkedArtifacts:
+          m_Values: []
+        m_IsFilterEnabled: 0
+    - rid: 6691965339471183877
+      type: {class: GenerateOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: GenerateOperator
+          version: 0.0.1
+          settings:
+          - TextToSprite
+          - 4
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183878
+      type: {class: PromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: PromptOperator
+          version: 0.0.1
+          settings:
+          - Radial texture from pink to black
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183879
+      type: {class: NegativePromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: NegativePromptOperator
+          version: 1.0
+          settings:
+          - 
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183880
+      type: {class: SpriteGeneratorSettingsOperator, ns: Unity.Muse.Sprite.Operators,
+        asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SpriteGeneratorSettingsOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - 0.85
+          - 512
+          - 512
+          - 1
+          - 1
+          - 53504
+          - 0
+          - 0
+          - 440dded3-6603-4b61-baa9-3b0a11d7cdec
+          - 0
+          - 0
+          - 
+          - 
+          - 
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183881
+      type: {class: KeyImageOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.KeyImageOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - True
+          - 512
+          - 512
+          - 0.5
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183882
+      type: {class: SpriteRefiningMaskOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+    - rid: 6691965339471183883
+      type: {class: SessionOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SessionOperator
+          version: 0.0.1
+          settings:
+          - 7e8d1326-f73b-4a6b-a295-fd43a0e085be
+          enabled: 0
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183884
+      type: {class: GenerateCountData, ns: Unity.Muse.Sprite.Data, asm: Unity.Muse.Sprite}
+      data:
+        m_Counter: 0
+    - rid: 6691965339471183885
+      type: {class: SpriteMuseArtifact, ns: Unity.Muse.Sprite.Artifacts, asm: Unity.Muse.Sprite}
+      data:
+        Guid: Error-31be3406-1537-4c5e-84c3-4ba5c2e04b93
+        Seed: 0
+        m_Operators:
+        - rid: 6691965339471183886
+        - rid: 6691965339471183887
+        - rid: 6691965339471183888
+        - rid: 6691965339471183889
+        - rid: 6691965339471183890
+        - rid: 6691965339471183891
+        - rid: 6691965339471183892
+        history:
+        - rid: 6691965339471183885
+    - rid: 6691965339471183886
+      type: {class: GenerateOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: GenerateOperator
+          version: 0.0.1
+          settings:
+          - TextToSprite
+          - 4
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183887
+      type: {class: PromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: PromptOperator
+          version: 0.0.1
+          settings:
+          - Radial texture from pink to black
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183888
+      type: {class: NegativePromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: NegativePromptOperator
+          version: 1.0
+          settings:
+          - 
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183889
+      type: {class: SpriteGeneratorSettingsOperator, ns: Unity.Muse.Sprite.Operators,
+        asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SpriteGeneratorSettingsOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - 0.85
+          - 512
+          - 512
+          - 1
+          - 1
+          - 918
+          - 0
+          - 0
+          - 440dded3-6603-4b61-baa9-3b0a11d7cdec
+          - 0
+          - 3692ac2a-348d-4809-9805-b21a6eada304
+          - Animals
+          - Animals (Blackbox 500)
+          - 
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183890
+      type: {class: KeyImageOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.KeyImageOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - True
+          - 512
+          - 512
+          - 0.5
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183891
+      type: {class: SpriteRefiningMaskOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+    - rid: 6691965339471183892
+      type: {class: SessionOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SessionOperator
+          version: 0.0.1
+          settings:
+          - 7e8d1326-f73b-4a6b-a295-fd43a0e085be
+          enabled: 0
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183893
+      type: {class: SpriteMuseArtifact, ns: Unity.Muse.Sprite.Artifacts, asm: Unity.Muse.Sprite}
+      data:
+        Guid: Error-6b0c9dc0-3588-4701-b1cd-9ab2b62294b6
+        Seed: 0
+        m_Operators:
+        - rid: 6691965339471183894
+        - rid: 6691965339471183895
+        - rid: 6691965339471183896
+        - rid: 6691965339471183897
+        - rid: 6691965339471183898
+        - rid: 6691965339471183899
+        - rid: 6691965339471183900
+        history:
+        - rid: 6691965339471183893
+    - rid: 6691965339471183894
+      type: {class: GenerateOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: GenerateOperator
+          version: 0.0.1
+          settings:
+          - TextToSprite
+          - 4
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183895
+      type: {class: PromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: PromptOperator
+          version: 0.0.1
+          settings:
+          - Radial texture from pink to black
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183896
+      type: {class: NegativePromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: NegativePromptOperator
+          version: 1.0
+          settings:
+          - 
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183897
+      type: {class: SpriteGeneratorSettingsOperator, ns: Unity.Muse.Sprite.Operators,
+        asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SpriteGeneratorSettingsOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - 0.85
+          - 512
+          - 512
+          - 1
+          - 1
+          - 50960
+          - 0
+          - 0
+          - 440dded3-6603-4b61-baa9-3b0a11d7cdec
+          - 0
+          - 3692ac2a-348d-4809-9805-b21a6eada304
+          - Animals
+          - Animals (Blackbox 500)
+          - 
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183898
+      type: {class: KeyImageOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.KeyImageOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - True
+          - 512
+          - 512
+          - 0.5
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183899
+      type: {class: SpriteRefiningMaskOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+    - rid: 6691965339471183900
+      type: {class: SessionOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SessionOperator
+          version: 0.0.1
+          settings:
+          - 7e8d1326-f73b-4a6b-a295-fd43a0e085be
+          enabled: 0
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183901
+      type: {class: SpriteMuseArtifact, ns: Unity.Muse.Sprite.Artifacts, asm: Unity.Muse.Sprite}
+      data:
+        Guid: Error-cf384523-3b8c-4241-b447-6603bfaec2c3
+        Seed: 0
+        m_Operators:
+        - rid: 6691965339471183902
+        - rid: 6691965339471183903
+        - rid: 6691965339471183904
+        - rid: 6691965339471183905
+        - rid: 6691965339471183906
+        - rid: 6691965339471183907
+        - rid: 6691965339471183908
+        history:
+        - rid: 6691965339471183901
+    - rid: 6691965339471183902
+      type: {class: GenerateOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: GenerateOperator
+          version: 0.0.1
+          settings:
+          - TextToSprite
+          - 4
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183903
+      type: {class: PromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: PromptOperator
+          version: 0.0.1
+          settings:
+          - Radial texture from pink to black
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183904
+      type: {class: NegativePromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: NegativePromptOperator
+          version: 1.0
+          settings:
+          - 
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183905
+      type: {class: SpriteGeneratorSettingsOperator, ns: Unity.Muse.Sprite.Operators,
+        asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SpriteGeneratorSettingsOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - 0.85
+          - 512
+          - 512
+          - 1
+          - 1
+          - 52460
+          - 0
+          - 0
+          - 440dded3-6603-4b61-baa9-3b0a11d7cdec
+          - 0
+          - 3692ac2a-348d-4809-9805-b21a6eada304
+          - Animals
+          - Animals (Blackbox 500)
+          - 
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183906
+      type: {class: KeyImageOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.KeyImageOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - True
+          - 512
+          - 512
+          - 0.5
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183907
+      type: {class: SpriteRefiningMaskOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+    - rid: 6691965339471183908
+      type: {class: SessionOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SessionOperator
+          version: 0.0.1
+          settings:
+          - 7e8d1326-f73b-4a6b-a295-fd43a0e085be
+          enabled: 0
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183909
+      type: {class: SpriteMuseArtifact, ns: Unity.Muse.Sprite.Artifacts, asm: Unity.Muse.Sprite}
+      data:
+        Guid: Error-8962caf6-9dad-4475-84b7-e1e89acd02c1
+        Seed: 0
+        m_Operators:
+        - rid: 6691965339471183910
+        - rid: 6691965339471183911
+        - rid: 6691965339471183912
+        - rid: 6691965339471183913
+        - rid: 6691965339471183914
+        - rid: 6691965339471183915
+        - rid: 6691965339471183916
+        history:
+        - rid: 6691965339471183909
+    - rid: 6691965339471183910
+      type: {class: GenerateOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: GenerateOperator
+          version: 0.0.1
+          settings:
+          - TextToSprite
+          - 4
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183911
+      type: {class: PromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: PromptOperator
+          version: 0.0.1
+          settings:
+          - Radial texture from pink to black
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183912
+      type: {class: NegativePromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: NegativePromptOperator
+          version: 1.0
+          settings:
+          - 
+          enabled: 1
+          assembly: 
+    - rid: 6691965339471183913
+      type: {class: SpriteGeneratorSettingsOperator, ns: Unity.Muse.Sprite.Operators,
+        asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SpriteGeneratorSettingsOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - 0.85
+          - 512
+          - 512
+          - 1
+          - 1
+          - 52650
+          - 0
+          - 0
+          - 440dded3-6603-4b61-baa9-3b0a11d7cdec
+          - 0
+          - 3692ac2a-348d-4809-9805-b21a6eada304
+          - Animals
+          - Animals (Blackbox 500)
+          - 
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183914
+      type: {class: KeyImageOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.KeyImageOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - True
+          - 512
+          - 512
+          - 0.5
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+    - rid: 6691965339471183915
+      type: {class: SpriteRefiningMaskOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+    - rid: 6691965339471183916
+      type: {class: SessionOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SessionOperator
+          version: 0.0.1
+          settings:
+          - 7e8d1326-f73b-4a6b-a295-fd43a0e085be
+          enabled: 0
+          assembly: Unity.Muse.Sprite

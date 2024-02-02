@@ -7,6 +7,8 @@ public class GameEventsManager : MonoBehaviour
 {
     public static GameEventsManager Instance;
 
+    public GameEvent destroyOnStoppedFishing;
+
     public MiscEvents miscEvents;
     public QuestEvents questEvents;
     public InputEvents inputEvents;

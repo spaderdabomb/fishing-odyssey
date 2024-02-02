@@ -10,12 +10,18 @@ public class BeatSequencer : MonoBehaviour
 
     [Header("Game Scene")]
     public GameObject beatNotePrefab;
+    public GameObject beatNoteContainer;
+    public GameObject beatNoteExplosionPrefab;
     public FishingLine fishingLine;
 
     [Header("Beat Properties")]
-    public float baseSpeed = 1f;
-    public float missTolerance = 3f;
-    public float pitchShift = 0.05f;
+    [SerializeField] private float firstBeatDelay = 1f;
+    [SerializeField] private float minimumTimeBetweenPoints = 0.5f;
+    [SerializeField] private float baseSpeed = 10f;
+    [SerializeField] private float timeBetweenPointsScaleFactor = 1f;
+    [SerializeField] private float rarityDifficultyScaling = 5f;
+    [SerializeField] private float missTolerance = 3f;
+    [SerializeField] private float pitchShift = 0.05f;
 
     public BeatSequence BeatSequence { get; private set; }
     public int BeatIndex { get; private set; } = 0;
@@ -70,13 +76,13 @@ public class BeatSequencer : MonoBehaviour
         // weight = 100 --> 13 beats
         int numberBeats = Mathf.RoundToInt(Mathf.Log10(10f*(fishData.weight + 1f))) + 3;
 
-        float beatSpeed = (float)fishData.fishRarity;
-        float timeBetweenBeats = (float)fishData.fishRarity;
-        Color beatColor = GameManager.Instance.gameData.rarityToColorDict[fishData.fishRarity];
+        float beatSpeed = Mathf.Log10(10f*((float)fishData.fishRarity + rarityDifficultyScaling)) * baseSpeed;
+        float timeBetweenBeats = minimumTimeBetweenPoints + 1 / (Mathf.Log10(10f * ((float)fishData.fishRarity) + rarityDifficultyScaling)) * timeBetweenPointsScaleFactor;
+        Color beatColor = GameManager.Instance.gameData.rarityToSaturatedColorDict[fishData.fishRarity];
 
         BeatSequence = new BeatSequence(numberBeats, timeBetweenBeats, beatSpeed, beatColor);
-        InstantiateBeatNote(BeatSequence);
 
+        timeBeforeNextBeat = firstBeatDelay;
         currentFishData = fishData;
         beatSequenceStarted = true;
     }
@@ -115,7 +121,7 @@ public class BeatSequencer : MonoBehaviour
 
     private void InstantiateBeatNote(BeatSequence beatSequence)
     {
-        GameObject beatNoteGO = Instantiate(beatNotePrefab, fishingLine.transform);
+        GameObject beatNoteGO = Instantiate(beatNotePrefab, beatNoteContainer.transform);
         BeatNote beatNote = beatNoteGO.GetComponent<BeatNote>();
         beatNote.OnInstantiate(fishingLine, beatSequence);
 
@@ -127,7 +133,7 @@ public class BeatSequencer : MonoBehaviour
 
     private void ResetTimeBeforeNextBeat()
     {
-        timeBeforeNextBeat = 1f / (BeatSequence.timeBetweenBeats * baseSpeed);
+        timeBeforeNextBeat = BeatSequence.timeBetweenBeats;
     }
 
     public void BeatNotePressed()
@@ -139,6 +145,12 @@ public class BeatSequencer : MonoBehaviour
 
         float currentDistance = (beatNotesActive[0].transform.position - fishingLine.lineRenderer.GetPosition(0)).magnitude;
         GameEventsManager.Instance.fishingEvents.BeatNoteSubmitted(currentDistance < missTolerance);
+
+        if (BeatIndex >= BeatSequence.numberBeats)
+        {
+            GameEventsManager.Instance.fishingEvents.FishCaught(currentFishData);
+            AudioManager.PlaySound(MainAudioLibrarySounds.BeatSequenceComplete);
+        }
     }
 
     public void BeatNoteSubmitted(bool result)
@@ -146,18 +158,15 @@ public class BeatSequencer : MonoBehaviour
         if (result)
         {
             GameObject firstBeatNoteGO = beatNotesActive[0].gameObject;
+
             beatNotesActive.RemoveAt(0);
             Destroy(firstBeatNoteGO);
             BeatIndex++;
+
             SoundFileObject sfo = AudioManager.GetSoundSafe(MainAudioLibrarySounds.BeatNoteGood);
             sfo.startingPitch += pitchShift;
             AudioManager.PlaySound(sfo);
-        }
-
-        if (BeatIndex >= BeatSequence.numberBeats)
-        {
-            GameEventsManager.Instance.fishingEvents.FishCaught(currentFishData);
-            AudioManager.PlaySound(MainAudioLibrarySounds.BeatSequenceComplete);
+            AudioManager.PlaySound(MainAudioLibrarySounds.ReelFishShort);
         }
     }
 }
