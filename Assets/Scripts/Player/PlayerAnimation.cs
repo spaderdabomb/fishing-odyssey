@@ -56,15 +56,9 @@ public class PlayerAnimation : MonoBehaviour
         PlayerFishingAnimationState = PlayerFishingAnimationState.None;
     }
 
-    private void BeatNoteSubmitted(bool value)
+    private void BeatNoteSubmitted(BeatNoteRegion beatNoteRegion)
     {
-        if (value)
-        {
-            animator.SetTrigger("rodPulledTrigger");
-        }
-
-        print("beat note submitted");
-
+        animator.SetTrigger("rodPulledTrigger");
     }
 
     void Start()

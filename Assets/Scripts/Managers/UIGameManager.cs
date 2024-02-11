@@ -25,6 +25,9 @@ public class UIGameManager : MonoBehaviour
     public Texture2D statusLightLit;
     public Texture2D statusLightUnlit;
 
+    [Header("Stylesheets")]
+    public StyleSheet beatBarStylesheet;
+
     [HideInInspector] public VisualElement root;
     [HideInInspector] public UIGameScene uiGameScene;
 

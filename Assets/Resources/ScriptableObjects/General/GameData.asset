@@ -401,6 +401,7 @@ MonoBehaviour:
   standardTextColor: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
   orangeTextColor: {r: 1, g: 0.49952504, b: 0, a: 1}
   standardTintColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  standardBrightYellow: {r: 0.972549, g: 0.7764706, b: 0.19607843, a: 1}
   inventoryRows: 8
   inventoryCols: 4
   gearCols: 6

@@ -51,9 +51,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EmissionHigh: 50
+    - _EmissionHigh: 40
     - _EmissionIntensity: 2.83
-    - _EmissionLow: 30
+    - _EmissionLow: 20
     - _GlowSpeed: 5
     - _QueueControl: 0
     - _QueueOffset: 0

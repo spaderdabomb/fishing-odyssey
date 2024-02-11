@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleStartRatio: 1
-  scaleEndRatio: 0.02
+  scaleEndRatio: 0.12
+  emissionStrength: 4
   material: {fileID: 2100000, guid: 66549194a60578b46b0557fffd5cd099, type: 2}
   glowParticles: {fileID: 6911870277108224555}
 --- !u!1 &6046081549686801340

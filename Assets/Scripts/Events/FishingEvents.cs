@@ -25,8 +25,8 @@ public class FishingEvents
         GameEventsManager.Instance.destroyOnStoppedFishing.Raise();
     }
 
-    public event Action<bool> onBeatNoteSubmitted;
-    public void BeatNoteSubmitted(bool result) => onBeatNoteSubmitted?.Invoke(result);
+    public event Action<BeatNoteRegion> onBeatNoteSubmitted;
+    public void BeatNoteSubmitted(BeatNoteRegion beatNoteRegion) => onBeatNoteSubmitted?.Invoke(beatNoteRegion);
 
     public event Action<FishData> onFishCaught;
     public void FishCaught(FishData fishData)

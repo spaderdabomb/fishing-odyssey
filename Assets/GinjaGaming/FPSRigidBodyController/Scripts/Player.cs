@@ -14,6 +14,8 @@ namespace PickleMan
         [field: SerializeField] public List<Collider> ActiveColliders { get; private set; } = new();
         [field: SerializeField] public List<Collider> MovingPlatforms { get; private set; } = new();
 
+        public PlayerData playerData;
+
         private PlayerStates playerStates;
         private PlayerMovement playerMovement;
         private Rigidbody rb;

@@ -20,6 +20,7 @@ public class GameData : SerializedScriptableObject
     public Color standardTextColor;
     public Color orangeTextColor;
     public Color standardTintColor;
+    public Color standardBrightYellow;
 
     [Header("Settings")]
     public int inventoryRows = 8;

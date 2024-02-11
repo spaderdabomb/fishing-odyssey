@@ -18,6 +18,7 @@ public partial class UIGameScene
     public MenuPlayerSummary menuPlayerSummary;
     public MenuMissions menuMissions;
     public MenuCollections menuCollections;
+    public BeatGameBarContainer beatGameBar;
     public UIGameScene(VisualElement root)
     {
         optionButtonNames = new string[] { "Stats", "Settings", "Quit" };
@@ -29,6 +30,7 @@ public partial class UIGameScene
         InitOptionsMenu();
         InitPlayerInfoMenu();
         InitMissionsMenu();
+        InitBeatGameBar();
     }
 
     private void InitPlayerInfoMenu()
@@ -64,6 +66,11 @@ public partial class UIGameScene
             optionsButtons.Add(spawnedOptionsButton);
             optionsButtonContainer.Add(optionsButtonTemplate);
         }
+    }
+
+    private void InitBeatGameBar()
+    {
+        beatGameBar = new BeatGameBarContainer(beatGameBarContainer);
     }
 
     public void TogglePlayerDataMenu()
@@ -153,6 +160,11 @@ public partial class UIGameScene
                 break;
         }
 
+    }
+
+    public void SetTensionBarValue(float value)
+    {
+        tensionProgressBar.value = value;
     }
 
     public void OnFishPowerChanged(float newValue)

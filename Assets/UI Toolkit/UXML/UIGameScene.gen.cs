@@ -10,8 +10,10 @@ partial class UIGameScene
     private VisualElement gameSceneContainer;
     private VisualElement rightUI;
     private VisualElement bottomRightUI;
+    private ProgressBar tensionProgressBar;
     private VisualElement fishPowerContainer;
     private VisualElement fishPowerMeter;
+    private TemplateContainer beatGameBarContainer;
     private VisualElement allMenus;
     private VisualElement menuDimBg;
     private VisualElement menuOptions;
@@ -41,8 +43,10 @@ partial class UIGameScene
         gameSceneContainer = root.Q<VisualElement>("GameSceneContainer");
         rightUI = root.Q<VisualElement>("RightUI");
         bottomRightUI = root.Q<VisualElement>("BottomRightUI");
+        tensionProgressBar = root.Q<ProgressBar>("TensionProgressBar");
         fishPowerContainer = root.Q<VisualElement>("FishPowerContainer");
         fishPowerMeter = root.Q<VisualElement>("FishPowerMeter");
+        beatGameBarContainer = root.Q<TemplateContainer>("BeatGameBarContainer");
         allMenus = root.Q<VisualElement>("AllMenus");
         menuDimBg = root.Q<VisualElement>("MenuDimBg");
         menuOptions = root.Q<VisualElement>("MenuOptions");

@@ -44,9 +44,10 @@ public class GameManager : MonoBehaviour
     public bool FishIsHooked { get; private set; } = false;
     public bool FishIsSpawned { get; private set; } = false;
     public FishData CurrentFishData { get; private set; } = null;
+    public GameObject CurrentBob { get; private set; }
+
 
     // Member fields
-    private GameObject currentBob;
     private float timeSinceBobHitWater = 0f;
     private FishData lastFishCaught = null;
 
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
         if (randomHookChance < spawnChance)
         {
             FishData spawnedFishData = SpawnRandomFish();
-            GameEventsManager.Instance.fishingEvents.FishSpawned(spawnedFishData, currentBob);
+            GameEventsManager.Instance.fishingEvents.FishSpawned(spawnedFishData, CurrentBob);
         }
     }
 
@@ -137,7 +138,7 @@ public class GameManager : MonoBehaviour
         AudioManager.PlaySound(MainAudioLibrarySounds.CastRod);
 
         fishingLine.lineRenderer.enabled = true;
-        currentBob = newBob;
+        CurrentBob = newBob;
     }
 
     private void FishSpawned(FishData fishData, GameObject spawnedBob)
@@ -168,10 +169,10 @@ public class GameManager : MonoBehaviour
         AudioManager.PlaySound(MainAudioLibrarySounds.ReelFishHooked);
 
         GameObject splash = Instantiate(splashFishHookedNormalPrefab, fishingEffectsContainer.transform);
-        splash.transform.position = currentBob.transform.position;
+        splash.transform.position = CurrentBob.transform.position;
 
         GameObject ripples = Instantiate(rippleFishHookedNormalPrefab, fishingEffectsContainer.transform);
-        ripples.transform.position = currentBob.transform.position;
+        ripples.transform.position = CurrentBob.transform.position;
 
         GameEventsManager.Instance.fishingEvents.onStoppedFishing += () => Destroy(ripples);
     }
@@ -243,7 +244,7 @@ public class GameManager : MonoBehaviour
         timeSinceBobHitWater = 0f;
         fishingLine.lineRenderer.enabled = false;
 
-        Destroy(currentBob);
+        Destroy(CurrentBob);
     }
 
     public void UsePortal(int biomeNum)

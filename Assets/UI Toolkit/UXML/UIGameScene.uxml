@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False" gen-cs-file="f27fb0d677ef154448d62d2f31dc30ee">
+    <ui:Template name="BeatGameBarContainer" src="project://database/Assets/UI%20Toolkit/UXML/GameScene/BeatGameBarContainer.uxml?fileID=9197481963319205126&amp;guid=7c4b2cce271175d4ebc0ae29b9e9fe69&amp;type=3#BeatGameBarContainer" />
     <ui:Template name="MenuPlayerSummary" src="project://database/Assets/UI%20Toolkit/UXML/PlayerInfoMenu/PlayerSummary/MenuPlayerSummary.uxml?fileID=9197481963319205126&amp;guid=c12178696ce47934e9bfa152e6aa394d&amp;type=3#MenuPlayerSummary" />
     <ui:Template name="MenuMissions" src="project://database/Assets/UI%20Toolkit/UXML/PlayerInfoMenu/MissionsMenu/MenuMissions.uxml?fileID=9197481963319205126&amp;guid=f7d80f46e7ec4414a8c4e32f78eda550&amp;type=3#MenuMissions" />
     <ui:Template name="MenuCollections" src="project://database/Assets/UI%20Toolkit/UXML/PlayerInfoMenu/CollectionsMenu/MenuCollections.uxml?fileID=9197481963319205126&amp;guid=413b76893623dd34bb1544ae8f9ecd04&amp;type=3#MenuCollections" />
@@ -9,16 +10,19 @@
     <Style src="project://database/Assets/UI%20Toolkit/USS/PlayerInfoMenus.uss?fileID=7433441132597879392&amp;guid=da9b4f7b6b51a494eae43b326ba9a5b6&amp;type=3#PlayerInfoMenus" />
     <Style src="project://database/Assets/UI%20Toolkit/USS/PlayerInfoMenu/MenuMissions.uss?fileID=7433441132597879392&amp;guid=7c96661b5f739a54e8591a2a59bdce9e&amp;type=3#MenuMissions" />
     <Style src="project://database/Assets/UI%20Toolkit/USS/PlayerInfoMenu/MenuCollections.uss?fileID=7433441132597879392&amp;guid=9f7505e4057c6054098827846f7f6c21&amp;type=3#MenuCollections" />
-    <ui:VisualElement name="GameSceneContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: none;">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/BeatProgressBar.uss?fileID=7433441132597879392&amp;guid=aab1abc0a56b9484db2a98ec8fe229ad&amp;type=3#BeatProgressBar" />
+    <ui:VisualElement name="GameSceneContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;">
         <ui:VisualElement name="RightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; justify-content: flex-end; flex-direction: column-reverse;">
-            <ui:VisualElement name="BottomRightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; flex-direction: column; margin-left: 30px; margin-right: 30px; margin-top: 30px; margin-bottom: 30px; justify-content: flex-end;">
+            <ui:VisualElement name="BottomRightUI" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-self: flex-end; flex-direction: row; margin-left: 30px; margin-right: 30px; margin-top: 30px; margin-bottom: 30px; justify-content: flex-end; align-items: flex-end;">
+                <ui:ProgressBar value="22" name="TensionProgressBar" class="bar" style="rotate: -90deg; transform-origin: left bottom; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; translate: 94px 0; position: absolute; top: 989px; left: -102px; height: 30px;" />
                 <ui:VisualElement name="FishPowerContainer" style="flex-grow: 0; background-color: rgba(30, 30, 30, 0.59); width: 30px; height: 200px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: column-reverse;">
                     <ui:VisualElement name="FishPowerMeter" style="flex-grow: 0; background-color: rgb(42, 71, 217); width: 100%; height: 100%; display: flex;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:Instance template="BeatGameBarContainer" name="BeatGameBarContainer" style="position: absolute; left: auto;" />
     </ui:VisualElement>
-    <ui:VisualElement name="AllMenus" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: center; display: flex;">
+    <ui:VisualElement name="AllMenus" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: center; display: none;">
         <ui:VisualElement name="MenuDimBg" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.35); position: absolute; width: 100%; height: 100%; display: flex; top: -1px; left: 0;" />
         <ui:VisualElement name="MenuOptions" class="menu-bg" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/UIMenus/OptionsMenu/OptionsBg.psd?fileID=2800000&amp;guid=7803d9776a1056c45bb3d09dbc8a533d&amp;type=3#OptionsBg&apos;); width: 930px; height: 779px; align-self: center; display: none;">
             <ui:VisualElement name="OptionsHeaaderContainer" class="menu-header-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Art/UI/UIMenus/OptionsMenu/OptionsHeaderBg.psd?fileID=2800000&amp;guid=89ec281fa2ef53742947f258f4253d10&amp;type=3#OptionsHeaderBg&apos;); width: 452px; height: 154px; align-self: center; scale: 1.2 1.2; margin-top: -90px; justify-content: center; align-items: center; padding-bottom: 15px;">
